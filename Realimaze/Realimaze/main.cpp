@@ -1,6 +1,9 @@
+#include <stdlib.h>
+#include <glut.h>
+#include <gl/GL.h>
 
-//main
-int main(int argc, const char* argv[])
+int main(int argc, char* argv[])
 {
 	
+	return 0;
 }
