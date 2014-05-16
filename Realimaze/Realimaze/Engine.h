@@ -1,14 +1,22 @@
 #ifndef ENGINE
 #define ENGINE
 
-#include "Shape.h"
 #include "Circle.h"
-#include "WallList.h"
 
-Circle * circle;
-WallList list;
+class Engine
+{
+public:
+	Circle circle;
+	Engine(float x, float y, float r) : circle(x, y ,r)
+	{
+		
+	}
+	~Engine()
+	{
 
-extern void CreateEngine(void);
-extern void DestructEngine(void);
-extern void Step(void);
+	}
+	void MoveBall(float direction, Vector2D distance);
+};
+
+
 #endif

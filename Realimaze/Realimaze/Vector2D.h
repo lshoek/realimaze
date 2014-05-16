@@ -1,9 +1,22 @@
 #ifndef VECTOR2D
 #define VECTOR2D
 
-typedef struct Vector2D
+class Vector2D
 {
+public:
 	float x;
 	float y;
+
+	Vector2D(float x, float y)
+	{
+		this->x = x;
+		this->y = y;
+	}
+	Vector2D operator +(Vector2D other)
+	{
+		return Vector2D(x + other.x, y + other.y);
+	}
 };
+
+
 #endif

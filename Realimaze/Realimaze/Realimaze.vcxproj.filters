@@ -27,18 +27,12 @@
     <ClCompile Include="Engine.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="WallList.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Shape.h">
       <Filter>Source Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Circle.h">
@@ -48,9 +42,6 @@
       <Filter>Source Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Vector2D.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="WallList.h">
       <Filter>Source Files\Engine</Filter>
     </ClInclude>
   </ItemGroup>

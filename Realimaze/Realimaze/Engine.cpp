@@ -7,17 +7,20 @@
 
 using namespace std;
 
-void CreateEngine(void)
+
+
+//direction = de hoek waar het bord over is gekanteld
+void Engine::MoveBall(float direction, Vector2D distance)
 {
-	circle = (Circle *) malloc(sizeof(Circle));
+	//calculate vector to move
+
+	//if possible, move
+
+	//check for the endpoint
+
+	//check for holes 
+
+	//check for walls
+
 }
 
-void DestructEngine(void)
-{
-	free(circle);
-}
-
-void Step(void)
-{
-
-}
