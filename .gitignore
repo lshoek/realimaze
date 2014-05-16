@@ -46,5 +46,5 @@ obj/
 _ReSharper*/
 [Tt]est[Rr]esult*
 *.opensdf
-Realimaze/Realimaze.sdf
-Realimaze/Realimaze/Realimaze.vcxproj
+*.sdf
+*.vcxproj
