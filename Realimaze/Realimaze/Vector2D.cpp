@@ -1,8 +1,6 @@
 #include "Vector2D.h"
 
-void translateVectors(Vector2D * v1, Vector2D * v2)
+Vector2D Vector2D::operator + (Vector2D other)
 {
-	v1 -> x += v2 -> x;
-	v1 -> y += v2 -> y;
+	return Vector2D(this->x + other.x, this->y + other.y);
 }
-

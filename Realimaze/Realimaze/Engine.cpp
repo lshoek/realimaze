@@ -10,11 +10,18 @@ using namespace std;
 
 
 //direction = de hoek waar het bord over is gekanteld
+//
 void Engine::MoveBall(float direction, Vector2D distance)
 {
 	//calculate vector to move
+	//start at (0,0)
+	//calculate vector to move to
+	//circle : deltaDistance = old speed + new vector
+	//friction = (for example) 0.2 * deltaDistance
+	//circle : deltaDistance -= friction
+	//the position of the circle = deltaDistance + position circle
 
-	//if possible, move
+	//move
 
 	//check for the endpoint
 

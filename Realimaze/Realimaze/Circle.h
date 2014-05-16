@@ -8,12 +8,12 @@
 class Circle
 {
 public:
-	Vector2D position;
+	Vector2D position, deltaDistance;
 	float radius;
 	bool intersect(Line * line);
 	void translate(Vector2D offset);
 
-	Circle(float x, float y, float r) : position(x, y)
+	Circle(float x, float y, float r) : position(x, y), deltaDistance(0, 0)
 	{
 		this->radius = r;
 	}
@@ -24,8 +24,5 @@ public:
 };
 
 
-void Circle::translate(Vector2D offset)
-{
-	position = position + offset;
-}
+
 #endif
