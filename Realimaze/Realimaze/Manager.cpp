@@ -11,10 +11,25 @@
 using namespace std;
 
 void keyHandling(void);
+void timerTick(void);
 
 Manager* mngr = NULL;
 bool keys[256];
 thread keyThread(keyHandling);
+thread timer(timerTick);
+unsigned long timerTime = 0;
+
+void timerTick(void)
+{
+	while (true)
+	{
+		if (mngr -> testGame.isRunning() && mngr -> engine.state == 0)
+			timerTime += 10;
+		Sleep(10);
+	}
+}
+
+
 
 void keyHandling(void)
 {
@@ -23,6 +38,12 @@ void keyHandling(void)
 		if (keys['d'])
 		{
 			printf("d");
+		}
+		if (keys[27])//esc
+		{
+			mngr -> ~Manager();
+			mngr->testGame.~Game();
+			exit(0);
 		}
 
 		Sleep(50);
@@ -42,14 +63,16 @@ void keyUp(unsigned char key, int x, int y)
 { mngr->kUp(key, x, y); }
 
 //Instance of a game. Every game launches a menu first. Stages can be selected from this menu. The menu is left out for the time being.
-Manager::Manager()
+Manager::Manager() : engine()
 {
 	mngr = this;
+	engine.addSphere(0, 0, 10, &engine.spheres);
+
 	glEnable(GL_DEPTH_TEST); //Instead of glutInit
 	glutInitWindowSize(SCRN_WIDTH, SCRN_HEIGHT);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutCreateWindow("Realimaze");
-
+	
 	//Register callbacks
 	glutIdleFunc(&idleFunc);
 	glutDisplayFunc(&displayFunc);
@@ -63,6 +86,7 @@ Manager::~Manager()
 {
 	delete mngr;
 	keyThread.join();
+	timer.join();
 }
 
 void Manager::update(void)
@@ -74,7 +98,7 @@ void Manager::update(void)
 void Manager::draw(void)
 {
 	if (testGame.isRunning())
-		testGame.draw();
+		testGame.draw(engine.spheres);
 	else
 	{
 		// ORTHOGONAL

@@ -1,6 +1,6 @@
 #include "Engine.h"
 #include "Line.h"
-#include "Circle.h"
+#include "Sphere.h"
 #include "Vector2D.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -10,27 +10,35 @@
 
 using namespace std;
 
-void Engine::addCircle(float x, float y, float r, vector<Circle> * vector)
+/*
+x, y = position
+r = radius
+vector = a vector in Engine to put the Sphere in (Spheres/holes/finishes)
+*/
+void Engine::addSphere(float x, float y, float r, vector<Sphere> * vector)
 {
 	vector->reserve(1);
-	Circle c(x, y, r);
+	Sphere c(x, y, r);
 	vector->push_back(c);
 }
 
-
+/*
+direction = de hoek waar de bal heen rolt
+angle = de hoek waarover gedraaid is
+*/
 void Engine::Step(float direction, float angle)
 {
 	int j;
-	for (j = 0; j < circles.size(); j++)
+	for (j = 0; j < spheres.size(); j++)
 	{
-		MoveBall(direction, angle, &circles.at(j));
+		MoveBall(direction, angle, &spheres.at(j));
 	}
 }
 
 //direction = de richting waar het bord over is gekanteld
 //angle = de hoek waar het bord over is gedraaid
 //
-void Engine::MoveBall(float direction, float angle, Circle * circle)
+void Engine::MoveBall(float direction, float angle, Sphere * Sphere)
 {
 	//angle en direction naar radialen rekenen
 	direction = direction/180 * M_PI;
@@ -43,14 +51,14 @@ void Engine::MoveBall(float direction, float angle, Circle * circle)
 	
 	Vector2D gravitySpeed(0,10);
 	gravitySpeed = gravitySpeed * (sin(angle));//volgens wikipedia
-	//circle : oldSpeed = old speed + new vector
-	//the position of the circle = deltaDistance + position circle
+	//Sphere : oldSpeed = old speed + new vector
+	//the position of the Sphere = deltaDistance + position Sphere
 	vToMove = vToMove + gravitySpeed;
-	vToMove = vToMove + circle -> distanceRolled;
+	vToMove = vToMove + Sphere -> distanceRolled;
 	vToMove = vToMove * 0.8;
 	vToMove.Rotate(direction);
-	circle -> translate(vToMove);
-	circle -> distanceRolled = vToMove;// -circle.distanceRolled;
+	Sphere -> translate(vToMove);
+	Sphere -> distanceRolled = vToMove;// -Sphere.distanceRolled;
 	bool roll = true;
 	//move
 
@@ -58,42 +66,49 @@ void Engine::MoveBall(float direction, float angle, Circle * circle)
 	int j;
 	for (j = 0; j < finishes.size(); j++)
 	{
-		if (circle->intersectCircle(&finishes.at(j)))
+		if (Sphere->intersectSphere(&finishes.at(j)))
 		{
 			roll = false;
-			circle->state = 1;
+			state = 1;
 		}
 	}
 	//check for holes 
 	for (j = 0; j < holes.size(); j++)
 	{
-		if (circle->intersectCircle(&circles.at(j)))
+		if (Sphere->intersectSphere(&spheres.at(j)))
 		{
 			roll = false;
-			circle->state = -1;
+			state = -1;
 		}
 	}
 	//check for walls
 	for (j = 0; j < lines.size(); j++)
 	{
-		if (circle->intersectLine(&lines.at(j)))
+		if (Sphere->intersectLine(&lines.at(j)))
 			roll = false;
 	}
 	if (!roll)
 	{
-		circle->translate(vToMove * -1);
-		circle->distanceRolled.x = 0;
-		circle->distanceRolled.y = 0;
+		Sphere->translate(vToMove * -1);
+		Sphere->distanceRolled.x = 0;
+		Sphere->distanceRolled.y = 0;
 	}
-	printf("positie:%f,%f, distance rolled %f,%f\n", circle -> position.x, circle -> position.y, circle -> distanceRolled.x, circle -> distanceRolled.y);
+	printf("positie:%f,%f, distance rolled %f,%f\n", Sphere -> position.x, Sphere -> position.y, Sphere -> distanceRolled.x, Sphere -> distanceRolled.y);
 }
 
+//to add lines, you need to make space
+//size = number of lines to add
 bool Engine::makeSpaceForLines(int size)
 {
 	lines.reserve(size);
 	return true;
 }
 
+/*
+FIRST CALL makeSpaceForLines!
+x1,y1 = start position
+x2,y2 = end position
+*/
 void Engine::addLine(float x1, float y1, float x2, float y2)
 {
 	Line l(x1, y1, x2, y2);

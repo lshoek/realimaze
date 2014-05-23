@@ -8,14 +8,12 @@
 
 #include "Manager.h"
 #include "Line.h"
-#include "Circle.h"
+#include "Sphere.h"
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
 	Manager testMngr{};
-	
-	cin.get();
 	return 0;
 }

@@ -13,29 +13,19 @@ void timerTick(void);
 GLfloat x = 0, y = 5, z = 1, rotation = 0;
 int scrnWidth, scrnHeight;
 bool running = false;
-thread timer(timerTick);
-unsigned long timerTime = 0;
 
 
-Game::Game(int w, int h) :engine(0, 0, 10)
+
+Game::Game(int w, int h)
 {
 	scrnWidth = w;
 	scrnHeight = h;
 }
 
-void timerTick(void)
-{
-	while (true)
-	{
-		if (running)
-			timerTime += 10;
-		Sleep(10);
-	}
-}
 
 Game::~Game()
 {
-	timer.join();
+	
 }
 
 void Game::launchGame()
@@ -50,10 +40,13 @@ void Game::endGame()
 
 void Game::update()
 {
+	int time = glutGet(GLUT_ELAPSED_TIME);
+	timeFac = (time - lastFrameTime) / 1000.0;
+	lastFrameTime = time;
 	rotation+=0.05;
 }
 
-void Game::draw()
+void Game::draw(vector<Sphere> spheres)
 {
 	glViewport(0, 0, scrnWidth, scrnHeight);
 	glEnable(GL_DEPTH_TEST);
@@ -69,7 +62,20 @@ void Game::draw()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
-	//drawStage(-0.5, 0, -0.5, 0, 0, 1);
+	drawStage(-0.5, 0, -0.5, 0, 0, 1);
+	int j = 0;
+	for (; j < spheres.size(); j++)
+	{
+		drawSphere(spheres.at(j));
+
+	}
+}
+
+void Game::drawSphere(Sphere sphere)
+{
+	GLUquadricObj *quadric;
+	quadric = gluNewQuadric();
+	gluSphere(quadric,10, 50, 50);
 }
 
 void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz, GLfloat rx, GLfloat ry, GLfloat rz)

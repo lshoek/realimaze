@@ -3,12 +3,13 @@
 #include <iostream>
 #include <functional>
 #include <glut.h>
+#include <vector>
 #include "Game.h"
 #include "Maze.h"
-#include "Ball.h"
 #include "ObjectLoader.h"
 #include "Orientation.h"
 #include "Engine.h"
+#include "Sphere.h"
 
 class Game
 {
@@ -16,18 +17,18 @@ class Game
 	Orientation orientation;
 	Maze maze;
 	Engine engine;
-	Ball ball;
-	
 
 public:
-	
+	int lastFrameTime = 0;
+	double timeFac = 0;
 
 	Game(int w, int h);
 	~Game();
 	void launchGame();
 	void endGame();
 	void update();
-	void draw();
+	void drawSphere(Sphere sphere);
+	void draw(vector<Sphere> spheres);
 	void drawStage(GLfloat idx, GLfloat idy, GLfloat idz, GLfloat rx, GLfloat ry, GLfloat rz);
 	void drawCube(GLfloat idx, GLfloat idy, GLfloat idz, GLfloat rx, GLfloat ry, GLfloat rz);
 	bool isRunning();

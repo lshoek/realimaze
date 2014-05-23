@@ -27,9 +27,6 @@
     <ClCompile Include="stb_image.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Ball.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ObjectLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -45,9 +42,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Circle.cpp">
-      <Filter>Source Files\Physics Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Line.cpp">
       <Filter>Source Files\Physics Engine</Filter>
     </ClCompile>
@@ -60,12 +54,12 @@
     <ClCompile Include="Engine.cpp">
       <Filter>Source Files\Physics Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Source Files\Physics Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ObjectLoader.h">
@@ -83,9 +77,6 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Circle.h">
-      <Filter>Header Files\Physics Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Header Files\Physics Engine</Filter>
     </ClInclude>
@@ -96,6 +87,9 @@
       <Filter>Header Files\Physics Engine</Filter>
     </ClInclude>
     <ClInclude Include="Vector3D.h">
+      <Filter>Header Files\Physics Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
       <Filter>Header Files\Physics Engine</Filter>
     </ClInclude>
   </ItemGroup>
