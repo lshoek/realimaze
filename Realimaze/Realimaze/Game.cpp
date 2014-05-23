@@ -3,20 +3,40 @@
 #include <functional>
 #include <glut.h>
 #include "Game.h"
+#include <thread>
+#include <windows.h>
 using namespace std;
+
+void timerTick(void);
+
 
 GLfloat x = 0, y = 5, z = 1, rotation = 0;
 int scrnWidth, scrnHeight;
 bool running = false;
+thread timer(timerTick);
+unsigned long timerTime = 0;
 
-Game::Game(int w, int h)
+
+Game::Game(int w, int h) :engine(0, 0, 10)
 {
 	scrnWidth = w;
 	scrnHeight = h;
 }
 
+void timerTick(void)
+{
+	while (true)
+	{
+		if (running)
+			timerTime += 10;
+		Sleep(10);
+	}
+}
+
 Game::~Game()
-{}
+{
+	timer.join();
+}
 
 void Game::launchGame()
 {
@@ -49,7 +69,7 @@ void Game::draw()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
-	drawStage(-0.5, 0, -0.5, 0, 0, 1);
+	//drawStage(-0.5, 0, -0.5, 0, 0, 1);
 }
 
 void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz, GLfloat rx, GLfloat ry, GLfloat rz)

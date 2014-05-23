@@ -13,8 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Physics Engine">
+    <Filter Include="Source Files\Physics Engine">
       <UniqueIdentifier>{0430aedb-37ee-4857-9c27-94afd433f13d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Physics Engine">
+      <UniqueIdentifier>{3741214c-0702-4546-873f-6927ad04b42b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -43,19 +46,19 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Circle.cpp">
-      <Filter>Physics Engine</Filter>
+      <Filter>Source Files\Physics Engine</Filter>
     </ClCompile>
     <ClCompile Include="Line.cpp">
-      <Filter>Physics Engine</Filter>
+      <Filter>Source Files\Physics Engine</Filter>
     </ClCompile>
     <ClCompile Include="Vector2D.cpp">
-      <Filter>Physics Engine</Filter>
+      <Filter>Source Files\Physics Engine</Filter>
     </ClCompile>
     <ClCompile Include="Vector3D.cpp">
-      <Filter>Physics Engine</Filter>
+      <Filter>Source Files\Physics Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
-      <Filter>Physics Engine</Filter>
+      <Filter>Source Files\Physics Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -81,19 +84,19 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Circle.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Physics Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Physics Engine</Filter>
     </ClInclude>
     <ClInclude Include="Line.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Physics Engine</Filter>
     </ClInclude>
     <ClInclude Include="Vector2D.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Physics Engine</Filter>
     </ClInclude>
     <ClInclude Include="Vector3D.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Physics Engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

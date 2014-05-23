@@ -2,11 +2,32 @@
 #include <iostream>
 #include <vector>
 #include <glut.h>
+#include <Windows.h>
+#include <thread>
+
 #include "Manager.h"
 #include "Game.h"
+
 using namespace std;
 
+void keyHandling(void);
+
 Manager* mngr = NULL;
+bool keys[256];
+thread keyThread(keyHandling);
+
+void keyHandling(void)
+{
+	while (true)
+	{
+		if (keys['d'])
+		{
+			printf("d");
+		}
+
+		Sleep(50);
+	}
+}
 
 void idleFunc()
 { mngr->update(); }
@@ -39,7 +60,10 @@ Manager::Manager()
 }
 
 Manager::~Manager()
-{}
+{
+	delete mngr;
+	keyThread.join();
+}
 
 void Manager::update(void)
 {
@@ -66,7 +90,11 @@ void Manager::draw(void)
 }
 
 void Manager::kDown(unsigned char key, int x, int y)
-{}
+{
+	keys[key] = true;
+}
 
 void Manager::kUp(unsigned char key, int x, int y)
-{}
+{
+	keys[key] = false;
+}
