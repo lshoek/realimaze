@@ -15,7 +15,7 @@ public:
 	{
 
 	}
-	void MoveBall(float direction, Vector2D distance);
+	void MoveBall(float direction, float angle);
 };
 
 

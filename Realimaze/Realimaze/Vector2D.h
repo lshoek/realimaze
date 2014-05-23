@@ -12,6 +12,12 @@ public:
 		this->x = x;
 		this->y = y;
 	}
+
+	void Rotate(float angle);
+
 	Vector2D operator +(Vector2D other);
+	Vector2D operator -(Vector2D other);
+	Vector2D operator *(float factor);
+	Vector2D operator /(float factor);
 };
 #endif
