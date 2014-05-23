@@ -21,3 +21,4 @@ public:
 	Vector2D operator /(float factor);
 };
 #endif
+
