@@ -9,7 +9,7 @@ class Line //wall
 public:
 	float a;
 	float b;
-	float c;
+	int state = 0;//0 -> default, 1 -> l:y=ax+b, 2 -> end.y == start.y, 3 -> end.x == start.x, 4 -> start == end
 	Vector2D start;
 	Vector2D end;
 	void translate(Vector2D offset);

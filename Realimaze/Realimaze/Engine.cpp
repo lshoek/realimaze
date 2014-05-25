@@ -28,6 +28,8 @@ angle = de hoek waarover gedraaid is
 */
 void Engine::Step(float direction, float angle)
 {
+	if (state != 0)
+		return;
 	int j;
 	for (j = 0; j < spheres.size(); j++)
 	{
@@ -86,6 +88,8 @@ void Engine::MoveBall(float direction, float angle, Sphere * Sphere)
 	{
 		if (Sphere->intersectLine(&lines.at(j)))
 			roll = false;
+		if (!roll)
+			printf("\nge nie kut!\n");
 	}
 	if (!roll)
 	{

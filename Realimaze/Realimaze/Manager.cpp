@@ -67,8 +67,12 @@ Manager::Manager() : engine()
 {
 	mngr = this;
 	engine.addSphere(0, 0, 10, &engine.spheres);
-
-	glEnable(GL_DEPTH_TEST); //Instead of glutInit
+	engine.makeSpaceForLines(1);
+	engine.addLine(0, 40, 80, 0);
+	int i = 0;
+	for (; i < 15; i++)
+		engine.Step(0,20);
+	/*glEnable(GL_DEPTH_TEST); //Instead of glutInit
 	glutInitWindowSize(SCRN_WIDTH, SCRN_HEIGHT);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutCreateWindow("Realimaze");
@@ -79,7 +83,7 @@ Manager::Manager() : engine()
 	glutKeyboardFunc(&keyDown);
 	glutKeyboardUpFunc(&keyUp);
 	testGame.launchGame();
-	glutMainLoop();
+	glutMainLoop();*/
 }
 
 Manager::~Manager()

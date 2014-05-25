@@ -11,15 +11,21 @@ void Line::CalculateLine(void)
 	{
 		a = (start.y - end.y) / (start.x - end.x);
 		b = start.y - a * start.x;
-		c = b;
+		state = 1;
 	}
 	else if (start.y == end.y && start.x != end.x)
 	{
 		a = 0;
 		b = start.y;
+		state = 2;
 	}
 	else if (start.y != end.y && start.x == end.x)
 	{
-
+		state = 3;
+		b = start.x;
+	}
+	else if (start.y == end.y && start.x == end.x)
+	{
+		state = 2;
 	}
 }
