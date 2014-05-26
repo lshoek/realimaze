@@ -10,6 +10,7 @@
 
 using namespace std;
 
+Vector2D delta(0, 0);
 /*
 x, y = position
 r = radius
@@ -23,16 +24,53 @@ void Engine::addSphere(float x, float y, float r, vector<Sphere> * vector)
 }
 
 /*
-direction = de hoek waar de bal heen rolt
-angle = de hoek waarover gedraaid is
+v1	v2
+v3	v4
+
+
 */
-void Engine::Step(float direction, float angle)
+void Engine::Step(Vector2D v1, Vector2D v2, Vector2D v3, Vector2D v4, int sizes[4])
 {
 	if (state != 0)
 		return;
 	int j;
+	float direction, angle;
+	Vector2D vDir(0, 0);
+	Vector2D * v[4] = {&v1, &v2, &v3, &v4};
+	if (v1.y == v2.y)
+	{
+		printf("jemoeder1");
+
+	}
+	else if (v1.x == v3.x)
+	{
+		printf("jemoeder2");
+	}
+	else if (v3.y == v4.y)
+	{
+		printf("jemoeder3");
+	}
+	else if (v4.x == v2.x)
+	{
+		printf("jemoeder4");
+	}
+	else
+	{
+		int idx = 1;
+		int smallest = sizes[0];
+		for (; idx < 3; idx++)
+		{
+			if (sizes[idx] < smallest)
+				smallest = sizes[idx];
+		}
+		vDir = vDir + v1 + v2 + v3 + v4 - *v[idx];
+		direction = tanhf(vDir.y / vDir.x / 180 * M_PI);
+		angle = coshf(vDir.x / center.y / 180 * M_PI);
+	}	
+	//printf("\nvDir = %f,%f\n", vDir.x, vDir.y);
 	for (j = 0; j < spheres.size(); j++)
 	{
+		//printf("direction angle %f,%f\n", direction, angle);
 		MoveBall(direction, angle, &spheres.at(j));
 	}
 }
@@ -40,7 +78,7 @@ void Engine::Step(float direction, float angle)
 //direction = de richting waar het bord over is gekanteld
 //angle = de hoek waar het bord over is gedraaid
 //
-void Engine::MoveBall(float direction, float angle, Sphere * Sphere)
+void Engine::MoveBall(float direction, float angle, Sphere * sphere)
 {
 	//angle en direction naar radialen rekenen
 	direction = direction/180 * M_PI;
@@ -50,17 +88,16 @@ void Engine::MoveBall(float direction, float angle, Sphere * Sphere)
 	Vector2D vToMove(0, 0);
 	//calculate vector to move to
 	//with gravity
-	
-	Vector2D gravitySpeed(0,10);
-	gravitySpeed = gravitySpeed * (sin(angle));//volgens wikipedia
+	Vector2D gravitySpeed(10 * sin(angle), 0);
+	//gravitySpeed = gravitySpeed );//volgens wikipedia
 	//Sphere : oldSpeed = old speed + new vector
 	//the position of the Sphere = deltaDistance + position Sphere
 	vToMove = vToMove + gravitySpeed;
-	vToMove = vToMove + Sphere -> distanceRolled;
+	vToMove = vToMove + sphere -> distanceRolled;
 	vToMove = vToMove * 0.8;
 	vToMove.Rotate(direction);
-	Sphere -> translate(vToMove);
-	Sphere -> distanceRolled = vToMove;// -Sphere.distanceRolled;
+	sphere -> translate(vToMove);
+	sphere -> distanceRolled = vToMove;
 	bool roll = true;
 	//move
 
@@ -68,7 +105,7 @@ void Engine::MoveBall(float direction, float angle, Sphere * Sphere)
 	int j;
 	for (j = 0; j < finishes.size(); j++)
 	{
-		if (Sphere->intersectSphere(&finishes.at(j)))
+		if (sphere->intersectSphere(&finishes.at(j)))
 		{
 			roll = false;
 			state = 1;
@@ -77,7 +114,7 @@ void Engine::MoveBall(float direction, float angle, Sphere * Sphere)
 	//check for holes 
 	for (j = 0; j < holes.size(); j++)
 	{
-		if (Sphere->intersectSphere(&spheres.at(j)))
+		if (sphere->intersectSphere(&spheres.at(j)))
 		{
 			roll = false;
 			state = -1;
@@ -86,18 +123,20 @@ void Engine::MoveBall(float direction, float angle, Sphere * Sphere)
 	//check for walls
 	for (j = 0; j < lines.size(); j++)
 	{
-		if (Sphere->intersectLine(&lines.at(j)))
+		if (sphere->intersectLine(&lines.at(j)))
 			roll = false;
 		if (!roll)
-			printf("\nge nie kut!\n");
+			printf("staat stil kut!\n");
 	}
 	if (!roll)
 	{
-		Sphere->translate(vToMove * -1);
-		Sphere->distanceRolled.x = 0;
-		Sphere->distanceRolled.y = 0;
+		sphere->translate(vToMove * -1);
+		sphere->distanceRolled.x = 0;
+		sphere->distanceRolled.y = 0;
 	}
-	printf("positie:%f,%f, distance rolled %f,%f\n", Sphere -> position.x, Sphere -> position.y, Sphere -> distanceRolled.x, Sphere -> distanceRolled.y);
+	//, sphere->distanceRolled.x, sphere->distanceRolled.y,sphere->distanceRolled.x- delta.x, sphere->distanceRolled.y-delta.y
+	printf("positie:%f,%f, distance rolled %f,%f\n",sphere->position.x, sphere->position.y);
+	delta = sphere->distanceRolled;
 }
 
 //to add lines, you need to make space

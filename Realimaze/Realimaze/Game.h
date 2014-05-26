@@ -27,8 +27,8 @@ public:
 	void launchGame();
 	void endGame();
 	void update();
-	void drawSphere(Sphere sphere);
-	void draw(vector<Sphere> spheres);
+	void drawSphere(const Sphere * sphere);
+	void draw(const vector<Sphere> spheres);
 	void drawStage(GLfloat idx, GLfloat idy, GLfloat idz, GLfloat rx, GLfloat ry, GLfloat rz);
 	void drawCube(GLfloat idx, GLfloat idy, GLfloat idz, GLfloat rx, GLfloat ry, GLfloat rz);
 	bool isRunning();

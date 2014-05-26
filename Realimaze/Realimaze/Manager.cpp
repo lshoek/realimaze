@@ -7,6 +7,7 @@
 
 #include "Manager.h"
 #include "Game.h"
+#include "Vector2D.h"
 
 using namespace std;
 
@@ -21,12 +22,12 @@ unsigned long timerTime = 0;
 
 void timerTick(void)
 {
-	while (true)
+	/*while (true)
 	{
 		if (mngr -> testGame.isRunning() && mngr -> engine.state == 0)
 			timerTime += 10;
 		Sleep(10);
-	}
+	}*/
 }
 
 
@@ -70,9 +71,14 @@ Manager::Manager() : engine()
 	engine.makeSpaceForLines(1);
 	engine.addLine(0, 40, 80, 0);
 	int i = 0;
+	Vector2D v1(229, 424);
+	Vector2D v2(440, 415);
+	Vector2D v3(215, 231);
+	Vector2D v4(468, 227);
+	int sizes[4] = { 22, 18, 17, 23 };
 	for (; i < 15; i++)
-		engine.Step(0,20);
-	/*glEnable(GL_DEPTH_TEST); //Instead of glutInit
+		engine.Step(v4, v1, v2, v3, sizes);
+	glEnable(GL_DEPTH_TEST); //Instead of glutInit
 	glutInitWindowSize(SCRN_WIDTH, SCRN_HEIGHT);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutCreateWindow("Realimaze");
@@ -83,7 +89,7 @@ Manager::Manager() : engine()
 	glutKeyboardFunc(&keyDown);
 	glutKeyboardUpFunc(&keyUp);
 	testGame.launchGame();
-	glutMainLoop();*/
+	glutMainLoop();
 }
 
 Manager::~Manager()

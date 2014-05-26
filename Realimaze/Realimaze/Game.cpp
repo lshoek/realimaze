@@ -46,7 +46,7 @@ void Game::update()
 	rotation+=0.05;
 }
 
-void Game::draw(vector<Sphere> spheres)
+void Game::draw(const vector<Sphere> spheres)
 {
 	glViewport(0, 0, scrnWidth, scrnHeight);
 	glEnable(GL_DEPTH_TEST);
@@ -66,16 +66,14 @@ void Game::draw(vector<Sphere> spheres)
 	int j = 0;
 	for (; j < spheres.size(); j++)
 	{
-		drawSphere(spheres.at(j));
+		drawSphere(&spheres.at(j));
 
 	}
 }
 
-void Game::drawSphere(Sphere sphere)
+void Game::drawSphere(const Sphere * sphere)
 {
-	GLUquadricObj *quadric;
-	quadric = gluNewQuadric();
-	gluSphere(quadric,10, 50, 50);
+	
 }
 
 void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz, GLfloat rx, GLfloat ry, GLfloat rz)

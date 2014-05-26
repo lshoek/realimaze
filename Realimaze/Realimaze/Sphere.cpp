@@ -18,7 +18,7 @@ bool Sphere::intersectSphere(const Sphere * sphere) const
 	a = fabsf(position.x - sphere->position.x);
 	b = fabsf(position.y - sphere->position.y);
 	c = sqrt(pow(a, 2) + pow(b, 2));
-	if (c <radius + sphere -> radius)
+	if (c < radius + sphere -> radius)
 		return true;
 	return false;
 }

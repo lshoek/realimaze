@@ -20,5 +20,10 @@ public:
 	Vector2D operator *(float factor);
 	Vector2D operator /(float factor);
 };
+
+bool operator ==(const Vector2D v1, const Vector2D v2);
+bool operator !=(const Vector2D v1, const Vector2D v2);
+bool operator <(const Vector2D v1, const Vector2D v2);
+bool operator >(const Vector2D v1, const Vector2D v2);
 #endif
 
