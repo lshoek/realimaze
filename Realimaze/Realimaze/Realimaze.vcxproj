@@ -80,6 +80,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Font.cpp" />
+    <ClCompile Include="Glyph.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Maze.cpp" />
@@ -88,9 +90,12 @@
     <ClCompile Include="EnginePhys.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="stb_image.c" />
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="Font.h" />
+    <ClInclude Include="Glyph.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Maze.h" />
     <ClInclude Include="ObjectLoader.h" />
@@ -98,6 +103,7 @@
     <ClInclude Include="EnginePhys.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Texture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

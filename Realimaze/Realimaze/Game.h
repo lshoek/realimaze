@@ -9,6 +9,7 @@
 #include "EnginePhys.h"
 #include "ObjectLoader.h"
 #include "Orientation.h"
+#include "Texture.h"
 
 class Game
 {
