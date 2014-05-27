@@ -28,7 +28,7 @@ public:
 	void addLine(float x1, float y1, float x2, float y2);
 	void addSphere(float x, float y, float r, vector<Sphere> * vector);
 	void Step(Vector2D v1, Vector2D v2, Vector2D v3, Vector2D v4, int sizes[4]);
-	void Engine::MoveBall(float direction, float angle, Sphere * sphere);
+	void Engine::MoveBall(float direction, float angleX, float angleY, Sphere * sphere);
 };
 
 

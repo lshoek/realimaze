@@ -71,31 +71,31 @@ void Engine::Step(Vector2D v1, Vector2D v2, Vector2D v3, Vector2D v4, int sizes[
 	for (j = 0; j < spheres.size(); j++)
 	{
 		//printf("direction angle %f,%f\n", direction, angle);
-		MoveBall(direction, angle, &spheres.at(j));
+		MoveBall(45, 10,20, &spheres.at(j));
 	}
 }
 
 //direction = de richting waar het bord over is gekanteld
-//angle = de hoek waar het bord over is gedraaid
+//angleX en angleY = de hoek waar het bord over is gedraaid
 //
-void Engine::MoveBall(float direction, float angle, Sphere * sphere)
+void Engine::MoveBall(float direction, float angleX, float angleY, Sphere * sphere)
 {
 	//angle en direction naar radialen rekenen
 	direction = direction/180 * M_PI;
-	angle = angle/180 * M_PI;
+	angleX = angleX/180 * M_PI;
+	angleY = angleY / 180 * M_PI;
+	angleX *= cos(direction);
+	angleY *= sin(direction);
 	//calculate vector to move
 	//start at (0,0)
-	Vector2D vToMove(0, 0);
+	Vector2D vToMove(10 * sin(angleX), 10 * sin(angleY));
 	//calculate vector to move to
 	//with gravity
-	Vector2D gravitySpeed(10 * sin(angle), 0);
-	//gravitySpeed = gravitySpeed );//volgens wikipedia
 	//Sphere : oldSpeed = old speed + new vector
 	//the position of the Sphere = deltaDistance + position Sphere
-	vToMove = vToMove + gravitySpeed;
 	vToMove = vToMove + sphere -> distanceRolled;
 	vToMove = vToMove * 0.8;
-	vToMove.Rotate(direction);
+	//vToMove.Rotate(direction);
 	sphere -> translate(vToMove);
 	sphere -> distanceRolled = vToMove;
 	bool roll = true;
