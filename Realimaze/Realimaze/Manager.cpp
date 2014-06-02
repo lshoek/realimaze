@@ -9,7 +9,9 @@ using namespace std;
 
 Manager* mngr = NULL;
 GLuint char_list;
-Texture text{ "resources/classicfnt32.png" };
+Texture text_texture{ "resources/classicfnt32.png" };
+bool key_up, key_down, key_left, key_right;
+int lastUpdateTime;
 
 void idleFunc()
 { mngr->update(); }
@@ -70,7 +72,19 @@ Manager::~Manager()
 
 void Manager::update(void)
 {
-	testGame.update();
+	int time = glutGet(GLUT_ELAPSED_TIME);
+	testGame.update((time - lastUpdateTime) / 1000.0);
+	lastUpdateTime = time;
+
+	if (key_up)
+		testGame.rotateYaw(-0.1);
+	if (key_down)
+		testGame.rotateYaw(0.1);
+	if (key_left)
+		testGame.rotatePitch(0.1);
+	if (key_right)
+		testGame.rotatePitch(-0.1);
+
 	glutPostRedisplay();
 }
 
@@ -87,29 +101,74 @@ void Manager::draw(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	//Text
-	GLuint txtr = text.getTextureId();
-	glBindTexture(GL_TEXTURE_2D, txtr);
+	drawText("realimaze v0.1 augmented reality project", 10, 20, 1.5);
+	drawText(testGame.getVars(), 10, 10, 1);
+	glutSwapBuffers();
+}
+
+void Manager::drawText(const string text, const GLfloat x, const GLfloat y, const float scale)
+{
+	glBindTexture(GL_TEXTURE_2D, text_texture.getTextureId());
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-
-	glTranslatef(SCRN_WIDTH/2, SCRN_HEIGHT/2, 0);
+	glPushMatrix();
+	glTranslatef(x, y, 0);
+	glScalef(scale, scale, 1);
 	glColor4f(0, 0, 0, 1);
 	glListBase(char_list);
-	glPushMatrix();
-	glCallLists(11, GL_UNSIGNED_BYTE, "Hello World");
+	glCallLists(text.length(), GL_UNSIGNED_BYTE, text.c_str());
 	glPopMatrix();
-	glTranslatef(2, 2, 0);
-	glColor4f(1, 1, 1, 1);
-	glCallLists(11, GL_UNSIGNED_BYTE, "Hello World");
 
-	glutSwapBuffers();
+	glPushMatrix();
+	glTranslatef(x+1, y+1, 0);
+	glScalef(scale, scale, 1);
+	glColor4f(1, 1, 1, 1);
+	glCallLists(text.length(), GL_UNSIGNED_BYTE, text.c_str());
+	glPopMatrix();
 }
 
 void Manager::kDown(unsigned char key, int x, int y)
-{}
+{
+	switch (key)
+	{
+	case 'w':
+		key_up = true;
+		break;
+	case 's':
+		key_down = true;
+		break;
+	case 'a':
+		key_left = true;
+		break;
+	case 'd':
+		key_right = true;
+		break;
+	case 27:
+		exit(0);
+		break;
+	}
+}
 
 void Manager::kUp(unsigned char key, int x, int y)
-{}
+{
+	switch (key)
+	{
+	case 'w':
+		key_up = false;
+		break;
+	case 's':
+		key_down = false;
+		break;
+	case 'a':
+		key_left = false;
+		break;
+	case 'd':
+		key_right = false;
+		break;
+	case 27:
+		exit(0);
+		break;
+	}
+}

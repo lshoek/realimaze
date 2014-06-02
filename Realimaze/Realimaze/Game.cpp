@@ -9,15 +9,17 @@
 #include "ObjectLoader.h"
 #include "Orientation.h"
 #include "Texture.h"
+
 using namespace std;
 
-GLfloat x = 0, y = 5, z = 1, rotation = 0;
+GLfloat x = 0, y = 5, z = 1;
+Texture wood_texture{ "resources/wood_texture.jpg" };
 int scrnWidth, scrnHeight;
 bool running = false;
-Texture woodtex{ "resources/wood_texture.jpg" };
 
 Game::Game(int w, int h)
 {
+	rx = 0; ry = 0; rz = 0;
 	scrnWidth = w;
 	scrnHeight = h;
 }
@@ -35,9 +37,19 @@ void Game::endGame()
 	running = false;
 }
 
-void Game::update()
+void Game::rotateYaw(float rotation)
 {
-	rotation+=0.05;
+	rx += rotation;
+}
+
+void Game::rotatePitch(float rotation)
+{
+	rz += rotation;
+}
+
+void Game::update(float tfac)
+{
+	glutPostRedisplay();
 }
 
 void Game::draw()
@@ -56,19 +68,19 @@ void Game::draw()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
-	drawStage(-0.5, 0, -0.5, 0, 0, 1);
+	drawStage(-0.5, 0, -0.5);
 }
 
-void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz, GLfloat rx, GLfloat ry, GLfloat rz)
+void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
 {
 	glPushMatrix();
 	glTranslatef(idx, idy, idz);
-	glTranslatef(0.5f, 0, 0.5f);
-	glRotatef(rotation, rx, ry, rz);
-	glTranslatef(-0.5, 0, -0.5);
+	glTranslatef(0.5f, -0.2f, 0.5f);
+	glRotatef(rx, 1, 0, 0);
+	glRotatef(rz, 0, 0, 1);
+	glTranslatef(-0.5, 0.2f, -0.5);
 
-	GLuint textureId = woodtex.getTextureId();
-	glBindTexture(GL_TEXTURE_2D, textureId);
+	glBindTexture(GL_TEXTURE_2D, wood_texture.getTextureId());
 
 	glBegin(GL_QUADS);
 	glColor3f(0, 0, 0);
@@ -124,6 +136,13 @@ void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz, GLfloat rx, GLfloat 
 	glColor3f(1, 1, 1);
 	glEnd();
 	glPopMatrix();
+}
+
+string Game::getVars()
+{
+	stringstream strs;
+	strs << "rx" << rx << " ry=" << ry << " rz=" << rz << endl;
+	return strs.str();
 }
 
 bool Game::isRunning()
