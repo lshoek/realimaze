@@ -76,7 +76,7 @@ Manager::Manager() : engine()
 	Vector2D v3(215, 231);
 	Vector2D v4(468, 227);
 	int sizes[4] = { 22, 18, 17, 23 };
-	for (; i < 15; i++)
+	for (; i < 8; i++)
 		engine.Step(v4, v1, v2, v3, sizes);
 	glEnable(GL_DEPTH_TEST); //Instead of glutInit
 	glutInitWindowSize(SCRN_WIDTH, SCRN_HEIGHT);

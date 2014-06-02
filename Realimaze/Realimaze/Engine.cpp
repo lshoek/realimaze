@@ -9,8 +9,6 @@
 #include <vector>
 
 using namespace std;
-
-Vector2D delta(0, 0);
 /*
 x, y = position
 r = radius
@@ -34,9 +32,7 @@ void Engine::Step(Vector2D v1, Vector2D v2, Vector2D v3, Vector2D v4, int sizes[
 	if (state != 0)
 		return;
 	int j;
-	float direction, angle;
-	Vector2D vDir(0, 0);
-	Vector2D * v[4] = {&v1, &v2, &v3, &v4};
+	float angleX, angleY;
 	if (v1.y == v2.y)
 	{
 		printf("jemoeder1");
@@ -56,36 +52,27 @@ void Engine::Step(Vector2D v1, Vector2D v2, Vector2D v3, Vector2D v4, int sizes[
 	}
 	else
 	{
-		int idx = 1;
-		int smallest = sizes[0];
-		for (; idx < 3; idx++)
-		{
-			if (sizes[idx] < smallest)
-				smallest = sizes[idx];
-		}
-		vDir = vDir + v1 + v2 + v3 + v4 - *v[idx];
-		direction = tanhf(vDir.y / vDir.x / 180 * M_PI);
-		angle = coshf(vDir.x / center.y / 180 * M_PI);
+		angleX = 4;
+		angleY = 5;
+
 	}	
 	//printf("\nvDir = %f,%f\n", vDir.x, vDir.y);
 	for (j = 0; j < spheres.size(); j++)
 	{
-		//printf("direction angle %f,%f\n", direction, angle);
-		MoveBall(45, 10,20, &spheres.at(j));
+		//printf("direction, angleX, angleY %f,%f,%f\n", direction, angleX, angleY);
+		MoveBall(angleX, angleY, &spheres.at(j));
 	}
 }
 
-//direction = de richting waar het bord over is gekanteld
 //angleX en angleY = de hoek waar het bord over is gedraaid
 //
-void Engine::MoveBall(float direction, float angleX, float angleY, Sphere * sphere)
+void Engine::MoveBall(float angleX, float angleY, Sphere * sphere)
 {
 	//angle en direction naar radialen rekenen
-	direction = direction/180 * M_PI;
-	angleX = angleX/180 * M_PI;
+	angleX = angleX /180 * M_PI;
 	angleY = angleY / 180 * M_PI;
-	angleX *= cos(direction);
-	angleY *= sin(direction);
+	//angleX *= cosf(direction);
+	//angleY *= sinf(direction);
 	//calculate vector to move
 	//start at (0,0)
 	Vector2D vToMove(10 * sin(angleX), 10 * sin(angleY));
@@ -99,7 +86,6 @@ void Engine::MoveBall(float direction, float angleX, float angleY, Sphere * sphe
 	sphere -> translate(vToMove);
 	sphere -> distanceRolled = vToMove;
 	bool roll = true;
-	//move
 
 	//check for the endpoint
 	int j;
@@ -134,9 +120,7 @@ void Engine::MoveBall(float direction, float angleX, float angleY, Sphere * sphe
 		sphere->distanceRolled.x = 0;
 		sphere->distanceRolled.y = 0;
 	}
-	//, sphere->distanceRolled.x, sphere->distanceRolled.y,sphere->distanceRolled.x- delta.x, sphere->distanceRolled.y-delta.y
-	printf("positie:%f,%f, distance rolled %f,%f\n",sphere->position.x, sphere->position.y);
-	delta = sphere->distanceRolled;
+	printf("positie:%f,%f, distance rolled %f,%f\n", sphere->position.x, sphere->position.y, sphere->distanceRolled.x, sphere->distanceRolled.y);
 }
 
 //to add lines, you need to make space
