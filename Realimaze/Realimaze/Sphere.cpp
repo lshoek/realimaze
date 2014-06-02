@@ -18,7 +18,7 @@ bool Sphere::intersectSphere(const Sphere * sphere) const
 	a = fabsf(position.x - sphere->position.x);
 	b = fabsf(position.y - sphere->position.y);
 	c = sqrt(pow(a, 2) + pow(b, 2));
-	if (c < radius + sphere -> radius)
+	if (c <= radius + sphere -> radius)
 		return true;
 	return false;
 }
@@ -33,6 +33,7 @@ bool Sphere::intersectLine(const Line * line) const
 	//(x - c)² + (mx + b - d)² = r²
 	//m² + 1 != 0, x1,2 = +-(sqrt(-b² - 2 b c m + 2 b d - c² m² + 2 c d m - d² + m² r² + r²) - b m + c + d m) / (m² + 1)	
 	bool intersect = false;
+	//0 -> default, 1 -> l:y=ax+b, 2 -> end.y == start.y, 3 -> end.x == start.x, 4 -> start == end
 	switch (line->state)
 	{
 	case 0:
@@ -48,7 +49,6 @@ bool Sphere::intersectLine(const Line * line) const
 		if (-1 * pow(b, 2) - 2 * b*c*m - pow(c, 2)*pow(m, 2) + 2 * c*d*m - pow(d, 2) + pow(m, 2)*pow(radius, 2) + pow(radius, 2) >= 0)
 		{
 			intersect = true;
-			printf("ja kut \n");
 		}
 	case 2:
 		if (position.y + radius >= line->b && position.y - radius <= line->b)
@@ -59,7 +59,12 @@ bool Sphere::intersectLine(const Line * line) const
 			intersect = true;
 		break;
 	case 4:
-		
+		float a, f, e;
+		a = fabsf(position.x - line->end.x);
+		f = fabsf(position.y - line->end.y);
+		e = sqrt(pow(a, 2) + pow(f, 2));
+		if (e <= radius)
+			intersect = true;
 		break;
 	}
 	//printf("%d", intersect);

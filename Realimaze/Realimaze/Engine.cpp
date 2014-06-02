@@ -10,8 +10,8 @@
 
 using namespace std;
 /*
-x, y = position
-r = radius
+x, y = position of the centre
+r = radius (voor een finish of gat is het nodig om van te voren de radius hiervan af halen
 vector = a vector in Engine to put the Sphere in (Spheres/holes/finishes)
 */
 void Engine::addSphere(float x, float y, float r, vector<Sphere> * vector)
@@ -21,45 +21,35 @@ void Engine::addSphere(float x, float y, float r, vector<Sphere> * vector)
 	vector->push_back(c);
 }
 
-/*
-v1	v2
-v3	v4
-
-
-*/
-void Engine::Step(Vector2D v1, Vector2D v2, Vector2D v3, Vector2D v4, int sizes[4])
+void Engine::Step(float deltaX, float deltaY)
 {
 	if (state != 0)
 		return;
-	int j;
-	float angleX, angleY;
-	if (v1.y == v2.y)
+	int j;//loop index in the end
+	deltaX -= centre.x;
+	deltaY -= centre.y;
+	float angleX, angleY, factorX = 0, factorY = 0;		
+	if (deltaY > 0)
 	{
-		printf("jemoeder1");
 
 	}
-	else if (v1.x == v3.x)
+	else if(deltaY < 0)
 	{
-		printf("jemoeder2");
-	}
-	else if (v3.y == v4.y)
-	{
-		printf("jemoeder3");
-	}
-	else if (v4.x == v2.x)
-	{
-		printf("jemoeder4");
-	}
-	else
-	{
-		angleX = 4;
-		angleY = 5;
 
-	}	
-	//printf("\nvDir = %f,%f\n", vDir.x, vDir.y);
+	}
+	if (deltaX > 0)
+	{
+
+	}
+	else if(deltaX < 0)
+	{
+
+	}
+	angleX = (deltaX * factorX);
+	angleY = (deltaY * factorY);
 	for (j = 0; j < spheres.size(); j++)
 	{
-		//printf("direction, angleX, angleY %f,%f,%f\n", direction, angleX, angleY);
+		printf("angleX, angleY %f,%f\n", angleX, angleY);
 		MoveBall(angleX, angleY, &spheres.at(j));
 	}
 }
@@ -78,7 +68,6 @@ void Engine::MoveBall(float angleX, float angleY, Sphere * sphere)
 	Vector2D vToMove(10 * sin(angleX), 10 * sin(angleY));
 	//calculate vector to move to
 	//with gravity
-	//Sphere : oldSpeed = old speed + new vector
 	//the position of the Sphere = deltaDistance + position Sphere
 	vToMove = vToMove + sphere -> distanceRolled;
 	vToMove = vToMove * 0.8;

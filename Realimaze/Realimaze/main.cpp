@@ -15,11 +15,11 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	Manager testMngr{};
 	Sphere sphere(0, 0, 2);
 	Sphere s2(0, 0, 0);
-	Line line(-8,10,8,30);
-	printf("%d\n", line.state);
+	Line line(2, 0, 2, 0);
+	printf("%d\n", sphere.intersectLine(&line));
+	Manager testMngr{};	
 	int k = 0;
 	long i = 0;
 	unsigned long startTime = time(NULL);

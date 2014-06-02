@@ -77,7 +77,7 @@ Manager::Manager() : engine()
 	Vector2D v4(468, 227);
 	int sizes[4] = { 22, 18, 17, 23 };
 	for (; i < 8; i++)
-		engine.Step(v4, v1, v2, v3, sizes);
+		engine.Step(4, i);
 	glEnable(GL_DEPTH_TEST); //Instead of glutInit
 	glutInitWindowSize(SCRN_WIDTH, SCRN_HEIGHT);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);

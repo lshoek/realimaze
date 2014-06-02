@@ -26,6 +26,6 @@ void Line::CalculateLine(void)
 	}
 	else if (start.y == end.y && start.x == end.x)
 	{
-		state = 2;
+		state = 4;
 	}
 }
