@@ -64,8 +64,6 @@ void Orientation::modifyImage(void)
 {
 	cap >> image; // copies the data from cap to the image to be modified
 
-	//cap >> standardImage;
-
 	flip(image, image, 1); // mirrors the image
 
 	resize(image, standardImage, image.size() * 2, 0.5, 0.5, 1);
