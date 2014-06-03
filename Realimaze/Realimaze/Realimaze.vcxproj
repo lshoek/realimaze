@@ -79,6 +79,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ObjModel.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Line.cpp" />
@@ -93,6 +94,7 @@
     <ClCompile Include="Vector3D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ObjModel.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Line.h" />

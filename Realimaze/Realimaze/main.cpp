@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
 {
 	Sphere sphere(0, 0, 2);
 	Sphere s2(0, 0, 0);
-	Line line(2, 0, 2, 0);
+	Line line(-4, -2, -2.1, 0);
 	printf("%d\n", sphere.intersectLine(&line));
 	Manager testMngr{};	
 	int k = 0;

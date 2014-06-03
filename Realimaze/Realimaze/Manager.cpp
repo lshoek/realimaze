@@ -3,6 +3,7 @@
 #include <vector>
 #include <glut.h>
 #include <Windows.h>
+#include <time.h>
 #include <thread>
 
 #include "Manager.h"
@@ -18,19 +19,26 @@ Manager* mngr = NULL;
 bool keys[256];
 thread keyThread(keyHandling);
 thread timer(timerTick);
-unsigned long timerTime = 0;
+float timerTime = 0;
 
 void timerTick(void)
-{
-	/*while (true)
+{	
+	while (true)
 	{
-		if (mngr -> testGame.isRunning() && mngr -> engine.state == 0)
-			timerTime += 10;
-		Sleep(10);
-	}*/
+		clock_t t;
+		while (mngr == nullptr)
+		{
+		}
+		while (mngr->engine.state == 0)
+		{
+			t = clock();
+			Sleep(1);
+			t = clock() - t;
+			timerTime += ((float) t) / CLOCKS_PER_SEC;
+		}
+		Sleep(1);
+	}
 }
-
-
 
 void keyHandling(void)
 {
@@ -41,12 +49,11 @@ void keyHandling(void)
 			printf("d");
 		}
 		if (keys[27])//esc
-		{
-			mngr -> ~Manager();
+		{			
 			mngr->testGame.~Game();
+			mngr -> ~Manager();
 			exit(0);
 		}
-
 		Sleep(50);
 	}
 }
@@ -68,16 +75,10 @@ Manager::Manager() : engine()
 {
 	mngr = this;
 	engine.addSphere(0, 0, 10, &engine.spheres);
-	engine.makeSpaceForLines(1);
 	engine.addLine(0, 40, 80, 0);
 	int i = 0;
-	Vector2D v1(229, 424);
-	Vector2D v2(440, 415);
-	Vector2D v3(215, 231);
-	Vector2D v4(468, 227);
-	int sizes[4] = { 22, 18, 17, 23 };
 	for (; i < 8; i++)
-		engine.Step(4, i);
+		engine.Step(340, 260);
 	glEnable(GL_DEPTH_TEST); //Instead of glutInit
 	glutInitWindowSize(SCRN_WIDTH, SCRN_HEIGHT);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -93,10 +94,10 @@ Manager::Manager() : engine()
 }
 
 Manager::~Manager()
-{
-	delete mngr;
+{	
 	keyThread.join();
 	timer.join();
+	delete mngr;
 }
 
 void Manager::update(void)
