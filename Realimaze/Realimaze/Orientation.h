@@ -20,5 +20,6 @@ class Orientation
 		void modifyImage();
 		void runCamera();
 		Mat getVideoImage();
+		Point getMiddlePointLocation();
 };
 
