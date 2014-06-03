@@ -13,7 +13,7 @@
 
 class Game
 {
-	ObjectLoader objloader;
+	//ObjectLoader objloader;
 	Orientation orientation;
 	Maze maze;
 	EnginePhys enphys;
@@ -29,6 +29,7 @@ public:
 	void endGame();
 	void rotateYaw(float rotation);
 	void rotatePitch(float rotation);
+	void rotateAngle(float rotation);
 	void update(float);
 	void draw();
 	void drawStage(GLfloat idx, GLfloat idy, GLfloat idz);

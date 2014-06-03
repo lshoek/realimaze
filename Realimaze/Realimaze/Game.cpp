@@ -13,15 +13,16 @@
 using namespace std;
 
 GLfloat x = 0, y = 5, z = 1;
-Texture wood_texture{ "resources/wood_texture.jpg" };
+//Texture wood_texture{ "resources/wood_texture.jpg" };
 int scrnWidth, scrnHeight;
 bool running = false;
-
+ObjModel* objm;
 Game::Game(int w, int h)
 {
 	rx = 0; ry = 0; rz = 0;
 	scrnWidth = w;
 	scrnHeight = h;
+	objm = new ObjModel("models/maze/maze1.obj");
 }
 
 Game::~Game()
@@ -47,6 +48,11 @@ void Game::rotatePitch(float rotation)
 	rz += rotation;
 }
 
+void Game::rotateAngle(float rotation)
+{
+	ry += rotation;
+}
+
 void Game::update(float tfac)
 {
 	glutPostRedisplay();
@@ -57,17 +63,18 @@ void Game::draw()
 	glViewport(0, 0, scrnWidth, scrnHeight);
 	glEnable(GL_DEPTH_TEST);
 
-	glClearColor(1, 1, 1, 1);
+	glClearColor(0.6f, 0.6f, 0.9f, 1.0f);
+	//glClearColor(1, 1, 1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// PERSPECTIVE
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(20, scrnWidth / (float)scrnHeight, 1, 1000);
+	gluPerspective(70, scrnWidth / (float)scrnHeight, 1, 1000);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
+	gluLookAt(x, 70, 140, 0, 0, 0, 0, 1, 0);
 	drawStage(-0.5, 0, -0.5);
 }
 
@@ -78,8 +85,20 @@ void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
 	glTranslatef(0.5f, -0.2f, 0.5f);
 	glRotatef(rx, 1, 0, 0);
 	glRotatef(rz, 0, 0, 1);
+	glRotatef(ry, 0, 1, 0);
 	glTranslatef(-0.5, 0.2f, -0.5);
+	glDisable(GL_TEXTURE_2D);
+	glEnable(GL_COLOR);
+	
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
 
+	objm->draw();
+
+	glPopMatrix();
+	//models.push_back(pair<int, ObjModel*>(100, new ObjModel("models/maze/maze1.obj")));
+	/*
 	glBindTexture(GL_TEXTURE_2D, wood_texture.getTextureId());
 
 	glBegin(GL_QUADS);
@@ -136,6 +155,7 @@ void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
 	glColor3f(1, 1, 1);
 	glEnd();
 	glPopMatrix();
+	*/
 }
 
 string Game::getVars()

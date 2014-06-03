@@ -60,7 +60,7 @@ Font::Font(const string fname)
 			charmap.insert(it, std::pair<char, Glyph>(g.id, g));
 	}
 	cout << "> " << fname << " loaded" << endl;
-	//printFontData();
+	printFontData();
 }
 
 Font::Font()

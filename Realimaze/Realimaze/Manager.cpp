@@ -10,7 +10,7 @@ using namespace std;
 Manager* mngr = NULL;
 GLuint char_list;
 Texture text_texture{ "resources/classicfnt32.png" };
-bool key_up, key_down, key_left, key_right;
+bool key_up, key_down, key_left, key_right, key_back, key_front;
 int lastUpdateTime;
 
 void idleFunc()
@@ -84,7 +84,10 @@ void Manager::update(void)
 		testGame.rotatePitch(0.1);
 	if (key_right)
 		testGame.rotatePitch(-0.1);
-
+	if (key_front)
+		testGame.rotateAngle(-1);
+	if (key_back)
+		testGame.rotateAngle(1);
 	glutPostRedisplay();
 }
 
@@ -145,6 +148,12 @@ void Manager::kDown(unsigned char key, int x, int y)
 	case 'd':
 		key_right = true;
 		break;
+	case 'f':
+		key_front = true;
+		break;
+	case 'r':
+		key_back = true;
+		break;
 	case 27:
 		exit(0);
 		break;
@@ -166,6 +175,12 @@ void Manager::kUp(unsigned char key, int x, int y)
 		break;
 	case 'd':
 		key_right = false;
+		break;
+	case 'f':
+		key_front = false;
+		break;
+	case 'r':
+		key_back = false;
 		break;
 	case 27:
 		exit(0);
