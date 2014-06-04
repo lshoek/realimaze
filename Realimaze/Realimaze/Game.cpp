@@ -55,20 +55,45 @@ void Game::update(float tfac)
 void Game::draw()
 {
 	glViewport(0, 0, scrnWidth, scrnHeight);
-	glEnable(GL_DEPTH_TEST);
-
 	glClearColor(1, 1, 1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	//ORTHOGONAL
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glDisable(GL_DEPTH_TEST);
+	glOrtho(0, scrnWidth, 0, scrnHeight, -1, 200);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	displayImage();
 
 	// PERSPECTIVE
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
+	glEnable(GL_DEPTH_TEST);
 	gluPerspective(20, scrnWidth / (float)scrnHeight, 1, 1000);
-
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
 	drawStage(-0.5, 0, -0.5);
+}
+
+void Game::displayImage()
+{
+	orientation.modifyImage();
+	Texture img{ orientation.getVideoImage() };
+	glBindTexture(GL_TEXTURE_2D, img.getTextureId());
+	glEnable(GL_TEXTURE_2D);
+
+	glPushMatrix();
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 0);		glVertex2f(0, 0);
+	glTexCoord2f(0, 1.0);	glVertex2f(0, scrnHeight);
+	glTexCoord2f(1.0, 1.0); glVertex2f(scrnWidth, scrnHeight);
+	glTexCoord2f(1.0, 0);	glVertex2f(scrnWidth, 0);
+	glEnd();
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
 }
 
 void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
@@ -81,6 +106,7 @@ void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
 	glTranslatef(-0.5, 0.2f, -0.5);
 
 	glBindTexture(GL_TEXTURE_2D, wood_texture.getTextureId());
+	glEnable(GL_TEXTURE_2D);
 
 	glBegin(GL_QUADS);
 	glColor3f(0, 0, 0);

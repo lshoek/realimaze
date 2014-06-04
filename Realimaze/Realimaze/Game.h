@@ -14,12 +14,13 @@
 class Game
 {
 	ObjectLoader objloader;
-	Orientation orientation;
+	
 	Maze maze;
 	EnginePhys enphys;
 	Ball ball;
 
 public:
+	Orientation orientation;
 	GLfloat rx, ry, rz;
 
 	Game(int w, int h);
@@ -31,6 +32,7 @@ public:
 	void rotatePitch(float rotation);
 	void update(float);
 	void draw();
+	void displayImage();
 	void drawStage(GLfloat idx, GLfloat idy, GLfloat idz);
 	void drawCube(GLfloat idx, GLfloat idy, GLfloat idz, GLfloat rx, GLfloat ry, GLfloat rz);
 	string getVars();

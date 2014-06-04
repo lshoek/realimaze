@@ -29,7 +29,6 @@ void keyUp(unsigned char key, int x, int y)
 Manager::Manager()
 {
 	mngr = this;
-	glEnable(GL_DEPTH_TEST); //Instead of glutInit
 	glutInitWindowSize(SCRN_WIDTH, SCRN_HEIGHT);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutCreateWindow("Realimaze");
@@ -77,13 +76,13 @@ void Manager::update(void)
 	lastUpdateTime = time;
 
 	if (key_up)
-		testGame.rotateYaw(-0.1);
+		testGame.rotateYaw(-1.0);
 	if (key_down)
-		testGame.rotateYaw(0.1);
+		testGame.rotateYaw(1.0);
 	if (key_left)
-		testGame.rotatePitch(0.1);
+		testGame.rotatePitch(1.0);
 	if (key_right)
-		testGame.rotatePitch(-0.1);
+		testGame.rotatePitch(-1.0);
 
 	glutPostRedisplay();
 }
@@ -93,7 +92,7 @@ void Manager::draw(void)
 	if (testGame.isRunning())
 		testGame.draw();
 
-	//Orthogonal
+	//Orthogonal (additional text)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glDisable(GL_DEPTH_TEST);
@@ -102,7 +101,8 @@ void Manager::draw(void)
 	glLoadIdentity();
 
 	drawText("realimaze v0.1 augmented reality project", 10, 20, 1.5);
-	drawText(testGame.getVars(), 10, 10, 1);
+	//drawText(testGame.getVars(), 10, 10, 1);
+
 	glutSwapBuffers();
 }
 
@@ -127,6 +127,8 @@ void Manager::drawText(const string text, const GLfloat x, const GLfloat y, cons
 	glColor4f(1, 1, 1, 1);
 	glCallLists(text.length(), GL_UNSIGNED_BYTE, text.c_str());
 	glPopMatrix();
+	glDisable(GL_BLEND);
+	glDisable(GL_TEXTURE_2D);
 }
 
 void Manager::kDown(unsigned char key, int x, int y)
