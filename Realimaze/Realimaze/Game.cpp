@@ -3,6 +3,7 @@
 #include <functional>
 #include <glut.h>
 #include "Game.h"
+<<<<<<< ours
 #include "Maze.h"
 #include "Ball.h"
 #include "EnginePhys.h"
@@ -10,12 +11,25 @@
 #include "Orientation.h"
 #include "Texture.h"
 
+=======
+#include <thread>
+#include <windows.h>
+>>>>>>> theirs
 using namespace std;
 
+<<<<<<< ours
 GLfloat x = 0, y = 5, z = 1;
 Texture wood_texture{ "resources/wood_texture.jpg" };
+=======
+void timerTick(void);
+
+
+GLfloat x = 0, y = 5, z = 1, rotation = 0;
+>>>>>>> theirs
 int scrnWidth, scrnHeight;
 bool running = false;
+
+
 
 Game::Game(int w, int h)
 {
@@ -24,8 +38,11 @@ Game::Game(int w, int h)
 	scrnHeight = h;
 }
 
+
 Game::~Game()
-{}
+{
+	
+}
 
 void Game::launchGame()
 {
@@ -49,10 +66,17 @@ void Game::rotatePitch(float rotation)
 
 void Game::update(float tfac)
 {
+<<<<<<< ours
 	glutPostRedisplay();
+=======
+	int time = glutGet(GLUT_ELAPSED_TIME);
+	timeFac = (time - lastFrameTime) / 1000.0;
+	lastFrameTime = time;
+	rotation+=0.05;
+>>>>>>> theirs
 }
 
-void Game::draw()
+void Game::draw(const vector<Sphere> spheres)
 {
 	glViewport(0, 0, scrnWidth, scrnHeight);
 	glEnable(GL_DEPTH_TEST);
@@ -68,7 +92,22 @@ void Game::draw()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
+<<<<<<< ours
 	drawStage(-0.5, 0, -0.5);
+=======
+	drawStage(-0.5, 0, -0.5, 0, 0, 1);
+	int j = 0;
+	for (; j < spheres.size(); j++)
+	{
+		drawSphere(&spheres.at(j));
+
+	}
+}
+
+void Game::drawSphere(const Sphere * sphere)
+{
+	
+>>>>>>> theirs
 }
 
 void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)

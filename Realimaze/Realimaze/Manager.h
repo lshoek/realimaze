@@ -7,6 +7,7 @@
 #include <glut.h>
 #include "Manager.h"
 #include "Game.h"
+#include "Engine.h"
 
 class Manager
 {
@@ -14,6 +15,8 @@ class Manager
 		Manager();
 		~Manager();
 		Game testGame{SCRN_WIDTH, SCRN_HEIGHT};
+		Engine engine;
+		
 		void update();
 		void draw();
 		void drawText(const string, const GLfloat, const GLfloat, const float);
