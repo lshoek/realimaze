@@ -12,7 +12,7 @@
 
 using namespace std;
 
-GLfloat x = 0, y = 5, z = 1;
+GLfloat x = 0, y = 5, z = 1, yaw = 0, pitch = 0;
 Texture wood_texture{ "resources/wood_texture.jpg" };
 int scrnWidth, scrnHeight;
 bool running = false;
@@ -40,15 +40,19 @@ void Game::endGame()
 void Game::rotateYaw(float rotation)
 {
 	rx += rotation;
+	//yaw += rotation;
 }
 
 void Game::rotatePitch(float rotation)
 {
 	rz += rotation;
+	//pitch += rotation;
 }
 
 void Game::update(float tfac)
 {
+	//yaw = orientation.getOrientationFactor().xPos * 45.0;
+	//pitch = orientation.getOrientationFactor().yPos * 45.0;
 	glutPostRedisplay();
 }
 
@@ -103,6 +107,8 @@ void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
 	glTranslatef(0.5f, -0.2f, 0.5f);
 	glRotatef(rx, 1, 0, 0);
 	glRotatef(rz, 0, 0, 1);
+	//glRotatef(pitch, 1, 0, 0);
+	//glRotatef(yaw, 0, 0, 1);
 	glTranslatef(-0.5, 0.2f, -0.5);
 
 	glBindTexture(GL_TEXTURE_2D, wood_texture.getTextureId());
@@ -169,6 +175,10 @@ string Game::getVars()
 	stringstream strs;
 	strs << "rx" << rx << " ry=" << ry << " rz=" << rz << endl;
 	return strs.str();
+
+	//stringstream strs;
+	//strs << "pitchX=" << pitch << " yawZ=" << yaw << endl;
+	//return strs.str();
 }
 
 bool Game::isRunning()
