@@ -1,5 +1,4 @@
 #include "Orientation.h"
-//#include "Manager.h"
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2\imgproc\imgproc.hpp>
@@ -34,30 +33,30 @@ Orientation::~Orientation()
 {
 }
 
-//PosF Orientation::getOrientationFactor()
-//{
-//	PosF ofactor;
-//	if (orientPos.xPos > centerPos.xPos)
-//		ofactor.xPos = ((orientPos.xPos - centerPos.xPos) / boundary)*-1;
-//	else
-//		ofactor.xPos = ((centerPos.xPos - orientPos.xPos) / boundary);
-//	if (orientPos.yPos > centerPos.yPos)
-//		ofactor.yPos = ((orientPos.yPos - centerPos.yPos) / boundary)*-1;
-//	else
-//		ofactor.yPos = ((centerPos.yPos - orientPos.yPos) / boundary);
-//	return ofactor;
-//}
-//
-//string Orientation::getVars()
-//{
-//	stringstream strs;
-//	strs << "centerP(" << centerPos.xPos << ", " << centerPos.yPos << "), orientP(" << orientPos.xPos << ", " << orientPos.yPos << ")" << endl;
-//	return strs.str();
-//}
+PosF Orientation::getOrientationFactor()
+{
+	PosF ofactor;
+	if (orientPos.xPos > centerPos.xPos)
+		ofactor.xPos = ((orientPos.xPos - centerPos.xPos) / boundary)*-1;
+	else
+		ofactor.xPos = ((centerPos.xPos - orientPos.xPos) / boundary);
+	if (orientPos.yPos > centerPos.yPos)
+		ofactor.yPos = ((orientPos.yPos - centerPos.yPos) / boundary)*-1;
+	else
+		ofactor.yPos = ((centerPos.yPos - orientPos.yPos) / boundary);
+	return ofactor;
+}
+
+string Orientation::getVars()
+{
+	stringstream strs;
+	strs << "centerP(" << centerPos.xPos << ", " << centerPos.yPos << "), orientP(" << orientPos.xPos << ", " << orientPos.yPos << ")" << endl;
+	return strs.str();
+}
 
 void Orientation::modifyImage()
 {
-	cap.open(0);
+	cap.open(2);
 
 	cap >> image; // copies the data from cap to the image to be modified
 

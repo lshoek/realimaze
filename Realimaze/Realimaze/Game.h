@@ -10,21 +10,22 @@
 #include "ObjectLoader.h"
 #include "Orientation.h"
 #include "Texture.h"
+#include "globaldefines.h"
 
 class Game
 {
 	ObjectLoader objloader;
-	
 	Maze maze;
 	EnginePhys enphys;
 	Ball ball;
 
 public:
 	Orientation orientation;
-	GLfloat rx, ry, rz;
+	GLfloat x = 0, y = 5, z = 1, yaw = 0, pitch = 0;
+	bool running = false, video_on = false;
 
-	Game(int w, int h);
-	~Game();
+	Game(){};
+	~Game(){};
 
 	void launchGame();
 	void endGame();
