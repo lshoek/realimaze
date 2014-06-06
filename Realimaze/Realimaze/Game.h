@@ -16,7 +16,6 @@
 class Game
 {
 	// begin lesley deel
-	ObjectLoader objloader;
 	Maze maze;
 	Engine enphys;
 	//Sphere ball;
@@ -24,8 +23,8 @@ class Game
 
 public:
 	// begin lesley deel
-	GLfloat rx, ry, rz;
 	Orientation orientation;
+	GLfloat rx, ry, rz;
 	GLfloat x = 0, y = 5, z = 1, yaw = 0, pitch = 0;
 	bool running = false, video_on = false;
 
@@ -40,6 +39,7 @@ public:
 	void endGame();
 	void rotateYaw(float rotation);
 	void rotatePitch(float rotation);
+	void rotateAngle(float rotation);
 	void update(float);
 	void displayImage();
 	void drawStage(GLfloat idx, GLfloat idy, GLfloat idz);

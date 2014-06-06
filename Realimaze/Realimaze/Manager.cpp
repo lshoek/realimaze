@@ -20,7 +20,9 @@ Manager* mngr = NULL;
 
 GLuint char_list;
 Texture text_texture{ "resources/classicfnt32.png" };
-bool key_up, key_down, key_left, key_right, key_space;
+
+bool key_up, key_down, key_left, key_right, key_back, key_front, key_space;
+
 int lastUpdateTime;
 
 bool keys[256];
@@ -82,10 +84,12 @@ Manager::Manager() : engine()
 {
 	// begin lesley deel
 	mngr = this;
-
+	cout << "first" << endl;
 	glutInitWindowSize(SCRN_WIDTH, SCRN_HEIGHT);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutCreateWindow("Realimaze");
+
+	cout << "second" << endl;
 
 	//Construct displaylists
 	Font font{ "resources/classicfnt32.fnt" };
@@ -110,6 +114,7 @@ Manager::Manager() : engine()
 		glTranslatef(g.xadvance, 0, 0);
 		glEndList();
 	}
+	cout << "third" << endl;
 
 	engine.addSphere(0, 0, 10, &engine.spheres);
 	engine.addLine(0, 40, 80, 0);
@@ -117,6 +122,8 @@ Manager::Manager() : engine()
 	for (; i < 8; i++)
 		engine.Step(340, 260);
 	glEnable(GL_DEPTH_TEST); //Instead of glutInit
+
+	cout << "fourth" << endl;
 	
 	//Register callbacks
 	glutIdleFunc(&idleFunc);
@@ -126,6 +133,8 @@ Manager::Manager() : engine()
 	testGame.launchGame();
 	glutMainLoop();
 	// eind lesley deel
+
+	cout << "fifth" << endl;
 }
 
 Manager::~Manager()
@@ -152,7 +161,10 @@ void Manager::update(void)
 		testGame.orientation.orientPos.xPos += 0.1;
 	if (key_space)
 		testGame.orientation.centerPos = testGame.orientation.orientPos; //calibrate
-
+	if (key_front)
+		testGame.rotateAngle(-1);
+	if (key_back)
+		testGame.rotateAngle(1);
 	glutPostRedisplay();
 	// eind lesley deel
 }
@@ -239,6 +251,11 @@ void Manager::kDown(unsigned char key, int x, int y)
 		break;
 	case 32:
 		key_space = true;
+	case 'f':
+		key_front = true;
+		break;
+	case 'r':
+		key_back = true;
 		break;
 	case 27:
 		exit(0);
@@ -270,6 +287,11 @@ void Manager::kUp(unsigned char key, int x, int y)
 		break;
 	case 32:
 		key_space = false;
+	case 'f':
+		key_front = false;
+		break;
+	case 'r':
+		key_back = false;
 		break;
 	case 27:
 		exit(0);
