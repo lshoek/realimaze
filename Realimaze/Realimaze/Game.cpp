@@ -63,7 +63,7 @@ void Game::draw(const vector<Sphere> spheres)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
-	drawStage(-0.5, 0, -0.5, 0, 0, 1);
+	//drawStage(-0.5, 0, -0.5, 0, 0, 1);
 	//Bas draw all the balls
 	int j = 0;
 	for (; j < spheres.size(); j++)
@@ -75,7 +75,10 @@ void Game::draw(const vector<Sphere> spheres)
 
 void Game::drawSphere(const Sphere * sphere)
 {
-	
+	glPushMatrix();
+	glTranslatef(sphere->position.x, 0, sphere->position.y);
+	glutSolidSphere(sphere -> radius, 50 ,50);
+	glPopMatrix();
 }
 
 void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz, GLfloat rx, GLfloat ry, GLfloat rz)

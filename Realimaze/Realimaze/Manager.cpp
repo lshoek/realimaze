@@ -121,9 +121,9 @@ void Manager::update(void)
 void Manager::draw(void)
 {
 	//Bas
-	if (testGame.isRunning())
+	//if (testGame.isRunning())
 		testGame.draw(engine.spheres);
-	else
+	//else
 	{
 		// ORTHOGONAL
 		glMatrixMode(GL_PROJECTION);

@@ -6,14 +6,12 @@
 #include <vector>
 #include "Game.h"
 #include "Maze.h"
-#include "ObjectLoader.h"
 #include "Orientation.h"
 #include "Engine.h"
 #include "Sphere.h"
 
 class Game
 {
-	ObjectLoader objloader;
 	Orientation orientation;
 	Maze maze;
 	Engine engine;

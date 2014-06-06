@@ -177,12 +177,3 @@ void Engine::addLine(float x1, float y1, float x2, float y2)
 	Line l(x1, y1, x2, y2);
 	lines.push_back(l);
 }
-
-void Engine::AddLinesFromFaces(const vector<Vec3f> * vectors)
-{
-	int i = 0;
-	for (; i < vectors->size(); i++)
-	{
-
-	}
-}
