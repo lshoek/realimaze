@@ -67,7 +67,7 @@ void Orientation::modifyImage()
 	simple.detect(image, keypoints);
 
 	// shows the blobs over the original image on screen
-	drawKeypoints(image, keypoints, image, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+	//drawKeypoints(image, keypoints, image, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
 
 	for each (KeyPoint key in keypoints)
 	{

@@ -8,7 +8,7 @@ using namespace std;
 //Main function launches the game
 int main()
 {
-	//Manager testMngr{};
-	Orientation orient{};
+	Manager testMngr{};
+	//Orientation orient{};
 	//orient.runCamera();
 }
