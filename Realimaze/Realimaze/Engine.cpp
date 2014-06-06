@@ -7,13 +7,89 @@
 #include <stdio.h>      /* printf, scanf, NULL */
 #include <stdlib.h>     /* malloc, free, rand */
 #include <vector>
+#include <Windows.h>
+#include <thread>
 
 using namespace std;
+Engine * eng = nullptr;
+float deltaX = 0, deltaY = 0;
+bool run = false;
+
+void checkCollision(void);
+thread collisionthread(checkCollision);
+
+void checkCollision(void)
+{
+	while (eng == nullptr)
+	{
+		printf("nul-nul\n");
+		Sleep(10);
+	}
+	float x, y;
+	clock_t time1 = clock();
+	clock_t time2 = clock();
+	while (true)
+	{		
+		while ((float) time1 - (float) time2 < CLOCKS_PER_SEC/50)
+		{
+			time1 = clock();
+			Sleep(2);
+		}
+		if (run)
+			continue;
+		int j;//loop index in the end
+		x = eng->centre.x - deltaX;
+		y = eng->centre.y - deltaY;
+		float angleX, angleY, factorX = 0, factorY = 0;
+		//340, 218
+		if (y > 0)//onder 
+		{
+			//24 graden 285
+			factorY = y * ((285 - 218) / 24);
+		}
+		else if (y < 0)//boven	
+		{
+			//29 graden 150
+			factorY -= y * ((218 - 150) / 29);
+		}
+		if (x > 0)//rechts
+		{
+			//35 graden 400
+			factorX = x * ((400 - 340) / 35);
+		}
+		else if (x < 0)//links
+		{
+			//28 graden 280
+			factorX -= x * ((340 - 280) / 28);
+		}
+		angleX = (x * factorX);
+		angleY = (y * factorY);
+		for (j = 0; j < eng->spheres.size(); j++)
+		{
+			printf("angleX, angleY %f,%f\n", angleX, angleY);
+			eng->MoveBall(&angleX, &angleY, &eng->spheres.at(j));
+		}
+		time2 = clock();
+	}
+}
+
 /*
 x, y = position of the centre
 r = radius (voor een finish of gat is het nodig om van te voren de radius hiervan af halen
 vector = a vector in Engine to put the Sphere in (Spheres/holes/finishes)
 */
+Engine::Engine(float x, float y) : centre(x, y)
+{
+	state = 0;
+	eng = this;
+}
+
+Engine::Engine() : centre(340, 218)
+{
+	state = 0;
+	eng = this;
+}
+
 void Engine::addSphere(float x, float y, float r, vector<Sphere> * vector)
 {
 	vector->reserve(1);
@@ -21,43 +97,13 @@ void Engine::addSphere(float x, float y, float r, vector<Sphere> * vector)
 	vector->push_back(c);
 }
 
-void Engine::Step(float deltaX, float deltaY)
+void Engine::Step(float X, float Y)
 {
 	if (state != 0)
 		return;
-	int j;//loop index in the end
-	deltaX -= centre.x;
-	printf("%f\n", centre.x);
-	deltaY -= centre.y;
-	float angleX, angleY, factorX = 0, factorY = 0;		
-	//340, 218
-	if (deltaY > 0)//onder 
-	{
-		//24 graden 285
-		factorY = deltaY * ((285-218)/24);
-	}
-	else if(deltaY < 0)//boven	
-	{
-		//29 graden 150
-		factorY -= deltaY * ((218 - 150) / 29);
-	}
-	if (deltaX > 0)//rechts
-	{
-		//35 graden 400
-		factorX = deltaX * ((400 - 340) / 35);
-	}
-	else if(deltaX < 0)//links
-	{
-		//28 graden 280
-		factorX -= deltaX * ((340 - 280) / 28);
-	}
-	angleX = (deltaX * factorX);
-	angleY = (deltaY * factorY);
-	for (j = 0; j < spheres.size() && state == 0; j++)
-	{
-		printf("angleX, angleY %f,%f\n", angleX, angleY);
-		MoveBall(&angleX, &angleY, &spheres.at(j));
-	}
+	deltaX = X;
+	deltaY = Y;
+	run = true;
 }
 
 //angleX en angleY = de hoek waar het bord over is gedraaid

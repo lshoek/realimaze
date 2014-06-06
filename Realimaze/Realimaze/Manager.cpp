@@ -83,11 +83,10 @@ Manager::Manager() : engine(340, 218)
 	Bas
 	test stuff can be removed
 	*/
-	engine.addSphere(0, 30, 10, &engine.spheres);
+	engine.addSphere(0, 0, 10, &engine.spheres);
 	engine.addLine(0, 40, 80, 0);
 	int i = 0;
-	for (; i < 8; i++)
-		engine.Step(340, 260);
+	engine.Step(338, 218);
 	//test over
 	glEnable(GL_DEPTH_TEST); //Instead of glutInit
 	glutInitWindowSize(SCRN_WIDTH, SCRN_HEIGHT);
