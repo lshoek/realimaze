@@ -3,22 +3,23 @@
 #include <iostream>
 #include <functional>
 #include <glut.h>
+#include <vector>
 #include "Game.h"
 #include "Maze.h"
-#include "Ball.h"
-#include "EnginePhys.h"
 #include "ObjectLoader.h"
 #include "Orientation.h"
 #include "Texture.h"
 #include "globaldefines.h"
+#include "Engine.h"
+#include "Sphere.h"
 
 class Game
 {
 	// begin lesley deel
 	ObjectLoader objloader;
 	Maze maze;
-	EnginePhys enphys;
-	Ball ball;
+	Engine enphys;
+	//Sphere ball;
 	// eind lesley deel
 
 public:
@@ -28,21 +29,27 @@ public:
 	GLfloat x = 0, y = 5, z = 1, yaw = 0, pitch = 0;
 	bool running = false, video_on = false;
 
-	Game(int, int);
-	Game(){};
+	Game(int w, int h);
 	~Game();
+
+
+	int lastFrameTime = 0;
+	double timeFac = 0;
 
 	void launchGame();
 	void endGame();
 	void rotateYaw(float rotation);
 	void rotatePitch(float rotation);
 	void update(float);
-	void draw();
 	void displayImage();
 	void drawStage(GLfloat idx, GLfloat idy, GLfloat idz);
+	void update();
+	void drawSphere(const Sphere * sphere);
+	void draw(const vector<Sphere> spheres);
 	void drawCube(GLfloat idx, GLfloat idy, GLfloat idz, GLfloat rx, GLfloat ry, GLfloat rz);
 	string getVars();
 	bool isRunning();
 	// eind lesley deel
+	void keyHandling(void);
 };
 

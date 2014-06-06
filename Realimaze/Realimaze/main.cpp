@@ -1,12 +1,20 @@
-#include <string>
+#include <stdlib.h>
+#include <glut.h>
+#include <gl/GL.h>
+#define _USE_MATH_DEFINES
+#include <math.h>
+#include <stdio.h> 
 #include <iostream>
+
 #include "Manager.h"
 #include "Orientation.h"
+#include "Line.h"
+#include "Sphere.h"
+#include <time.h>
 
 using namespace std;
 
-//Main function launches the game
-int main()
+int main(int argc, char* argv[])
 {
 	Manager testMngr{};
 	//Orientation orient{};

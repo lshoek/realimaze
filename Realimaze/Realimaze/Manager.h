@@ -5,13 +5,15 @@
 #include <glut.h>
 #include "Game.h"
 #include "globaldefines.h"
+#include "Engine.h"
 
 class Manager
 {
 	public:
 		Manager();
 		~Manager();
-		Game testGame;
+		Game testGame{SCRN_WIDTH, SCRN_HEIGHT};
+		Engine engine;
 		void update();
 		void draw();
 		void drawText(const string, const GLfloat, const GLfloat, const float);

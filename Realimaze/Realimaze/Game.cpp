@@ -4,17 +4,23 @@
 #include <glut.h>
 #include "Game.h"
 #include "Maze.h"
-#include "Ball.h"
-#include "EnginePhys.h"
 #include "ObjectLoader.h"
 #include "Orientation.h"
 #include "Texture.h"
+#include <thread>
+#include <windows.h>
+
 // begin lesley deel
 using namespace std;
 Texture wood_texture{ "resources/wood_texture.jpg" };
+
+void timerTick(void);
+GLfloat x = 0, y = 5, z = 1, rotation = 0;
 int scrnWidth, scrnHeight;
 bool running = false;
 // eind lesley deel
+
+
 
 Game::Game(int w, int h)
 {
@@ -25,8 +31,11 @@ Game::Game(int w, int h)
 	// eind lesley deel
 }
 
+
 Game::~Game()
-{}
+{
+	
+}
 
 void Game::launchGame()
 {
@@ -53,9 +62,14 @@ void Game::update(float tfac)
 	yaw = orientation.getOrientationFactor().xPos * 45.0;
 	pitch = orientation.getOrientationFactor().yPos * 45.0;
 	glutPostRedisplay();
+
+	int time = glutGet(GLUT_ELAPSED_TIME);
+	timeFac = (time - lastFrameTime) / 1000.0;
+	lastFrameTime = time;
+	rotation+=0.05;
 }
 
-void Game::draw()
+void Game::draw(const vector<Sphere> spheres)
 {
 	// begin lesley deel
 	//glViewport(0, 0, scrnWidth, scrnHeight);
@@ -85,8 +99,22 @@ void Game::draw()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
+
 	drawStage(-0.5, 0, -0.5);
 	// eind lesley deel
+
+	//drawStage(-0.5, 0, -0.5, 0, 0, 1);
+
+	int j = 0;
+	for (; j < spheres.size(); j++)
+	{
+		drawSphere(&spheres.at(j));
+
+	}
+}
+
+void Game::drawSphere(const Sphere * sphere)
+{
 }
 
 void Game::displayImage()
