@@ -28,6 +28,7 @@ void keyUp(unsigned char key, int x, int y)
 //Instance of a game. Every game launches a menu first. Stages can be selected from this menu. The menu is left out for the time being.
 Manager::Manager()
 {
+	// begin lesley deel
 	mngr = this;
 	glEnable(GL_DEPTH_TEST); //Instead of glutInit
 	glutInitWindowSize(SCRN_WIDTH, SCRN_HEIGHT);
@@ -65,6 +66,7 @@ Manager::Manager()
 	glutKeyboardUpFunc(&keyUp);
 	testGame.launchGame();
 	glutMainLoop();
+	// eind lesley deel
 }
 
 Manager::~Manager()
@@ -72,6 +74,7 @@ Manager::~Manager()
 
 void Manager::update(void)
 {
+	// begin lesley deel
 	int time = glutGet(GLUT_ELAPSED_TIME);
 	testGame.update((time - lastUpdateTime) / 1000.0);
 	lastUpdateTime = time;
@@ -86,10 +89,12 @@ void Manager::update(void)
 		testGame.rotatePitch(-0.1);
 
 	glutPostRedisplay();
+	// eind lesley deel
 }
 
 void Manager::draw(void)
 {
+	// begin lesley deel
 	if (testGame.isRunning())
 		testGame.draw();
 
@@ -104,10 +109,12 @@ void Manager::draw(void)
 	drawText("realimaze v0.1 augmented reality project", 10, 20, 1.5);
 	drawText(testGame.getVars(), 10, 10, 1);
 	glutSwapBuffers();
+	// eind lesley deel
 }
 
 void Manager::drawText(const string text, const GLfloat x, const GLfloat y, const float scale)
 {
+	// begin lesley deel
 	glBindTexture(GL_TEXTURE_2D, text_texture.getTextureId());
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
@@ -127,10 +134,12 @@ void Manager::drawText(const string text, const GLfloat x, const GLfloat y, cons
 	glColor4f(1, 1, 1, 1);
 	glCallLists(text.length(), GL_UNSIGNED_BYTE, text.c_str());
 	glPopMatrix();
+	// eind lesley deel
 }
 
 void Manager::kDown(unsigned char key, int x, int y)
 {
+	// begin lesley deel
 	switch (key)
 	{
 	case 'w':
@@ -149,10 +158,12 @@ void Manager::kDown(unsigned char key, int x, int y)
 		exit(0);
 		break;
 	}
+	// eind lesley deel
 }
 
 void Manager::kUp(unsigned char key, int x, int y)
 {
+	// begin lesley deel
 	switch (key)
 	{
 	case 'w':
@@ -171,4 +182,5 @@ void Manager::kUp(unsigned char key, int x, int y)
 		exit(0);
 		break;
 	}
+	// eind lesley deel
 }

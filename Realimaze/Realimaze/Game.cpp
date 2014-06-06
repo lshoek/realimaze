@@ -9,19 +9,22 @@
 #include "ObjectLoader.h"
 #include "Orientation.h"
 #include "Texture.h"
-
+// begin lesley deel
 using namespace std;
 
 GLfloat x = 0, y = 5, z = 1;
 Texture wood_texture{ "resources/wood_texture.jpg" };
 int scrnWidth, scrnHeight;
 bool running = false;
+// eind lesley deel
 
 Game::Game(int w, int h)
 {
+	// begin lesley deel
 	rx = 0; ry = 0; rz = 0;
 	scrnWidth = w;
 	scrnHeight = h;
+	// eind lesley deel
 }
 
 Game::~Game()
@@ -54,6 +57,7 @@ void Game::update(float tfac)
 
 void Game::draw()
 {
+	// begin lesley deel
 	glViewport(0, 0, scrnWidth, scrnHeight);
 	glEnable(GL_DEPTH_TEST);
 
@@ -69,10 +73,12 @@ void Game::draw()
 	glLoadIdentity();
 	gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
 	drawStage(-0.5, 0, -0.5);
+	// eind lesley deel
 }
 
 void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
 {
+	// begin lesley deel
 	glPushMatrix();
 	glTranslatef(idx, idy, idz);
 	glTranslatef(0.5f, -0.2f, 0.5f);
@@ -136,13 +142,16 @@ void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
 	glColor3f(1, 1, 1);
 	glEnd();
 	glPopMatrix();
+	// eind lesley deel
 }
 
 string Game::getVars()
 {
+	// begin lesley deel
 	stringstream strs;
 	strs << "rx" << rx << " ry=" << ry << " rz=" << rz << endl;
 	return strs.str();
+	// eind lesley deel
 }
 
 bool Game::isRunning()

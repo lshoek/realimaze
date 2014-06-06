@@ -13,13 +13,16 @@
 
 class Game
 {
+	// begin lesley deel
 	ObjectLoader objloader;
 	Orientation orientation;
 	Maze maze;
 	EnginePhys enphys;
 	Ball ball;
+	// eind lesley deel
 
 public:
+	// begin lesley deel
 	GLfloat rx, ry, rz;
 
 	Game(int w, int h);
@@ -35,5 +38,6 @@ public:
 	void drawCube(GLfloat idx, GLfloat idy, GLfloat idz, GLfloat rx, GLfloat ry, GLfloat rz);
 	string getVars();
 	bool isRunning();
+	// eind lesley deel
 };
 
