@@ -36,39 +36,41 @@ void checkCollision(void)
 			Sleep(2);
 		}
 		if (run)
-			continue;
-		int j;//loop index in the end
-		x = eng->centre.x - deltaX;
-		y = eng->centre.y - deltaY;
-		float angleX, angleY, factorX = 0, factorY = 0;
-		//340, 218
-		if (y > 0)//onder 
 		{
-			//24 graden 285
-			factorY = y * ((285 - 218) / 24);
+			int j;//loop index in the end
+			x = eng->centre.x - deltaX;
+			y = eng->centre.y - deltaY;
+			float angleX, angleY, factorX = 0, factorY = 0;
+			//340, 218
+			if (y > 0)//onder 
+			{
+				//24 graden 285
+				factorY = y * ((285 - 218) / 24);
+			}
+			else if (y < 0)//boven	
+			{
+				//29 graden 150
+				factorY -= y * ((218 - 150) / 29);
+			}
+			if (x > 0)//rechts
+			{
+				//35 graden 400
+				factorX = x * ((400 - 340) / 35);
+			}
+			else if (x < 0)//links
+			{
+				//28 graden 280
+				factorX -= x * ((340 - 280) / 28);
+			}
+			angleX = (x * factorX);
+			angleY = (y * factorY);
+			for (j = 0; j < eng->spheres.size(); j++)
+			{
+				printf("angleX, angleY %f,%f\n", angleX, angleY);
+				eng->MoveBall(&angleX, &angleY, &eng->spheres.at(j));
+			}
 		}
-		else if (y < 0)//boven	
-		{
-			//29 graden 150
-			factorY -= y * ((218 - 150) / 29);
-		}
-		if (x > 0)//rechts
-		{
-			//35 graden 400
-			factorX = x * ((400 - 340) / 35);
-		}
-		else if (x < 0)//links
-		{
-			//28 graden 280
-			factorX -= x * ((340 - 280) / 28);
-		}
-		angleX = (x * factorX);
-		angleY = (y * factorY);
-		for (j = 0; j < eng->spheres.size(); j++)
-		{
-			printf("angleX, angleY %f,%f\n", angleX, angleY);
-			eng->MoveBall(&angleX, &angleY, &eng->spheres.at(j));
-		}
+		run = false;
 		time2 = clock();
 	}
 }
