@@ -22,7 +22,8 @@ Game::Game(int w, int h)
 	rx = 0; ry = 0; rz = 0;
 	scrnWidth = w;
 	scrnHeight = h;
-	objm = new ObjModel("models/maze/maze1.obj");
+	//objm = new ObjModel("models/maze/maze1.obj");
+	objm = new ObjModel("models/holes/mazeWithHoles.obj"); 
 }
 
 Game::~Game()
@@ -87,8 +88,8 @@ void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
 	glRotatef(rz, 0, 0, 1);
 	glRotatef(ry, 0, 1, 0);
 	glTranslatef(-0.5, 0.2f, -0.5);
-	glDisable(GL_TEXTURE_2D);
-	glEnable(GL_COLOR);
+	//glDisable(GL_TEXTURE_2D);
+	//glEnable(GL_COLOR);
 	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
@@ -100,62 +101,7 @@ void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
 	//models.push_back(pair<int, ObjModel*>(100, new ObjModel("models/maze/maze1.obj")));
 	/*
 	glBindTexture(GL_TEXTURE_2D, wood_texture.getTextureId());
-
-	glBegin(GL_QUADS);
-	glColor3f(0, 0, 0);
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, 0.2, 0);
-	glVertex3f(1, 0.2, 0);
-	glVertex3f(1, 0, 0);
-	glColor3f(1, 1, 1);
-	glEnd();
-	
-	glEnable(GL_TEXTURE_2D);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0, 0); glVertex3f(0, 0.2, 0);
-	glTexCoord2f(0, 1); glVertex3f(1, 0.2, 0);
-	glTexCoord2f(1, 1); glVertex3f(1, 0.2, 1);
-	glTexCoord2f(1, 0); glVertex3f(0, 0.2, 1);
-	glEnd();
-	glDisable(GL_TEXTURE_2D);
-
-	glBegin(GL_QUADS);
-	glColor3f(0, 0, 0);
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, 0.2, 0);
-	glVertex3f(0, 0.2, 1);
-	glVertex3f(0, 0, 1);
-	glColor3f(1, 1, 1);
-	glEnd();
-
-	glEnable(GL_TEXTURE_2D);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
-	glTexCoord2f(0, 1); glVertex3f(1, 0, 0);
-	glTexCoord2f(1, 1); glVertex3f(1, 0, 1);
-	glTexCoord2f(1, 0); glVertex3f(0, 0, 1);
-	glEnd();
-	glDisable(GL_TEXTURE_2D);
-
-	glBegin(GL_QUADS);
-	glColor3f(0, 0, 0);
-	glVertex3f(1, 0, 1);
-	glVertex3f(1, 0, 0);
-	glVertex3f(1, 0.2, 0);
-	glVertex3f(1, 0.2, 1);
-	glColor3f(1, 1, 1);
-	glEnd();
-
-	glBegin(GL_QUADS);
-	glColor3f(0, 0, 0);
-	glVertex3f(1, 0, 1);
-	glVertex3f(1, 0.2, 1);
-	glVertex3f(0, 0.2, 1);
-	glVertex3f(0, 0, 1);
-	glColor3f(1, 1, 1);
-	glEnd();
-	glPopMatrix();
-	*/
+*/
 }
 
 string Game::getVars()

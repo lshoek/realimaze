@@ -9,14 +9,16 @@
 
 using namespace std;
 typedef map<char, Glyph>::iterator cgmap;
-unsigned char* image;
+//unsigned char* image;
 const char* filename;
 int* width;
 int* height;
+GLuint image;
 
 Texture::Texture(const string fname)
 {
 	filename = fname.c_str();
+	textureId = 0;
 	stbi_uc* img = stbi_load(filename, &width, &height, NULL, 4);
 	image = img;
 	cout << "> " << filename << " loaded" << endl;

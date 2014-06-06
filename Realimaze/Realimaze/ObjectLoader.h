@@ -5,6 +5,7 @@
 #include <windows.h>
 #include <gl/GL.h>
 #include "Font.h"
+#include "Texture.h"
 
 using namespace std;
 
@@ -65,6 +66,7 @@ private:
 		MaterialInfo();
 		std::string name;
 		bool hasTexture;
+		Texture* texture;
 	};
 
 	class ObjGroup
@@ -83,10 +85,11 @@ private:
 	std::vector<MaterialInfo*> materials;
 
 	void loadMaterialFile(std::string fileName, std::string dirName);
+	
+
 public:
 	ObjModel(std::string filename);
 	~ObjModel(void);
-
 	void draw();
 };
 
