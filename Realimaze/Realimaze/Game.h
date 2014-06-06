@@ -13,7 +13,6 @@
 
 class Game
 {
-	//ObjectLoader objloader;
 	Orientation orientation;
 	Maze maze;
 	EnginePhys enphys;

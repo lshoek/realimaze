@@ -17,6 +17,7 @@ GLfloat x = 0, y = 5, z = 1;
 int scrnWidth, scrnHeight;
 bool running = false;
 ObjModel* objm;
+
 Game::Game(int w, int h)
 {
 	rx = 0; ry = 0; rz = 0;
