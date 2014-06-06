@@ -7,8 +7,6 @@
 #include <windows.h>
 using namespace std;
 
-void timerTick(void);
-
 
 GLfloat x = 0, y = 5, z = 1, rotation = 0;
 int scrnWidth, scrnHeight;
@@ -46,6 +44,9 @@ void Game::update()
 	rotation+=0.05;
 }
 
+/*
+Bas
+*/
 void Game::draw(const vector<Sphere> spheres)
 {
 	glViewport(0, 0, scrnWidth, scrnHeight);
@@ -63,6 +64,7 @@ void Game::draw(const vector<Sphere> spheres)
 	glLoadIdentity();
 	gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
 	drawStage(-0.5, 0, -0.5, 0, 0, 1);
+	//Bas draw all the balls
 	int j = 0;
 	for (; j < spheres.size(); j++)
 	{

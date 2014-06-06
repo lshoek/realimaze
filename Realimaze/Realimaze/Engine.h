@@ -17,7 +17,11 @@ public:
 	int state = 0;//0 = in game, -1 = lost, 1 = won
 	const float RADIUSBALL = 10;
 	Vector2D centre;
-	Engine() : centre(340, 218)
+	Engine(float x, float y) : centre(x, y)
+	{
+		state = 0;
+	}
+	Engine() : centre(-340, 218)
 	{
 		state = 0;
 	}

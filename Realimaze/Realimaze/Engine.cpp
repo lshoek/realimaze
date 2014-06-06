@@ -27,6 +27,7 @@ void Engine::Step(float deltaX, float deltaY)
 		return;
 	int j;//loop index in the end
 	deltaX -= centre.x;
+	printf("%f\n", centre.x);
 	deltaY -= centre.y;
 	float angleX, angleY, factorX = 0, factorY = 0;		
 	//340, 218
