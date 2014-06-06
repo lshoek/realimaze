@@ -7,24 +7,19 @@
 
 #include "Manager.h"
 #include "Game.h"
-<<<<<<< ours
 #include "Font.h"
-=======
 #include "Vector2D.h"
 
->>>>>>> theirs
 using namespace std;
 
 void keyHandling(void);
 void timerTick(void);
 
 Manager* mngr = NULL;
-<<<<<<< ours
 GLuint char_list;
 Texture text_texture{ "resources/classicfnt32.png" };
 bool key_up, key_down, key_left, key_right;
 int lastUpdateTime;
-=======
 bool keys[256];
 thread keyThread(keyHandling);
 thread timer(timerTick);
@@ -60,7 +55,6 @@ void keyHandling(void)
 		Sleep(50);
 	}
 }
->>>>>>> theirs
 
 void idleFunc()
 { mngr->update(); }
@@ -93,7 +87,7 @@ Manager::Manager() : engine()
 	glutInitWindowSize(SCRN_WIDTH, SCRN_HEIGHT);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutCreateWindow("Realimaze");
-<<<<<<< ours
+
 
 	//Construct displaylists
 	Font font{ "resources/classicfnt32.fnt" };
@@ -119,9 +113,6 @@ Manager::Manager() : engine()
 		glEndList();
 	}
 
-=======
-	
->>>>>>> theirs
 	//Register callbacks
 	glutIdleFunc(&idleFunc);
 	glutDisplayFunc(&displayFunc);
@@ -158,9 +149,6 @@ void Manager::update(void)
 
 void Manager::draw(void)
 {
-	if (testGame.isRunning())
-<<<<<<< ours
-		testGame.draw();
 
 	//Orthogonal
 	glMatrixMode(GL_PROJECTION);
@@ -172,8 +160,12 @@ void Manager::draw(void)
 
 	drawText("realimaze v0.1 augmented reality project", 10, 20, 1.5);
 	drawText(testGame.getVars(), 10, 10, 1);
-=======
+
+	if (testGame.isRunning())
+	{
+		//testGame.draw();
 		testGame.draw(engine.spheres);
+	}
 	else
 	{
 		// ORTHOGONAL
@@ -185,7 +177,6 @@ void Manager::draw(void)
 		glLoadIdentity();
 		//draw 2D here (menu)
 	}
->>>>>>> theirs
 	glutSwapBuffers();
 }
 
@@ -213,7 +204,6 @@ void Manager::drawText(const string text, const GLfloat x, const GLfloat y, cons
 }
 
 void Manager::kDown(unsigned char key, int x, int y)
-<<<<<<< ours
 {
 	switch (key)
 	{
@@ -233,15 +223,10 @@ void Manager::kDown(unsigned char key, int x, int y)
 		exit(0);
 		break;
 	}
-}
-=======
-{
 	keys[key] = true;
 }
->>>>>>> theirs
 
 void Manager::kUp(unsigned char key, int x, int y)
-<<<<<<< ours
 {
 	switch (key)
 	{
@@ -261,9 +246,5 @@ void Manager::kUp(unsigned char key, int x, int y)
 		exit(0);
 		break;
 	}
-}
-=======
-{
 	keys[key] = false;
 }
->>>>>>> theirs
