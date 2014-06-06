@@ -10,7 +10,7 @@ using namespace std;
 Manager* mngr = NULL;
 GLuint char_list;
 Texture text_texture{ "resources/classicfnt32.png" };
-bool key_up, key_down, key_left, key_right;
+bool key_up, key_down, key_left, key_right, key_space;
 int lastUpdateTime;
 
 void idleFunc()
@@ -30,7 +30,6 @@ Manager::Manager()
 {
 	// begin lesley deel
 	mngr = this;
-	glEnable(GL_DEPTH_TEST); //Instead of glutInit
 	glutInitWindowSize(SCRN_WIDTH, SCRN_HEIGHT);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutCreateWindow("Realimaze");
@@ -80,13 +79,15 @@ void Manager::update(void)
 	lastUpdateTime = time;
 
 	if (key_up)
-		testGame.rotateYaw(-0.1);
+		testGame.orientation.orientPos.yPos += 0.1;
 	if (key_down)
-		testGame.rotateYaw(0.1);
+		testGame.orientation.orientPos.yPos -= 0.1;
 	if (key_left)
-		testGame.rotatePitch(0.1);
+		testGame.orientation.orientPos.xPos -= 0.1;
 	if (key_right)
-		testGame.rotatePitch(-0.1);
+		testGame.orientation.orientPos.xPos += 0.1;
+	if (key_space)
+		testGame.orientation.centerPos = testGame.orientation.orientPos; //calibrate
 
 	glutPostRedisplay();
 	// eind lesley deel
@@ -98,7 +99,7 @@ void Manager::draw(void)
 	if (testGame.isRunning())
 		testGame.draw();
 
-	//Orthogonal
+	//Orthogonal (additional text)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glDisable(GL_DEPTH_TEST);
@@ -106,8 +107,11 @@ void Manager::draw(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+	drawText("x", testGame.orientation.centerPos.xPos, testGame.orientation.centerPos.yPos, 2);
+	drawText("x", testGame.orientation.orientPos.xPos, testGame.orientation.orientPos.yPos, 1);
 	drawText("realimaze v0.1 augmented reality project", 10, 20, 1.5);
 	drawText(testGame.getVars(), 10, 10, 1);
+
 	glutSwapBuffers();
 	// eind lesley deel
 }
@@ -134,6 +138,8 @@ void Manager::drawText(const string text, const GLfloat x, const GLfloat y, cons
 	glColor4f(1, 1, 1, 1);
 	glCallLists(text.length(), GL_UNSIGNED_BYTE, text.c_str());
 	glPopMatrix();
+	glDisable(GL_BLEND);
+	glDisable(GL_TEXTURE_2D);
 	// eind lesley deel
 }
 
@@ -154,8 +160,14 @@ void Manager::kDown(unsigned char key, int x, int y)
 	case 'd':
 		key_right = true;
 		break;
+	case 32:
+		key_space = true;
+		break;
 	case 27:
 		exit(0);
+		break;
+	case 'x':
+		testGame.video_on = !testGame.video_on;
 		break;
 	}
 	// eind lesley deel
@@ -177,6 +189,9 @@ void Manager::kUp(unsigned char key, int x, int y)
 		break;
 	case 'd':
 		key_right = false;
+		break;
+	case 32:
+		key_space = false;
 		break;
 	case 27:
 		exit(0);

@@ -98,6 +98,7 @@
   <ItemGroup>
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Font.h" />
+    <ClInclude Include="globaldefines.h" />
     <ClInclude Include="Glyph.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Maze.h" />

@@ -86,5 +86,8 @@
     <ClInclude Include="Glyph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="globaldefines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

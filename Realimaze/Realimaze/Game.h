@@ -10,12 +10,12 @@
 #include "ObjectLoader.h"
 #include "Orientation.h"
 #include "Texture.h"
+#include "globaldefines.h"
 
 class Game
 {
 	// begin lesley deel
 	ObjectLoader objloader;
-	Orientation orientation;
 	Maze maze;
 	EnginePhys enphys;
 	Ball ball;
@@ -24,8 +24,12 @@ class Game
 public:
 	// begin lesley deel
 	GLfloat rx, ry, rz;
+	Orientation orientation;
+	GLfloat x = 0, y = 5, z = 1, yaw = 0, pitch = 0;
+	bool running = false, video_on = false;
 
-	Game(int w, int h);
+	Game(int, int);
+	Game(){};
 	~Game();
 
 	void launchGame();
@@ -34,6 +38,7 @@ public:
 	void rotatePitch(float rotation);
 	void update(float);
 	void draw();
+	void displayImage();
 	void drawStage(GLfloat idx, GLfloat idy, GLfloat idz);
 	void drawCube(GLfloat idx, GLfloat idy, GLfloat idz, GLfloat rx, GLfloat ry, GLfloat rz);
 	string getVars();

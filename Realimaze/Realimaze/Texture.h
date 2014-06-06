@@ -7,6 +7,7 @@
 #include "stb_image.h"
 #include "Texture.h"
 #include "Font.h"
+#include "Orientation.h"
 
 using namespace std;
 
@@ -21,8 +22,10 @@ private:
 
 public:
 	Font font;
-	Texture(const string fname);
+	Texture(string fname);
+	Texture(IplImage *img);
 	~Texture();
+	void ConvertIplToTexture(IplImage *image);
 	GLuint getTextureId();
 };
 

@@ -17,20 +17,9 @@ SimpleBlobDetector simple(params);
 vector<KeyPoint>keypoints;
 Point p;
 
-Orientation* orient = NULL;
-
-void modifyImage()
-{	orient->modifyImage();}
-void runCamera()
-{	orient->runCamera();}
-Point getMiddlePointLocation();
-Mat getVideoImage();
-//{	orient->getVideoImage();}
 
 Orientation::Orientation()
 {
-	orient = this;
-	
 	params.minArea = 10;
 	params.maxArea = 25;
 	params.filterByArea = true;
@@ -38,30 +27,37 @@ Orientation::Orientation()
 	params.filterByColor = true;
 
 	p = Point(0, 0);
-
-	runCamera();
 }
 
 Orientation::~Orientation()
 {
 }
 
-void Orientation::runCamera(void)
+PosF Orientation::getOrientationFactor()
 {
-	cap.open(1); // 1 is secundary camera
-
-	namedWindow("BigImage", CV_WINDOW_FULLSCREEN);
-	namedWindow("Window", 1); // creates the window to dispalay the image
-	
-	// while loop to keep modifying the image
-	while (1)
-	{
-		modifyImage();
-	}
+	PosF ofactor;
+	if (orientPos.xPos > centerPos.xPos)
+		ofactor.xPos = ((orientPos.xPos - centerPos.xPos) / boundary)*-1;
+	else
+		ofactor.xPos = ((centerPos.xPos - orientPos.xPos) / boundary);
+	if (orientPos.yPos > centerPos.yPos)
+		ofactor.yPos = ((orientPos.yPos - centerPos.yPos) / boundary)*-1;
+	else
+		ofactor.yPos = ((centerPos.yPos - orientPos.yPos) / boundary);
+	return ofactor;
 }
 
-void Orientation::modifyImage(void)
+string Orientation::getVars()
 {
+	stringstream strs;
+	strs << "centerP(" << centerPos.xPos << ", " << centerPos.yPos << "), orientP(" << orientPos.xPos << ", " << orientPos.yPos << ")" << endl;
+	return strs.str();
+}
+
+void Orientation::modifyImage()
+{
+	cap.open(2);
+
 	cap >> image; // copies the data from cap to the image to be modified
 
 	flip(image, image, 1); // mirrors the image
@@ -78,7 +74,6 @@ void Orientation::modifyImage(void)
 		//cout << "The location of the blob is: X " << key.pt.x << " Y " << key.pt.y << " + size: " << key.size << endl;
 		if (key.size < 15)
 		{
-			cout << "The location of the blob is: X " << key.pt.x << " Y " << key.pt.y << " + size: " << key.size << endl;
 			p = Point(key.pt.x, key.pt.y);
 		}
 	}
@@ -87,6 +82,8 @@ void Orientation::modifyImage(void)
 	{
 		imshow("Window", image);
 		imshow("BigImage", standardImage);
+		//imshow("Window", image);
+		//imshow("BigImage", standardImage);
 		waitKey(33);
 	}
 }
@@ -96,7 +93,13 @@ Mat getVideoImage()
 	return standardImage;
 }
 
-Point getMiddlePointLocation()
+IplImage* Orientation::getVideoImage()
+{
+	IplImage* imgP = cvCloneImage(&(IplImage)image);
+	return imgP;
+}
+
+Point Orientation::getMiddlePointLocation()
 {
 	return p;
 }

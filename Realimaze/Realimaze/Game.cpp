@@ -11,8 +11,6 @@
 #include "Texture.h"
 // begin lesley deel
 using namespace std;
-
-GLfloat x = 0, y = 5, z = 1;
 Texture wood_texture{ "resources/wood_texture.jpg" };
 int scrnWidth, scrnHeight;
 bool running = false;
@@ -42,38 +40,71 @@ void Game::endGame()
 
 void Game::rotateYaw(float rotation)
 {
-	rx += rotation;
+	yaw += rotation;
 }
 
 void Game::rotatePitch(float rotation)
 {
-	rz += rotation;
+	pitch += rotation;
 }
 
 void Game::update(float tfac)
 {
+	yaw = orientation.getOrientationFactor().xPos * 45.0;
+	pitch = orientation.getOrientationFactor().yPos * 45.0;
 	glutPostRedisplay();
 }
 
 void Game::draw()
 {
 	// begin lesley deel
-	glViewport(0, 0, scrnWidth, scrnHeight);
+	//glViewport(0, 0, scrnWidth, scrnHeight);
 	glEnable(GL_DEPTH_TEST);
 
+	glViewport(0, 0, SCRN_WIDTH, SCRN_HEIGHT);
 	glClearColor(1, 1, 1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	if (video_on)
+	{
+		//ORTHOGONAL
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glDisable(GL_DEPTH_TEST);
+		glOrtho(0, SCRN_WIDTH, 0, SCRN_HEIGHT, -1, 200);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		displayImage();
+	}
 
 	// PERSPECTIVE
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(20, scrnWidth / (float)scrnHeight, 1, 1000);
-
+	glEnable(GL_DEPTH_TEST);
+	gluPerspective(20, SCRN_WIDTH / (float)SCRN_HEIGHT, 1, 1000);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
 	drawStage(-0.5, 0, -0.5);
 	// eind lesley deel
+}
+
+void Game::displayImage()
+{
+	orientation.modifyImage();
+	Texture img{ orientation.getVideoImage() };
+	glBindTexture(GL_TEXTURE_2D, img.getTextureId());
+	glEnable(GL_TEXTURE_2D);
+
+	glPushMatrix();
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 0);		glVertex2f(0, 0);
+	glTexCoord2f(0, 1.0);	glVertex2f(0, SCRN_HEIGHT);
+	glTexCoord2f(1.0, 1.0); glVertex2f(SCRN_WIDTH, SCRN_HEIGHT);
+	glTexCoord2f(1.0, 0);	glVertex2f(SCRN_WIDTH, 0);
+	glEnd();
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
 }
 
 void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
@@ -82,11 +113,12 @@ void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
 	glPushMatrix();
 	glTranslatef(idx, idy, idz);
 	glTranslatef(0.5f, -0.2f, 0.5f);
-	glRotatef(rx, 1, 0, 0);
-	glRotatef(rz, 0, 0, 1);
+	glRotatef(pitch, 1, 0, 0);
+	glRotatef(yaw, 0, 0, 1);
 	glTranslatef(-0.5, 0.2f, -0.5);
 
 	glBindTexture(GL_TEXTURE_2D, wood_texture.getTextureId());
+	glEnable(GL_TEXTURE_2D);
 
 	glBegin(GL_QUADS);
 	glColor3f(0, 0, 0);
@@ -148,8 +180,11 @@ void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
 string Game::getVars()
 {
 	// begin lesley deel
+	string video_state;
+	if (video_on) video_state = "ON"; else video_state = "OFF";
+
 	stringstream strs;
-	strs << "rx" << rx << " ry=" << ry << " rz=" << rz << endl;
+	strs << "VIDEO=" << video_state << " pitchX=" << pitch << " yawZ=" << yaw << endl;
 	return strs.str();
 	// eind lesley deel
 }
