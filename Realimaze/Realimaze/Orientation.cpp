@@ -56,7 +56,7 @@ string Orientation::getVars()
 
 void Orientation::modifyImage()
 {
-	cap.open(2);
+	cap.open(1);
 
 	cap >> image; // copies the data from cap to the image to be modified
 
@@ -81,7 +81,7 @@ void Orientation::modifyImage()
 	if (!image.empty())
 	{
 		imshow("Window", image);
-		imshow("BigImage", standardImage);
+		//imshow("BigImage", standardImage);
 		//imshow("Window", image);
 		//imshow("BigImage", standardImage);
 		waitKey(33);

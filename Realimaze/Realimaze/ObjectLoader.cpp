@@ -95,11 +95,11 @@ ObjModel::ObjModel(std::string fileName)
 		params[0] = toLower(params[0]);
 
 		if (params[0] == "v")
-			vertices.push_back(Vec3f((float)atof(params[1].c_str()), (float)atof(params[2].c_str()), (float)atof(params[3].c_str())));
+			vertices.push_back(::Vec3f((float)atof(params[1].c_str()), (float)atof(params[2].c_str()), (float)atof(params[3].c_str())));
 		else if (params[0] == "vn")
-			normals.push_back(Vec3f((float)atof(params[1].c_str()), (float)atof(params[2].c_str()), (float)atof(params[3].c_str())));
+			normals.push_back(::Vec3f((float)atof(params[1].c_str()), (float)atof(params[2].c_str()), (float)atof(params[3].c_str())));
 		else if (params[0] == "vt")
-			texcoords.push_back(Vec2f((float)atof(params[1].c_str()), (float)atof(params[2].c_str())));
+			texcoords.push_back(::Vec2f((float)atof(params[1].c_str()), (float)atof(params[2].c_str())));
 		else if (params[0] == "f")
 		{
 			for (size_t ii = 4; ii <= params.size(); ii++)
@@ -169,8 +169,13 @@ void ObjModel::draw()
 	for (auto group : groups)
 	{
 		if (materials[group->materialIndex]->hasTexture)
-		{ //loadMaterialFile(materials[group->materialIndex]->name,group->);
-			//glBindTexture(0, loadMaterialFile());
+		{
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, materials[group->materialIndex]->texture->getTextureId());
+		}
+		else
+		{
+			glDisable(GL_TEXTURE_2D);
 		}
 
 		glBegin(GL_TRIANGLES);
@@ -193,6 +198,7 @@ void ObjModel::draw()
 				glTexCoord2f(texcoords[vertex.texcoord].x, texcoords[vertex.texcoord].y);
 				glVertex3f(vertices[vertex.position].x, vertices[vertex.position].y, vertices[vertex.position].z);
 			}
+		
 		}
 		glEnd();
 	}
@@ -231,8 +237,6 @@ void ObjModel::draw()
 	}
 
 	}*/
-
-	glEnd();
 }
 
 void ObjModel::loadMaterialFile(std::string fileName, std::string dirName)
@@ -274,11 +278,16 @@ void ObjModel::loadMaterialFile(std::string fileName, std::string dirName)
 			currentMaterial = new MaterialInfo();
 			currentMaterial->name = params[1];
 		}
+		/*else if (params[0] == "ka")
+		{
+			currentMaterial->ka = params[1]
+		}*/
+
 		else if (params[0] == "map_kd")
 		{
 			currentMaterial->hasTexture = true;
 
-			//currentMaterial->texture = new Texture(dirName + "/" + params[1]);
+			currentMaterial->texture = new Texture(dirName + "/" + params[1]);
 		}
 		else
 			cout << "Didn't parse " << params[0] << " in material file" << endl;
@@ -287,56 +296,71 @@ void ObjModel::loadMaterialFile(std::string fileName, std::string dirName)
 		materials.push_back(currentMaterial);
 
 }
-
+/*
+void ObjModel::getColorRGBA(aiColor3D *pColor)
+{
+	        ai_assert(NULL != pColor);
+	
+		        float r, g, b;
+		        m_DataIt = getFloat<DataArrayIt>(m_DataIt, m_DataItEnd, r);
+		        pColor->r = r;
+	
+			        m_DataIt = getFloat<DataArrayIt>(m_DataIt, m_DataItEnd, g);
+		        pColor->g = g;
+	
+			        m_DataIt = getFloat<DataArrayIt>(m_DataIt, m_DataItEnd, b);
+		        pColor->b = b;
+		}
+*/
 ObjModel::MaterialInfo::MaterialInfo()
 {
 	hasTexture = false;
 }
 
 
-Vec3f::Vec3f(float x, float y, float z)
+::Vec3f::Vec3f(float x, float y, float z)
 {
 	this->x = x;
 	this->y = y;
 	this->z = z;
 }
-Vec3f::Vec3f()
+::Vec3f::Vec3f()
 {
 	this->x = 0;
 	this->y = 0;
 	this->z = 0;
 }
-Vec3f::Vec3f(Vec3f &other)
+::Vec3f::Vec3f(Vec3f &other)
 {
 	this->x = other.x;
 	this->y = other.y;
 	this->z = other.z;
 }
 
-float& Vec3f::operator [](int index)
+float& ::Vec3f::operator [](int index)
 {
 	return v[index];
 }
 
 
 
-Vec2f::Vec2f(float x, float y)
+::Vec2f::Vec2f(float x, float y)
 {
 	this->x = x;
 	this->y = y;
 }
-Vec2f::Vec2f()
+::Vec2f::Vec2f()
 {
 	this->x = 0;
 	this->y = 0;
 }
-Vec2f::Vec2f(Vec2f &other)
+::Vec2f::Vec2f(Vec2f &other)
 {
 	this->x = other.x;
 	this->y = other.y;
 }
 
-float& Vec2f::operator [](int index)
+float& ::Vec2f::operator [](int index)
 {
 	return v[index];
 }

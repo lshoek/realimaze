@@ -29,9 +29,7 @@ Game::Game(int w, int h)
 	scrnHeight = h;
 
 	// eind lesley deel
-
-	objm = new ObjModel("models/maze/maze1.obj");
-
+	objm = new ObjModel("models/holes/mazeWithHoles.obj"); 
 }
 
 
@@ -164,8 +162,8 @@ void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
 	glRotatef(ry, 0, 1, 0);
 
 	glTranslatef(-0.5, 0.2f, -0.5);
-	glDisable(GL_TEXTURE_2D);
-	glEnable(GL_COLOR);
+	//glDisable(GL_TEXTURE_2D);
+	//glEnable(GL_COLOR);
 	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
@@ -175,6 +173,9 @@ void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
 
 	glPopMatrix();
 	//models.push_back(pair<int, ObjModel*>(100, new ObjModel("models/maze/maze1.obj")));
+	/*
+	glBindTexture(GL_TEXTURE_2D, wood_texture.getTextureId());
+*/
 }
 
 string Game::getVars()
