@@ -156,10 +156,6 @@ void Manager::update(void)
 		testGame.orientation.orientPos.xPos += 0.1;
 	if (key_space)
 		testGame.orientation.centerPos = testGame.orientation.orientPos; //calibrate
-	if (key_front)
-		testGame.rotateAngle(-1);
-	if (key_back)
-		testGame.rotateAngle(1);
 	glutPostRedisplay();
 	// eind lesley deel
 }
@@ -174,10 +170,10 @@ void Manager::draw(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	drawText("x", testGame.orientation.centerPos.xPos, testGame.orientation.centerPos.yPos, 2);
-	drawText("x", testGame.orientation.orientPos.xPos, testGame.orientation.orientPos.yPos, 1);
-	drawText("realimaze v0.1 augmented reality project", 10, 20, 1.5);
-	drawText(testGame.getVars(), 10, 10, 1);
+	//drawText("x", testGame.orientation.centerPos.xPos, testGame.orientation.centerPos.yPos, 2);
+	//drawText("x", testGame.orientation.orientPos.xPos, testGame.orientation.orientPos.yPos, 1);
+	//drawText("realimaze v0.1 augmented reality project", 10, 20, 1.5);
+	//drawText(testGame.getVars(), 10, 10, 1);
 
 	// begin lesley deel
 	if (testGame.isRunning())
@@ -185,17 +181,19 @@ void Manager::draw(void)
 		//testGame.draw();
 		testGame.draw(engine.spheres);
 	}
-	else
-	{
-		// ORTHOGONAL
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glDisable(GL_DEPTH_TEST);
-		glOrtho(0, SCRN_WIDTH, 0, SCRN_HEIGHT, -1, 200);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		//draw 2D here (menu)
-	}
+
+	// ORTHOGONAL
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glDisable(GL_DEPTH_TEST);
+	glOrtho(0, SCRN_WIDTH, 0, SCRN_HEIGHT, -1, 200);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	drawText("x", testGame.orientation.centerPos.xPos, testGame.orientation.centerPos.yPos, 2);
+	drawText("x", testGame.orientation.orientPos.xPos, testGame.orientation.orientPos.yPos, 1);
+	drawText("realimaze v0.1 augmented reality project", 10, 20, 1.5);
+	drawText(testGame.getVars(), 10, 10, 1);
 	glutSwapBuffers();
 	// eind lesley deel
 }

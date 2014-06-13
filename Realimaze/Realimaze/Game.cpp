@@ -17,7 +17,7 @@
 using namespace std;
 
 void timerTick(void);
-GLfloat x = 0, y = 5, z = 1, rotation = 0;
+GLfloat x = 10, y = 5, z = 1, rotation = 0;
 int scrnWidth, scrnHeight;
 bool running = false;
 void openCV(void);
@@ -28,7 +28,6 @@ ObjModel* objm;
 Game::Game(int w, int h)
 {
 	// begin lesley deel
-	rx = 0; ry = 0; rz = 0;
 	scrnWidth = w;
 	scrnHeight = h;
 
@@ -63,15 +62,10 @@ void Game::rotatePitch(float rotation)
 	pitch += rotation;
 }
 
-void Game::rotateAngle(float rotation)
-{
-	ry += rotation;
-}
-
 void Game::update(float tfac)
 {
-	yaw = orientation.getOrientationFactor().xPos * 45.0;
-	pitch = orientation.getOrientationFactor().yPos * 45.0;
+	yaw = orientation.getOrientationFactor().xPos * MAX_ROTATION;
+	pitch = orientation.getOrientationFactor().yPos * MAX_ROTATION;
 	glutPostRedisplay();
 
 	int time = glutGet(GLUT_ELAPSED_TIME);
@@ -105,36 +99,17 @@ void Game::draw(const vector<Sphere> spheres)
 	// PERSPECTIVE
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-
-	/*glEnable(GL_DEPTH_TEST);
-	gluPerspective(20, SCRN_WIDTH / (float)SCRN_HEIGHT, 1, 1000);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
-<<<<<<< HEAD
-
-	drawStage(-0.5, 0, -0.5);
-	//drawStage(-0.5, 0, -0.5, 0, 0, 1);
-=======
-	*/
-
 	gluPerspective(70, scrnWidth / (float)scrnHeight, 1, 1000);
-
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(x, 70, 140, 0, 0, 0, 0, 1, 0);
+	gluLookAt(x, 80, 140, 0, 0, 0, 0, 1, 0);
 
-	drawStage(-0.5, 0, -0.5);
+	drawStage(0, 10.0, 0);
 	// eind lesley deel
-
-	//drawStage(-0.5, 0, -0.5, 0, 0, 1);
 
 	int j = 0;
 	for (; j < spheres.size(); j++)
-	{
 		drawSphere(&spheres.at(j));
-
-	}
 }
 
 void Game::drawSphere(const Sphere * sphere)
@@ -173,15 +148,12 @@ void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
 	// begin lesley deel
 	glPushMatrix();
 	glTranslatef(idx, idy, idz);
-	glTranslatef(0.5f, -0.2f, 0.5f);
 
 	glRotatef(pitch+60, 1, 0, 0);
 	glRotatef(yaw, 0, 0, 1);
-	glRotatef(ry, 0, 1, 0);
 
-	glTranslatef(-0.5, 0.2f, -0.5);
-	//glDisable(GL_TEXTURE_2D);
-	//glEnable(GL_COLOR);
+	glTranslatef(-1*idx, -1*idy, -1*idz);
+	glScalef(0.95, 0.95, 0.95);
 	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);

@@ -25,7 +25,7 @@ public:
 class Orientation
 {
 public:
-	PosF orientPos{ SCRN_WIDTH / 2, SCRN_HEIGHT / 2 }, centerPos{ SCRN_WIDTH / 2, SCRN_HEIGHT / 2 };
+	PosF orientPos{ SCRN_WIDTH / 2, SCRN_HEIGHT / 2 }, centerPos{ 53, 70 };
 	float boundary = 100;
 
 	Orientation();
