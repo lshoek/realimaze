@@ -16,7 +16,6 @@ SimpleBlobDetector::Params params; // parameter for the Simpleblobdetector, to m
 SimpleBlobDetector simple;
 vector<KeyPoint>keypoints;
 Point p;
-IplImage* subImage;
 
 
 Orientation::Orientation()
@@ -74,7 +73,7 @@ void Orientation::modifyImage()
 
 	for each (KeyPoint key in keypoints)
 	{
-		cout << "blob: X " << key.pt.x << " Y " << key.pt.y << " + size: " << key.size << " center: X " << centerPos.xPos << " Y " << centerPos.yPos << endl;
+		//cout << "blob: X " << key.pt.x << " Y " << key.pt.y << " + size: " << key.size << " center: X " << centerPos.xPos << " Y " << centerPos.yPos << endl;
 		if (key.size < 15)
 		{
 			p = Point(key.pt.x, key.pt.y);
@@ -91,7 +90,6 @@ void Orientation::modifyImage()
 		//imshow("BigImage", standardImage);
 		waitKey(33);
 	}
-	delete subImage;
 }
 
 Mat getVideoImage()
