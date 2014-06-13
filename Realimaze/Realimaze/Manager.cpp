@@ -49,10 +49,13 @@ void keyHandling(void)
 {
 	while (true)
 	{
+		if (keys['d'])
+		{
+			if (&mngr->engine != nullptr)
+			mngr->engine.Step(345, 223);
+		}
 		if (keys[27])//esc
 		{			
-			mngr->testGame.~Game();
-			mngr -> ~Manager();
 			exit(0);
 		}
 		Sleep(50);

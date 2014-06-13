@@ -38,8 +38,8 @@ void checkCollision(void)
 		if (run)
 		{
 			int j;//loop index in the end
-			x = eng->centre.x - deltaX;
-			y = eng->centre.y - deltaY;
+			x = deltaX - eng->centre.x;
+			y = deltaY - eng->centre.y;
 			float angleX, angleY, factorX = 0, factorY = 0;
 			//340, 218
 			if (y > 0)//onder 
@@ -101,6 +101,8 @@ void Engine::addSphere(float x, float y, float r, vector<Sphere> * vector)
 
 void Engine::Step(float X, float Y)
 {
+	if (eng == nullptr)
+		eng = this;
 	if (state != 0)
 		return;
 	deltaX = X;
