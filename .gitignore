@@ -48,3 +48,7 @@ _ReSharper*/
 *.opensdf
 *.sdf
 *.vcxproj
+*.filters
+
+*.dll
+
