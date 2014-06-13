@@ -6,7 +6,6 @@
 #include <vector>
 #include "Game.h"
 #include "Maze.h"
-#include "ObjectLoader.h"
 #include "Orientation.h"
 #include "Texture.h"
 #include "globaldefines.h"
@@ -16,6 +15,7 @@
 class Game
 {
 	// begin lesley deel
+	//Orientation orientation;
 	Maze maze;
 	Engine enphys;
 	//Sphere ball;

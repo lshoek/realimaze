@@ -29,6 +29,9 @@ thread keyThread(keyHandling);
 thread timer(timerTick);
 float timerTime = 0;
 
+/*Bas
+ingame timer
+*/
 void timerTick(void)
 {	
 	while (true)
@@ -37,6 +40,8 @@ void timerTick(void)
 		while (mngr == nullptr)
 		{
 		}
+		if (mngr->engine.state == 0)
+			timerTime = 0;
 		while (mngr->engine.state == 0)
 		{
 			t = clock();
@@ -56,6 +61,14 @@ void keyHandling(void)
 		{
 			mngr->testGame.~Game();
 			mngr -> ~Manager();
+		}
+		if (keys['d'])
+		{
+			if (&mngr->engine != nullptr)
+			mngr->engine.Step(345, 223);
+		}
+		if (keys[27])//esc
+		{			
 			exit(0);
 		}
 		Sleep(50);
@@ -75,10 +88,11 @@ void keyUp(unsigned char key, int x, int y)
 { mngr->kUp(key, x, y); }
 
 //Instance of a game. Every game launches a menu first. Stages can be selected from this menu. The menu is left out for the time being.
-Manager::Manager() : engine()
+Manager::Manager() : engine(340, 218)
 {
 	// begin lesley deel
 	mngr = this;
+
 	cout << "first" << endl;
 	glutInitWindowSize(SCRN_WIDTH, SCRN_HEIGHT);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -112,10 +126,9 @@ Manager::Manager() : engine()
 	cout << "third" << endl;
 
 	engine.addSphere(0, 0, 10, &engine.spheres);
-	engine.addLine(0, 40, 80, 0);
+	//engine.addLine(0, 40, 80, 0);
 	int i = 0;
-	for (; i < 8; i++)
-		engine.Step(340, 260);
+	//test over
 	glEnable(GL_DEPTH_TEST); //Instead of glutInit
 
 	cout << "fourth" << endl;
@@ -132,6 +145,9 @@ Manager::Manager() : engine()
 	cout << "fifth" << endl;
 }
 
+/*
+Made by Bas
+*/
 Manager::~Manager()
 {	
 	keyThread.join();
