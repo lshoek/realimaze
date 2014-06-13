@@ -44,9 +44,9 @@ PosF Orientation::getOrientationFactor()
 	else
 		ofactor.xPos = ((centerPos.xPos - orientPos.xPos) / boundary);
 	if (orientPos.yPos > centerPos.yPos)
-		ofactor.yPos = ((orientPos.yPos - centerPos.yPos) / boundary)*-1;
+		ofactor.yPos = ((orientPos.yPos - centerPos.yPos) / boundary);
 	else
-		ofactor.yPos = ((centerPos.yPos - orientPos.yPos) / boundary);
+		ofactor.yPos = ((centerPos.yPos - orientPos.yPos) / boundary)*-1;
 	return ofactor;
 }
 
@@ -70,25 +70,28 @@ void Orientation::modifyImage()
 	simple.detect(subMatImage, keypoints);
 
 	// shows the blobs over the original image on screen
-	drawKeypoints(image, keypoints, image, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+	//drawKeypoints(image, keypoints, image, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
 
 	for each (KeyPoint key in keypoints)
 	{
-		cout << "The location of the blob is: X " << key.pt.x << " Y " << key.pt.y << " + size: " << key.size << endl;
+		cout << "blob: X " << key.pt.x << " Y " << key.pt.y << " + size: " << key.size << " center: X " << centerPos.xPos << " Y " << centerPos.yPos << endl;
 		if (key.size < 15)
 		{
 			p = Point(key.pt.x, key.pt.y);
+			orientPos.xPos = key.pt.x;
+			orientPos.yPos = key.pt.y;
 		}
 	}
 
 	if (!image.empty())
 	{
-		imshow("Window", image);
+		//imshow("Window", image);
 		//imshow("BigImage", standardImage);
 		//imshow("Window", image);
 		//imshow("BigImage", standardImage);
 		waitKey(33);
 	}
+	delete subImage;
 }
 
 Mat getVideoImage()

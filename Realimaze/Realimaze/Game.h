@@ -25,11 +25,11 @@ public:
 	int lastFrameTime = 0;
 	double timeFac = 0;
 	// begin lesley deel
+	const float MAX_ROTATION = 35.0;
 	Engine engine;
 	Orientation orientation;
-	GLfloat rx, ry, rz;
 	GLfloat x = 0, y = 5, z = 1, yaw = 0, pitch = 0;
-	bool running = false, video_on = false;
+	bool running = false, video_on = true;
 
 	Game(int w, int h);
 	~Game();
@@ -39,7 +39,6 @@ public:
 
 	void rotateYaw(float rotation);
 	void rotatePitch(float rotation);
-	void rotateAngle(float rotation);
 	void update(float);
 
 	void displayImage();
