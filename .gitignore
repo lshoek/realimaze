@@ -48,3 +48,10 @@ _ReSharper*/
 *.opensdf
 *.sdf
 *.vcxproj
+*.filters
+
+*.dll
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/bas

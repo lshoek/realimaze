@@ -11,11 +11,12 @@ using namespace cv;
 using namespace std;
 
 Mat image, standardImage, subMatImage;
-VideoCapture cap(1);
+VideoCapture cap(0);
 SimpleBlobDetector::Params params; // parameter for the Simpleblobdetector, to make sure only the squares are modified
 SimpleBlobDetector simple;
 vector<KeyPoint>keypoints;
 Point p;
+IplImage* imgP;
 
 
 Orientation::Orientation()
@@ -86,8 +87,6 @@ void Orientation::modifyImage()
 	{
 		//imshow("Window", image);
 		//imshow("BigImage", standardImage);
-		//imshow("Window", image);
-		//imshow("BigImage", standardImage);
 		waitKey(33);
 	}
 }
@@ -99,11 +98,16 @@ Mat getVideoImage()
 
 IplImage* Orientation::getVideoImage()
 {
-	IplImage* imgP = cvCloneImage(&(IplImage)image);
+	imgP = cvCloneImage(&(IplImage)image);
 	return imgP;
 }
 
 Point Orientation::getMiddlePointLocation()
 {
 	return p;
+}
+
+void Orientation::releaseImageData()
+{
+	cvReleaseImage(&imgP);
 }

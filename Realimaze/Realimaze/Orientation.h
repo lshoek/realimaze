@@ -35,4 +35,5 @@ public:
 	void modifyImage();
 	IplImage* getVideoImage();
 	Point getMiddlePointLocation();
+	void releaseImageData();
 };

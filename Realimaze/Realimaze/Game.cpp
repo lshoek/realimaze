@@ -18,6 +18,9 @@ using namespace std;
 
 void timerTick(void);
 GLfloat x = 10, y = 5, z = 1, rotation = 0;
+
+//GLfloat x = 0, y = 5, z = 1, rotation = 0;
+
 int scrnWidth, scrnHeight;
 bool running = false;
 void openCV(void);
@@ -74,6 +77,9 @@ void Game::update(float tfac)
 	rotation+=0.05;
 }
 
+/*
+Bas
+*/
 void Game::draw(const vector<Sphere> spheres)
 {
 	// begin lesley deel
@@ -107,6 +113,10 @@ void Game::draw(const vector<Sphere> spheres)
 	drawStage(0, 10.0, 0);
 	// eind lesley deel
 
+	//gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
+	//drawStage(-0.5, 0, -0.5, 0, 0, 1);
+	//Bas draw all the balls
+
 	int j = 0;
 	for (; j < spheres.size(); j++)
 		drawSphere(&spheres.at(j));
@@ -114,6 +124,12 @@ void Game::draw(const vector<Sphere> spheres)
 
 void Game::drawSphere(const Sphere * sphere)
 {
+	glPushMatrix();
+	glColor3f(0, 0, 1);
+	//glTranslatef(sphere->position.x/300, 600, sphere->position.y/300);
+	glTranslatef(0, 500, 0);
+	glutSolidSphere(0.1, 50 ,50);
+	glPopMatrix();
 }
 
 void Game::openCV(void)
@@ -126,6 +142,7 @@ void Game::openCV(void)
 
 void Game::displayImage()
 {
+	waitKey(1000);
 	orientation.modifyImage();
 	Texture img{ orientation.getVideoImage() };
 	engine.Step(orientation.getMiddlePointLocation().x, orientation.getMiddlePointLocation().y);
@@ -141,6 +158,7 @@ void Game::displayImage()
 	glEnd();
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
+	orientation.releaseImageData();
 }
 
 void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)

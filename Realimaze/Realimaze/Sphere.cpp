@@ -68,6 +68,5 @@ bool Sphere::intersectLine(const Line * line) const
 			intersect = true;
 		break;
 	}
-	//printf("%d", intersect);
 	return intersect;
 }
