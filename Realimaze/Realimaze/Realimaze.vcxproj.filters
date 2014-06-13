@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+<<<<<<< HEAD
     <ClCompile Include="Ball.cpp">
+=======
+    <ClCompile Include="main.cpp">
+>>>>>>> 049e92e240d19e0478774a610c3466a214f3ad38
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
@@ -14,11 +18,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Glyph.cpp">
+<<<<<<< HEAD
+=======
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Line.cpp">
+>>>>>>> 049e92e240d19e0478774a610c3466a214f3ad38
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Line.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -38,11 +49,30 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stb_image.c">
+=======
+    <ClCompile Include="ObjectLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
+    <ClCompile Include="Orientation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3D.cpp">
+>>>>>>> 049e92e240d19e0478774a610c3466a214f3ad38
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Maze.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Vector2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -50,10 +80,14 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EnginePhys.cpp">
+=======
+    <ClCompile Include="Texture.cpp">
+>>>>>>> 049e92e240d19e0478774a610c3466a214f3ad38
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClInclude Include="Ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -61,11 +95,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Font.h">
+=======
+    <ClInclude Include="Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Glyph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Line.h">
+>>>>>>> 049e92e240d19e0478774a610c3466a214f3ad38
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Glyph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -88,12 +135,40 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stb_image.h">
+=======
+    <ClInclude Include="Orientation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vector2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+>>>>>>> 049e92e240d19e0478774a610c3466a214f3ad38
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="Vector2D.h">
+=======
+    <ClInclude Include="Vector3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="globaldefines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+>>>>>>> 049e92e240d19e0478774a610c3466a214f3ad38
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vector3D.h">
@@ -112,6 +187,17 @@
     </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{29b6ef92-583d-46ab-a34a-71aa98d9b41a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{565c2f32-bdcb-4f2d-907c-970783e4db49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{dc1bb0a8-5975-4ff5-ba8f-05d1f7f19fc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{59b212d9-e3b9-4d7a-a170-dcbf4553de3e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

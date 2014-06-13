@@ -5,7 +5,6 @@
 #include <math.h>
 #include <stdio.h> 
 #include <iostream>
-
 #include "Manager.h"
 #include "Orientation.h"
 
@@ -13,12 +12,13 @@
 #include "Sphere.h"
 #include <time.h>
 
-
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-	//Manager testMngr{};
-	Orientation orient{};
+	cout << "bleh" << endl;
+	Manager testMngr{};
+	//Orientation orient{};
 	//orient.runCamera();
+	return 0;
 }

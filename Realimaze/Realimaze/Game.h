@@ -9,21 +9,27 @@
 #include "ObjectLoader.h"
 #include "Orientation.h"
 #include "Texture.h"
+#include "globaldefines.h"
 #include "Engine.h"
 #include "Sphere.h"
 
 class Game
 {
-	ObjectLoader objloader;
-	Orientation orientation;
+	// begin lesley deel
 	Maze maze;
-	Engine engine;
+	Engine enphys;
+	//Sphere ball;
+	// eind lesley deel
 
 public:
-	GLfloat rx, ry, rz;
-
 	int lastFrameTime = 0;
 	double timeFac = 0;
+	// begin lesley deel
+	Engine engine;
+	Orientation orientation;
+	GLfloat rx, ry, rz;
+	GLfloat x = 0, y = 5, z = 1, yaw = 0, pitch = 0;
+	bool running = false, video_on = false;
 
 	Game(int w, int h);
 	~Game();
@@ -33,15 +39,19 @@ public:
 
 	void rotateYaw(float rotation);
 	void rotatePitch(float rotation);
+	void rotateAngle(float rotation);
 	void update(float);
-	void drawStage(GLfloat idx, GLfloat idy, GLfloat idz);
 
+	void displayImage();
+	void drawStage(GLfloat idx, GLfloat idy, GLfloat idz);
+	void update();
 	void drawSphere(const Sphere * sphere);
 	void draw(const vector<Sphere> spheres);
-
 	void drawCube(GLfloat idx, GLfloat idy, GLfloat idz, GLfloat rx, GLfloat ry, GLfloat rz);
 	string getVars();
 	bool isRunning();
+	// eind lesley deel
 	void keyHandling(void);
+	void openCV(void);
 };
 
