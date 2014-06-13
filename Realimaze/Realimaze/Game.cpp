@@ -126,7 +126,8 @@ void Game::drawSphere(const Sphere * sphere)
 {
 	glPushMatrix();
 	glColor3f(0, 0, 1);
-	glTranslatef(sphere->position.x/300, 0, sphere->position.y/300);
+	//glTranslatef(sphere->position.x/300, 600, sphere->position.y/300);
+	glTranslatef(0, 500, 0);
 	glutSolidSphere(0.1, 50 ,50);
 	glPopMatrix();
 }
@@ -141,6 +142,7 @@ void Game::openCV(void)
 
 void Game::displayImage()
 {
+	waitKey(1000);
 	orientation.modifyImage();
 	Texture img{ orientation.getVideoImage() };
 	engine.Step(orientation.getMiddlePointLocation().x, orientation.getMiddlePointLocation().y);
@@ -156,6 +158,7 @@ void Game::displayImage()
 	glEnd();
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
+	orientation.releaseImageData();
 }
 
 void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
