@@ -65,7 +65,7 @@ void Orientation::modifyImage()
 
 	//resize(image, standardImage, image.size() * 2, 0.5, 0.5, 1);
 
-	subMatImage = image(Rect(270, 170, 150, 150));
+	subMatImage = image(Rect(220, 150, 120, 120));
 
 	simple.detect(subMatImage, keypoints);
 
