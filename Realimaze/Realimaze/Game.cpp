@@ -77,7 +77,7 @@ void Game::drawSphere(const Sphere * sphere)
 {
 	glPushMatrix();
 	glColor3f(0, 0, 1);
-	glTranslatef(sphere->position.x, 0, sphere->position.y);
+	glTranslatef(sphere->position.x/300, 0, sphere->position.y/300);
 	glutSolidSphere(0.1, 50 ,50);
 	glPopMatrix();
 }
