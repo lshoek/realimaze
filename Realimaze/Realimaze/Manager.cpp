@@ -83,7 +83,7 @@ Manager::Manager() : engine(340, 218)
 	test stuff can be removed
 	*/
 	engine.addSphere(0, 0, 10, &engine.spheres);
-	engine.addLine(0, 40, 80, 0);
+	//engine.addLine(0, 40, 80, 0);
 	int i = 0;
 	//test over
 	glEnable(GL_DEPTH_TEST); //Instead of glutInit
