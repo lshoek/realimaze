@@ -1,5 +1,4 @@
-#ifndef ENGINE
-#define ENGINE
+#pragma once
 
 #include "Sphere.h"
 #include <vector>
@@ -26,7 +25,5 @@ public:
 	void addSphere(float x, float y, float r, vector<Sphere> * vector);
 	void MoveBall(float * angleX, float * angleY, Sphere * sphere);
 	void Step(float deltaX, float deltaY);
+	//void AddLinesFromFaces(const vector<Vec3f> * vectors);
 };
-
-
-#endif

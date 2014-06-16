@@ -1,5 +1,4 @@
-#ifndef SPHERE
-#define SPHERE
+#pragma once
 
 #include "Shape.h"
 #include "Line.h"
@@ -16,6 +15,7 @@ public:
 	bool intersectSphere(const Sphere * sphere) const;
 	bool Sphere::intersectLine(const Line * line) const;
 
+	Sphere();
 	Sphere(float x, float y, float r) : position(x, y), distanceRolled(0, 0)
 	{
 		this->radius = r;
@@ -25,7 +25,3 @@ public:
 
 	}
 };
-
-
-
-#endif
