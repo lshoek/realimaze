@@ -3,6 +3,7 @@
 #include "Sphere.h"
 #include "Vector2D.h"
 #include "globaldefines.h"
+#include "ObjectLoader.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <stdio.h>      /* printf, scanf, NULL */
@@ -171,4 +172,7 @@ void Engine::addLine(float x1, float y1, float x2, float y2)
 	lines.push_back(l);
 }
 
+//void Engine::AddLinesFromFaces(const vector<::Vec3f> * vectors)
+//{
 
+//}

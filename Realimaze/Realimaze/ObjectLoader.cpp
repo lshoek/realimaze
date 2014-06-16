@@ -364,3 +364,39 @@ float& ::Vec2f::operator [](int index)
 {
 	return v[index];
 }
+
+void ObjModel::addWalls(Engine * engine)
+{
+	float lowPoint = 0;
+	for (auto group : groups)
+	{
+		for (auto face : group->faces)
+		{
+			if (face.vertices.size() == 3)
+			{
+				int i = 0;
+				::Vec3f vectors[3];
+				for (auto vector : face.vertices)
+				{
+					vectors[i] = vertices.at(vector.position);
+					i++;
+				}
+				//0 en 1
+				//1 en 2
+				//0 en 2
+				if (vectors[0].y != lowPoint && vectors[1].y != lowPoint)
+				{
+					engine->addLine(vectors[0].x, vectors[0].z, vectors[1].x, vectors[1].z);
+				}
+				if (vectors[1].y != lowPoint && vectors[2].y != lowPoint)
+				{
+					engine->addLine(vectors[1].x, vectors[1].z, vectors[2].x, vectors[2].z);
+				}
+				if (vectors[0].y != lowPoint && vectors[2].y != lowPoint)
+				{
+					engine->addLine(vectors[0].x, vectors[0].z, vectors[2].x, vectors[2].z);
+				}
+			}
+		}
+	}	
+}

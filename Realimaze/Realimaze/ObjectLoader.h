@@ -4,6 +4,7 @@
 #include <gl/GL.h>
 #include "Font.h"
 #include "Texture.h"
+#include "Engine.h"
 
 using namespace std;
 
@@ -79,13 +80,15 @@ private:
 	vector<::Vec3f>	vertices;
 	vector<::Vec3f>	normals;
 	vector<::Vec2f>	texcoords;
-	vector<ObjGroup*> groups;
+	
 	vector<MaterialInfo*> materials;
 
 	void loadMaterialFile(std::string fileName, std::string dirName);
 	
 
 public:
+	vector<ObjGroup*> groups;
+	void addWalls(Engine * engine);
 	ObjModel(std::string filename);
 	~ObjModel(void);
 	void draw();

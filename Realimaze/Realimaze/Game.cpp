@@ -37,6 +37,8 @@ Game::Game(int w, int h)
 
 	// eind lesley deel
 	objm = new ObjModel("models/holes/mazeWithHoles.obj"); 
+	objm -> addWalls(&engine);
+	
 	engine.ortn = &orientation;
 }
 

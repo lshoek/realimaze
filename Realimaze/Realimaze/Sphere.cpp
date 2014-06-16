@@ -50,6 +50,7 @@ bool Sphere::intersectLine(const Line * line) const
 		if (-1 * pow(b, 2) - 2 * b*c*m - pow(c, 2)*pow(m, 2) + 2 * c*d*m - pow(d, 2) + pow(m, 2)*pow(radius, 2) + pow(radius, 2) > 0)
 		{
 			intersect = true;
+			printf("zet hier een break point");
 		}
 	case 2:
 		if (position.y + radius >= line->b && position.y - radius < line->b)
