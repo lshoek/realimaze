@@ -65,7 +65,7 @@ void keyHandling(void)
 		if (keys['d'])
 		{
 			if (&mngr->engine != nullptr)
-			mngr->engine.Step(345, 223);
+			mngr->engine.Step();
 		}
 		if (keys[27])//esc
 		{			
@@ -88,7 +88,7 @@ void keyUp(unsigned char key, int x, int y)
 { mngr->kUp(key, x, y); }
 
 //Instance of a game. Every game launches a menu first. Stages can be selected from this menu. The menu is left out for the time being.
-Manager::Manager() : engine(340, 218)
+Manager::Manager() : engine()
 {
 	// begin lesley deel
 	mngr = this;

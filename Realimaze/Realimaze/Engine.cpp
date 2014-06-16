@@ -2,6 +2,7 @@
 #include "Line.h"
 #include "Sphere.h"
 #include "Vector2D.h"
+#include "globaldefines.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <stdio.h>      /* printf, scanf, NULL */
@@ -12,7 +13,6 @@
 
 using namespace std;
 Engine * eng = nullptr;
-float deltaX = 0, deltaY = 0;
 bool run = false;
 
 void checkCollision(void);
@@ -26,6 +26,10 @@ void checkCollision(void)
 		printf("nul-nul\n");
 		Sleep(10);
 	}
+	while (eng->ortn == nullptr)
+	{
+		Sleep(10);
+	}
 	float x, y;
 	clock_t time1 = clock();
 	clock_t time2 = clock();
@@ -34,41 +38,35 @@ void checkCollision(void)
 		while ((float) time1 - (float) time2 < CLOCKS_PER_SEC/50)
 		{
 			time1 = clock();
-			Sleep(2);
+			Sleep(1);
 		}
 		if (run)
 		{
+			PosF pos = eng -> ortn -> getOrientationFactor();
 			int j;//loop index in the end
-			x = deltaX - eng->centre.x;
-			y = deltaY - eng->centre.y;
-			float angleX, angleY, factorX = 0, factorY = 0;
-			//340, 218
+			x = pos.xPos;
+			y = pos.yPos;
+			float factorX = 0, factorY = 0;
 			if (y > 0)//onder 
 			{
-				//24 graden 285
-				factorY = y * ((285 - 218) / 24);
+				factorY = y * MAX_ROTATION;
 			}
 			else if (y < 0)//boven	
 			{
-				//29 graden 150
-				factorY -= y * ((218 - 150) / 29);
+				factorY -= y * MAX_ROTATION;
 			}
 			if (x > 0)//rechts
 			{
-				//35 graden 400
-				factorX = x * ((400 - 340) / 35);
+				factorX = x * MAX_ROTATION;
 			}
 			else if (x < 0)//links
 			{
-				//28 graden 280
-				factorX -= x * ((340 - 280) / 28);
+				factorX -= x * MAX_ROTATION;
 			}
-			angleX = (x * factorX);
-			angleY = (y * factorY);
 			for (j = 0; j < eng->spheres.size(); j++)
 			{
-				printf("angleX, angleY %f,%f\n", angleX, angleY);
-				eng->MoveBall(&angleX, &angleY, &eng->spheres.at(j));
+				printf("angleX, angleY %f,%f\n", factorX, factorY);
+				eng->MoveBall(&factorX, &factorY, &eng->spheres.at(j));
 			}
 		}
 		run = false;
@@ -81,13 +79,7 @@ x, y = position of the centre
 r = radius (voor een finish of gat is het nodig om van te voren de radius hiervan af halen
 vector = a vector in Engine to put the Sphere in (Spheres/holes/finishes)
 */
-Engine::Engine(float x, float y) : centre(x, y)
-{
-	state = 0;
-	eng = this;
-}
-
-Engine::Engine() : centre(340, 218)
+Engine::Engine()
 {
 	state = 0;
 	eng = this;
@@ -100,14 +92,12 @@ void Engine::addSphere(float x, float y, float r, vector<Sphere> * vector)
 	vector->push_back(c);
 }
 
-void Engine::Step(float X, float Y)
+void Engine::Step(void)
 {
 	if (eng == nullptr)
 		eng = this;
 	if (state != 0)
 		return;
-	deltaX = X;
-	deltaY = Y;
 	run = true;
 }
 

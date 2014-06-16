@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "Maze.h"
 #include "ObjectLoader.h"
+#include "globaldefines.h"
 #include "Orientation.h"
 #include "Texture.h"
 #include <thread>
@@ -36,6 +37,7 @@ Game::Game(int w, int h)
 
 	// eind lesley deel
 	objm = new ObjModel("models/holes/mazeWithHoles.obj"); 
+	engine.ortn = &orientation;
 }
 
 
@@ -145,7 +147,7 @@ void Game::displayImage()
 	waitKey(1000);
 	orientation.modifyImage();
 	Texture img{ orientation.getVideoImage() };
-	engine.Step(orientation.getMiddlePointLocation().x, orientation.getMiddlePointLocation().y);
+	engine.Step();
 	glBindTexture(GL_TEXTURE_2D, img.getTextureId());
 	glEnable(GL_TEXTURE_2D);
 
