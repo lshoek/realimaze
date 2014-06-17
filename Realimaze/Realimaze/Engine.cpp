@@ -137,9 +137,12 @@ void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 	vToMove = vToMove + sphere -> distanceRolled; // local vector initialized in this function
 	vToMove = vToMove * 0.8;
 	//vToMove.Rotate(direction);
-	sphere -> translate(vToMove);
+	Vector2D vx = vToMove;
+	vx.y = 0;
+	sphere -> translate(vx);
 	sphere -> distanceRolled = vToMove;
-	bool roll = true;
+	bool rollx = true;
+	bool rolly = true;
 
 	//check for the endpoint
 	int j;
@@ -147,7 +150,7 @@ void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 	{
 		if (sphere->intersectSphere(&finishes.at(j)))
 		{
-			roll = false;
+			rollx = false;
 			state = 1;
 		}
 	}
@@ -156,7 +159,7 @@ void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 	{
 		if (sphere->intersectSphere(&spheres.at(j))) // checks if the sphere intersects with a sphere? :o
 		{
-			roll = false;
+			rollx = false;
 			state = -1;
 		}
 	}
@@ -164,14 +167,56 @@ void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 	for (j = 0; j < lines.size(); j++)
 	{
 		if (sphere->intersectLine(&lines.at(j))) // checks for intersections with a wall
-			roll = false;
-		if (!roll)
-			printf("staat stil kut!\n");
+			rollx = false;
 	}
-	if (!roll)
+	sphere->translate(vx * -1);
+	
+	Vector2D vy = vToMove;
+	vy.x = 0;
+	sphere->translate(vy);
+
+	//check for the endpoint
+	for (j = 0; j < finishes.size(); j++) // finishes = vector<Sphere> (not sure why needed)
 	{
-		sphere->translate(vToMove * -1);
-		sphere->distanceRolled.x = 0;
+		if (sphere->intersectSphere(&finishes.at(j)))
+		{
+			rolly = false;
+			state = 1;
+		}
+	}
+	//check for holes 
+	for (j = 0; j < holes.size(); j++) // holes = vector<Sphere> (vector with the holes in it)
+	{
+		if (sphere->intersectSphere(&spheres.at(j))) // checks if the sphere intersects with a sphere? :o
+		{
+			rolly = false;
+			state = -1;
+		}
+	}
+	//check for walls
+	for (j = 0; j < lines.size(); j++)
+	{
+		if (sphere->intersectLine(&lines.at(j))) // checks for intersections with a wall
+			rolly = false;
+	}
+	sphere->translate(vy * -1);
+
+
+	if (rollx && rolly)
+	{
+		sphere->translate(vToMove);
+	}
+	else if (!rollx && rolly)
+	{
+		sphere->translate(vy);
+		sphere->distanceRolled.y = 0;
+	}
+	else if (rollx && !rolly)
+	{
+		Vector2D v = vToMove;
+		v.y *= -1;
+		v.x = 0;
+		sphere->translate(vx);
 		sphere->distanceRolled.y = 0;
 	}
 	printf("positie:%f,%f, distance rolled %f,%f\n", sphere->position.x, sphere->position.y, sphere->distanceRolled.x, sphere->distanceRolled.y);
