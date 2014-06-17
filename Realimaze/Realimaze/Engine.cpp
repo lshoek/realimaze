@@ -147,11 +147,11 @@ void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 	bool rollx = true;
 	bool rolly = true;
 
-	if (sphere->position.x <= 110 && sphere->position.x >= -110)
+	if (!(sphere->position.x <= 110 && sphere->position.x >= -110))
 	{
 		rollx = false;
 	}
-	else if (sphere->position.y <= 75 && sphere->position.y >= -75)
+	else if (!(sphere->position.y <= 75 && sphere->position.y >= -75))
 	{
 		rolly = false;
 	}
