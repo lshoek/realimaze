@@ -163,7 +163,9 @@ void Manager::update(void)
 	if (key_right)
 		testGame.orientation.orientPos.xPos += 0.1;
 	if (key_space)
+	{
 		testGame.orientation.centerPos = testGame.orientation.orientPos; //calibrate
+	}
 	glutPostRedisplay();
 	// eind lesley deel
 
@@ -251,6 +253,13 @@ void Manager::kDown(unsigned char key, int x, int y)
 		break;
 	case 'x':
 		testGame.video_on = !testGame.video_on;
+		for (auto sphere : engine.spheres)
+		{
+			sphere.position.x = 0;
+			sphere.position.y = 0;
+			sphere.distanceRolled.x = 0;
+			sphere.distanceRolled.y = 0;
+		}
 		break;
 	}
 	// eind lesley deel

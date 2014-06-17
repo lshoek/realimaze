@@ -212,24 +212,17 @@ void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 			rolly = false;
 	}
 	sphere->translate(vy * -1);
-
-
-	if (rollx && rolly)
+	sphere->translate(vToMove);
+	sphere->distanceRolled = vToMove;
+	if (!rollx)
 	{
-		sphere->translate(vToMove);
+		sphere->distanceRolled.x = 0;
+		sphere->position.x -= vToMove.x;
 	}
-	else
+	if (!rolly)
 	{
-		if (rolly)
-		{
-			sphere->translate(vy);
-			sphere->distanceRolled.y = 0;
-		}
-		if (rollx)
-		{
-			sphere->translate(vx);
-			sphere->distanceRolled.x = 0;
-		}
+		sphere->distanceRolled.y = 0;
+		sphere->position.y -= vToMove.y;
 	}
 	printf("positie:%f,%f, distance rolled %f,%f\n", sphere->position.x, sphere->position.y, sphere->distanceRolled.x, sphere->distanceRolled.y);
 }
