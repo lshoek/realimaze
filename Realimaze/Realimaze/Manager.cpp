@@ -94,8 +94,9 @@ Manager::Manager() : engine(340, 218)
 	mngr = this;
 
 	cout << "first" << endl;
-	glutInitWindowSize(SCRN_WIDTH, SCRN_HEIGHT);
+	glutInitWindowSize(SCRN_WIDTH_FULL, SCRN_HEIGHT_FULL);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+	//SetWindowPos(HWND_TOPMOST, HWND_TOPMOST, 0, 0, 1280, 960, SWP_SHOWWINDOW);
 	glutCreateWindow("Realimaze");
 
 	cout << "second" << endl;
@@ -125,9 +126,8 @@ Manager::Manager() : engine(340, 218)
 	}
 	cout << "third" << endl;
 
-	engine.addSphere(0, 0, 10, &engine.spheres);
+	engine.addSphere(0, 0, 3, &engine.spheres);
 	//engine.addLine(0, 40, 80, 0);
-	int i = 0;
 	//test over
 	glEnable(GL_DEPTH_TEST); //Instead of glutInit
 
@@ -174,23 +174,11 @@ void Manager::update(void)
 		testGame.orientation.centerPos = testGame.orientation.orientPos; //calibrate
 	glutPostRedisplay();
 	// eind lesley deel
+
 }
 
 void Manager::draw(void)
 {
-	//Orthogonal (additional text)
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glDisable(GL_DEPTH_TEST);
-	glOrtho(0, SCRN_WIDTH, 0, SCRN_HEIGHT, -1, 200);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	//drawText("x", testGame.orientation.centerPos.xPos, testGame.orientation.centerPos.yPos, 2);
-	//drawText("x", testGame.orientation.orientPos.xPos, testGame.orientation.orientPos.yPos, 1);
-	//drawText("realimaze v0.1 augmented reality project", 10, 20, 1.5);
-	//drawText(testGame.getVars(), 10, 10, 1);
-
 	// begin lesley deel
 	if (testGame.isRunning())
 	{
@@ -202,7 +190,7 @@ void Manager::draw(void)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glDisable(GL_DEPTH_TEST);
-	glOrtho(0, SCRN_WIDTH, 0, SCRN_HEIGHT, -1, 200);
+	glOrtho(0, SCRN_WIDTH_FULL, 0, SCRN_HEIGHT_FULL, -1, 200);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 

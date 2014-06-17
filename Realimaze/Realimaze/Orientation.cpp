@@ -11,7 +11,7 @@ using namespace cv;
 using namespace std;
 
 Mat image, standardImage, subMatImage;
-VideoCapture cap(0);
+VideoCapture cap(1);
 SimpleBlobDetector::Params params; // parameter for the Simpleblobdetector, to make sure only the squares are modified
 SimpleBlobDetector simple;
 vector<KeyPoint>keypoints;
@@ -74,7 +74,7 @@ void Orientation::modifyImage()
 
 	for each (KeyPoint key in keypoints)
 	{
-		cout << "blob: X " << key.pt.x << " Y " << key.pt.y << " + size: " << key.size << " center: X " << centerPos.xPos << " Y " << centerPos.yPos << endl;
+		//cout << "blob: X " << key.pt.x << " Y " << key.pt.y << " + size: " << key.size << " center: X " << centerPos.xPos << " Y " << centerPos.yPos << endl;
 		if (key.size < 15)
 		{
 			p = Point(key.pt.x, key.pt.y);
