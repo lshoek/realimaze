@@ -46,10 +46,15 @@ bool Sphere::intersectLine(const Line * line) const
 		c = position.x;
 		m = line->a;
 		d = position.y;
-		//x1 = (sqrt(-1 * pow(b, 2) - 2 * b*c*m - pow(c, 2)*pow(m, 2) + 2 * c*d*m - pow(d, 2) + pow(m, 2)*pow(radius, 2) + pow(radius, 2)) - b*m + c + d + m) / (pow(m, 2) + 1);
-		if (-1 * pow(b, 2) - 2 * b*c*m - pow(c, 2)*pow(m, 2) + 2 * c*d*m - pow(d, 2) + pow(m, 2)*pow(radius, 2) + pow(radius, 2) > 0)
+		//x1 =  (sqrt(-1 * pow(b, 2) - 2 * b*c*m - pow(c, 2)*pow(m, 2) + 2 * c*d*m - pow(d, 2) + pow(m, 2)*pow(radius, 2) + pow(radius, 2)) - b*m + c + d + m) / (pow(m, 2) + 1);
+		//x2 = (-sqrt(-1 * pow(b, 2) - 2 * b*c*m - pow(c, 2)*pow(m, 2) + 2 * c*d*m - pow(d, 2) + pow(m, 2)*pow(radius, 2) + pow(radius, 2)) - b*m + c + d + m) / (pow(m, 2) + 1); 
+		float rootX = -1 * pow(b, 2) - 2 * b*c*m - pow(c, 2)*pow(m, 2) + 2 * c*d*m - pow(d, 2) + pow(m, 2)*pow(radius, 2) + pow(radius, 2);
+		if (rootX >= 0)
 		{
-			intersect = true;
+			x1 = (sqrt(rootX) - b*m + c + d + m) / (pow(m, 2) + 1);
+			x2 = (-1 * sqrt(rootX) - b*m + c + d + m) / (pow(m, 2) + 1);
+			if ((x1 > line->start.x && x1 < line->end.x) || (x2 > line->start.x && x2 < line->end.x))
+				intersect = true;
 			printf("zet hier een break point");
 		}
 	case 2:

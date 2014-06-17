@@ -39,7 +39,6 @@ Game::Game(int w, int h)
 	objm = new ObjModel("models/Normalmaze.obj");
 	objm->addWalls(&engine);
 
-	engine.ortn = &orientation;
 }
 
 
@@ -76,7 +75,7 @@ void Game::update(float tfac)
 	cout << "The amount of yaw is: " << yaw << " The amount of pitch is: " << pitch << endl;
 	glutPostRedisplay();
 
-	engine.Step();
+	engine.Step(orientation.getOrientationFactor().xPos,orientation.getOrientationFactor().yPos);
 
 	int time = glutGet(GLUT_ELAPSED_TIME);
 	timeFac = (time - lastFrameTime) / 1000.0;

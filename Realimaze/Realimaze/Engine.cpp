@@ -29,10 +29,6 @@ void checkCollision(void)
 		printf("nul-nul\n");
 		Sleep(10);
 	}
-	while (eng->ortn == nullptr)
-	{
-		Sleep(10);
-	}
 	float x, y;
 	clock_t time1 = clock();
 	clock_t time2 = clock();
@@ -45,11 +41,7 @@ void checkCollision(void)
 		}
 		if (run)
 		{
-			PosF pos = eng -> ortn -> getOrientationFactor();
 			int j;//loop index in the end
-			x = pos.xPos;
-			y = pos.yPos;
-			float factorX = 0, factorY = 0;
 			/*if (y > 0)//onder 
 			{
 				factorY = y * MAX_ROTATION;
@@ -86,8 +78,6 @@ void checkCollision(void)
 			pitch = deltaY * MAX_ROTATION;
 			yaw = deltaX * -MAX_ROTATION;
 
-			/*angleX = (x * factorX); 
-			angleY = (y * factorY);*/
 			for (j = 0; j < eng->spheres.size(); j++) // collects all spheres, only one in the game though
 			{
 				printf("angleX, angleY %f,%f\n", yaw, pitch); // prints the data from the sphere
@@ -120,10 +110,12 @@ void Engine::addSphere(float x, float y, float r, vector<Sphere> * vector)
 	vector->push_back(c);
 }
 
-void Engine::Step()
+void Engine::Step(float x, float y)
 {
 	if (eng == nullptr)
 		eng = this;
+	deltaX = x;
+	deltaY = y;
 	if (state != 0)
 		return;
 	run = true;

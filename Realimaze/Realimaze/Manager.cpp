@@ -60,15 +60,7 @@ void keyHandling(void)
 		if (keys[27])//esc
 		{
 			mngr->testGame.~Game();
-			mngr -> ~Manager();
-		}
-		if (keys['d'])
-		{
-			if (&mngr->engine != nullptr)
-			mngr->engine.Step();
-		}
-		if (keys[27])//esc
-		{			
+			mngr -> ~Manager();		
 			exit(0);
 		}
 		Sleep(50);
