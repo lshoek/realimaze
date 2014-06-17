@@ -6,11 +6,11 @@
 
 void Sphere::translate(Vector2D offset)
 {
-	position = position + offset;
+	position = position + offset; // x and y of sphere
 }
 
 /*
-checks wether this sphere intersect another circle
+checks whether this sphere intersect another circle
 */
 bool Sphere::intersectSphere(const Sphere * sphere) const
 {
@@ -24,7 +24,7 @@ bool Sphere::intersectSphere(const Sphere * sphere) const
 }
 
 /*
-checks wether this sphere intersect another line
+checks whether this sphere intersect another line
 */
 bool Sphere::intersectLine(const Line * line) const
 {

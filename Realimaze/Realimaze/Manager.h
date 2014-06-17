@@ -12,7 +12,7 @@ class Manager
 	public:
 		Manager();
 		~Manager();
-		Game testGame{SCRN_WIDTH, SCRN_HEIGHT};
+		Game testGame{SCRN_WIDTH_FULL, SCRN_HEIGHT_FULL};
 		Engine engine;
 		void update();
 		void draw();

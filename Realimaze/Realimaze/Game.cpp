@@ -35,10 +35,10 @@ Game::Game(int w, int h)
 	scrnWidth = w;
 	scrnHeight = h;
 
-	// eind lesley deel
-	objm = new ObjModel("models/holes/mazeWithHoles.obj"); 
-	objm -> addWalls(&engine);
-	
+	//objm = new ObjModel("models/holes/mazeWithHoles.obj"); 
+	objm = new ObjModel("models/Normalmaze.obj");
+	objm->addWalls(&engine);
+
 	engine.ortn = &orientation;
 }
 
@@ -71,9 +71,12 @@ void Game::rotatePitch(float rotation)
 
 void Game::update(float tfac)
 {
-	yaw = orientation.getOrientationFactor().xPos * MAX_ROTATION;
-	pitch = orientation.getOrientationFactor().yPos * MAX_ROTATION;
+	yaw = orientation.getOrientationFactor().xPos * MAX_ROTATION; // left to right
+	pitch = orientation.getOrientationFactor().yPos * MAX_ROTATION; // top to bottom
+	cout << "The amount of yaw is: " << yaw << " The amount of pitch is: " << pitch << endl;
 	glutPostRedisplay();
+
+	engine.Step();
 
 	int time = glutGet(GLUT_ELAPSED_TIME);
 	timeFac = (time - lastFrameTime) / 1000.0;
@@ -90,7 +93,7 @@ void Game::draw(const vector<Sphere> spheres)
 	//glViewport(0, 0, scrnWidth, scrnHeight);
 	glEnable(GL_DEPTH_TEST);
 
-	glViewport(0, 0, SCRN_WIDTH, SCRN_HEIGHT);
+	glViewport(0, 0, SCRN_WIDTH_FULL, SCRN_HEIGHT_FULL);
 	glClearColor(0.6f, 0.6f, 0.9f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -100,7 +103,7 @@ void Game::draw(const vector<Sphere> spheres)
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glDisable(GL_DEPTH_TEST);
-		glOrtho(0, SCRN_WIDTH, 0, SCRN_HEIGHT, -1, 200);
+		glOrtho(0, SCRN_WIDTH_FULL, 0, SCRN_HEIGHT_FULL, -1, 200);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		displayImage();
@@ -114,25 +117,23 @@ void Game::draw(const vector<Sphere> spheres)
 	glLoadIdentity();
 	gluLookAt(x, 80, 140, 0, 0, 0, 0, 1, 0);
 
-	drawStage(0, 10.0, 0);
+	drawStage(0, 10.0, 0, spheres);
 	// eind lesley deel
 
 	//gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
 	//drawStage(-0.5, 0, -0.5, 0, 0, 1);
 	//Bas draw all the balls
 
-	int j = 0;
-	for (; j < spheres.size(); j++)
-		drawSphere(&spheres.at(j));
+
 }
 
 void Game::drawSphere(const Sphere * sphere)
 {
 	glPushMatrix();
 	glColor3f(0, 0, 1);
-	//glTranslatef(sphere->position.x/300, 600, sphere->position.y/300);
-	glTranslatef(0, 500, 0);
-	glutSolidSphere(0.1, 50 ,50);
+	glTranslatef(sphere->position.x, 5, sphere->position.y);
+	//glTranslatef(0, 500, 0);
+	glutSolidSphere(sphere->radius, 50 ,50);
 	glPopMatrix();
 }
 
@@ -149,23 +150,23 @@ void Game::displayImage()
 	waitKey(1000);
 	orientation.modifyImage();
 	Texture img{ orientation.getVideoImage() };
-	engine.Step();
+
 	glBindTexture(GL_TEXTURE_2D, img.getTextureId());
 	glEnable(GL_TEXTURE_2D);
 
 	glPushMatrix();
 	glBegin(GL_QUADS);
 	glTexCoord2f(0, 0);		glVertex2f(0, 0);
-	glTexCoord2f(0, 1.0);	glVertex2f(0, SCRN_HEIGHT);
-	glTexCoord2f(1.0, 1.0); glVertex2f(SCRN_WIDTH, SCRN_HEIGHT);
-	glTexCoord2f(1.0, 0);	glVertex2f(SCRN_WIDTH, 0);
+	glTexCoord2f(0, 1.0);	glVertex2f(0, SCRN_HEIGHT_FULL);
+	glTexCoord2f(1.0, 1.0); glVertex2f(SCRN_WIDTH_FULL, SCRN_HEIGHT_FULL);
+	glTexCoord2f(1.0, 0);	glVertex2f(SCRN_WIDTH_FULL, 0);
 	glEnd();
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
 	orientation.releaseImageData();
 }
 
-void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
+void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz,const vector<Sphere> spheres)
 {
 	// begin lesley deel
 	glPushMatrix();
@@ -175,13 +176,19 @@ void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz)
 	glRotatef(yaw, 0, 0, 1);
 
 	glTranslatef(-1*idx, -1*idy, -1*idz);
-	glScalef(0.95, 0.95, 0.95);
+	glScalef(1.3, 1.3, 1.3);
 	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 
 	objm->draw();
+
+	glRotatef(pitch, 1, 0, 0);
+
+	int j = 0;
+	for (; j < spheres.size(); j++)
+		drawSphere(&spheres[j]);
 
 	glPopMatrix();
 	//models.push_back(pair<int, ObjModel*>(100, new ObjModel("models/maze/maze1.obj")));

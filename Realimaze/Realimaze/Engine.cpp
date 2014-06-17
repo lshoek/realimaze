@@ -14,6 +14,8 @@
 
 using namespace std;
 Engine * eng = nullptr;
+float deltaX = 0, deltaY = 0;
+float pitch, yaw;
 bool run = false;
 
 void checkCollision(void);
@@ -48,9 +50,18 @@ void checkCollision(void)
 			x = pos.xPos;
 			y = pos.yPos;
 			float factorX = 0, factorY = 0;
-			if (y > 0)//onder 
+			/*if (y > 0)//onder 
 			{
 				factorY = y * MAX_ROTATION;
+			}
+			/*x = deltaX - eng->centre.x; // centre which is set in the constructor
+			y = deltaY - eng->centre.y; // centre which is set in the constructor
+			float angleX, angleY, factorX = 0, factorY = 0; // local variables to use in this function
+			//340, 218
+			if (y > 0)//onder 
+			{
+				//24 graden 285
+				factorY = y * ((285 - 218) / 24); // uses the first values given when the screen was bigger
 			}
 			else if (y < 0)//boven	
 			{
@@ -68,6 +79,19 @@ void checkCollision(void)
 			{
 				printf("angleX, angleY %f,%f\n", factorX, factorY);
 				eng->MoveBall(&factorX, &factorY, &eng->spheres.at(j));
+				//28 graden 280
+				factorX -= x * ((340 - 280) / 28);
+			}*/
+
+			pitch = deltaY * MAX_ROTATION;
+			yaw = deltaX * -MAX_ROTATION;
+
+			/*angleX = (x * factorX); 
+			angleY = (y * factorY);*/
+			for (j = 0; j < eng->spheres.size(); j++) // collects all spheres, only one in the game though
+			{
+				printf("angleX, angleY %f,%f\n", yaw, pitch); // prints the data from the sphere
+				eng->MoveBall(&yaw, &pitch, &eng->spheres.at(j)); // calls the function moveball in this class
 			}
 		}
 		run = false;
@@ -80,12 +104,15 @@ x, y = position of the centre
 r = radius (voor een finish of gat is het nodig om van te voren de radius hiervan af halen
 vector = a vector in Engine to put the Sphere in (Spheres/holes/finishes)
 */
-Engine::Engine()
+
+// Constructor for Engine, sets default values for the x and y as center position
+Engine::Engine()// nieuwe x en y is 53 en 70
 {
 	state = 0;
 	eng = this;
 }
 
+// Adds a sphere to spheres in the class Engine
 void Engine::addSphere(float x, float y, float r, vector<Sphere> * vector)
 {
 	vector->reserve(1);
@@ -93,7 +120,7 @@ void Engine::addSphere(float x, float y, float r, vector<Sphere> * vector)
 	vector->push_back(c);
 }
 
-void Engine::Step(void)
+void Engine::Step()
 {
 	if (eng == nullptr)
 		eng = this;
@@ -111,11 +138,11 @@ void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 	*angleY = *angleY / 180 * M_PI;
 	//calculate vector to move
 	//start at (0,0)
-	Vector2D vToMove(10 * sin(*angleX), 10 * sin(*angleY));
+	Vector2D vToMove(10 * sin(*angleX), 10 * sin(*angleY)); // local vector
 	//calculate vector to move to
 	//with gravity
 	//the position of the Sphere = deltaDistance + position Sphere
-	vToMove = vToMove + sphere -> distanceRolled;
+	vToMove = vToMove + sphere -> distanceRolled; // local vector initialized in this function
 	vToMove = vToMove * 0.8;
 	//vToMove.Rotate(direction);
 	sphere -> translate(vToMove);
@@ -124,7 +151,7 @@ void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 
 	//check for the endpoint
 	int j;
-	for (j = 0; j < finishes.size(); j++)
+	for (j = 0; j < finishes.size(); j++) // finishes = vector<Sphere> (not sure why needed)
 	{
 		if (sphere->intersectSphere(&finishes.at(j)))
 		{
@@ -133,9 +160,9 @@ void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 		}
 	}
 	//check for holes 
-	for (j = 0; j < holes.size(); j++)
+	for (j = 0; j < holes.size(); j++) // holes = vector<Sphere> (vector with the holes in it)
 	{
-		if (sphere->intersectSphere(&spheres.at(j)))
+		if (sphere->intersectSphere(&spheres.at(j))) // checks if the sphere intersects with a sphere? :o
 		{
 			roll = false;
 			state = -1;
@@ -144,7 +171,7 @@ void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 	//check for walls
 	for (j = 0; j < lines.size(); j++)
 	{
-		if (sphere->intersectLine(&lines.at(j)))
+		if (sphere->intersectLine(&lines.at(j))) // checks for intersections with a wall
 			roll = false;
 		if (!roll)
 			printf("staat stil kut!\n");
@@ -162,6 +189,7 @@ void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 x1,y1 = start position
 x2,y2 = end position
 */
+// function to add a 'wall'
 void Engine::addLine(float x1, float y1, float x2, float y2)
 {
 	if (lines.size() % 10 == 0)

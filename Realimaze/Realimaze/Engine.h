@@ -24,6 +24,6 @@ public:
 	void addLine(float x1, float y1, float x2, float y2);
 	void addSphere(float x, float y, float r, vector<Sphere> * vector);
 	void MoveBall(float * angleX, float * angleY, Sphere * sphere);
-	void Step(void);
+	void Step();
 	//void AddLinesFromFaces(const vector<::Vec3f> * vectors);
 };

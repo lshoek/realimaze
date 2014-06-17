@@ -15,7 +15,6 @@
 class Game
 {
 	// begin lesley deel
-	//Orientation orientation;
 	Maze maze;
 	Engine enphys;
 	//Sphere ball;
@@ -25,8 +24,8 @@ public:
 	int lastFrameTime = 0;
 	double timeFac = 0;
 	// begin lesley deel
-	Engine engine;
 	Orientation orientation;
+	Engine engine;
 	GLfloat x = 0, y = 5, z = 1, yaw = 0, pitch = 0;
 	bool running = false, video_on = false;
 
@@ -41,7 +40,7 @@ public:
 	void update(float);
 
 	void displayImage();
-	void drawStage(GLfloat idx, GLfloat idy, GLfloat idz);
+	void drawStage(GLfloat idx, GLfloat idy, GLfloat idz,const vector<Sphere> spheres);
 	void update();
 	void drawSphere(const Sphere * sphere);
 	void draw(const vector<Sphere> spheres);
