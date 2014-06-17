@@ -13,28 +13,22 @@
 #include <windows.h>
 #include "Engine.h"
 
-// begin lesley deel
 using namespace std;
 
 void timerTick(void);
 GLfloat x = 10, y = 5, z = 1, rotation = 0;
 
-//GLfloat x = 0, y = 5, z = 1, rotation = 0;
-
 int scrnWidth, scrnHeight;
 bool running = false;
 void openCV(void);
-// eind lesley deel
 
 ObjModel* objm;
 
 Game::Game(int w, int h)
 {
-	// begin lesley deel
 	scrnWidth = w;
 	scrnHeight = h;
 
-	// eind lesley deel
 	//objm = new ObjModel("models/holes/mazeWithHoles.obj"); 
 	objm = new ObjModel("models/Normalmaze.obj");
 }
@@ -81,13 +75,8 @@ void Game::update(float tfac)
 	rotation+=0.05;
 }
 
-/*
-Bas
-*/
 void Game::draw(const vector<Sphere> spheres)
 {
-	// begin lesley deel
-	//glViewport(0, 0, scrnWidth, scrnHeight);
 	glEnable(GL_DEPTH_TEST);
 
 	glViewport(0, 0, SCRN_WIDTH_FULL, SCRN_HEIGHT_FULL);
@@ -115,13 +104,6 @@ void Game::draw(const vector<Sphere> spheres)
 	gluLookAt(x, 80, 140, 0, 0, 0, 0, 1, 0);
 
 	drawStage(0, 10.0, 0, spheres);
-	// eind lesley deel
-
-	//gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
-	//drawStage(-0.5, 0, -0.5, 0, 0, 1);
-	//Bas draw all the balls
-
-
 }
 
 void Game::drawSphere(const Sphere * sphere)
@@ -129,7 +111,6 @@ void Game::drawSphere(const Sphere * sphere)
 	glPushMatrix();
 	glColor3f(0, 0, 1);
 	glTranslatef(sphere->position.x, 5, sphere->position.y);
-	//glTranslatef(0, 500, 0);
 	glutSolidSphere(sphere->radius, 50 ,50);
 	glPopMatrix();
 }
@@ -164,7 +145,6 @@ void Game::displayImage()
 
 void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz,const vector<Sphere> spheres)
 {
-	// begin lesley deel
 	glPushMatrix();
 	glTranslatef(idx, idy, idz);
 
@@ -180,29 +160,23 @@ void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz,const vector<Sphere> 
 
 	objm->draw();
 
-	glRotatef(pitch, 1, 0, 0);
+	glDisable(GL_TEXTURE_2D);
 
 	int j = 0;
 	for (; j < spheres.size(); j++)
 		drawSphere(&spheres[j]);
 
 	glPopMatrix();
-	//models.push_back(pair<int, ObjModel*>(100, new ObjModel("models/maze/maze1.obj")));
-	/*
-	glBindTexture(GL_TEXTURE_2D, wood_texture.getTextureId());
-*/
 }
 
 string Game::getVars()
 {
-	// begin lesley deel
 	string video_state;
 	if (video_on) video_state = "ON"; else video_state = "OFF";
 
 	stringstream strs;
 	strs << "VIDEO=" << video_state << " pitchX=" << pitch << " yawZ=" << yaw << endl;
 	return strs.str();
-	// eind lesley deel
 }
 
 bool Game::isRunning()

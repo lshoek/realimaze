@@ -15,6 +15,7 @@ Engine * eng = nullptr;
 float deltaX = 0, deltaY = 0;
 float pitch, yaw;
 bool run = false;
+float sphereX = 0, sphereY = 0, sphereXOld = 0, sphereYOld = 0;
 
 void checkCollision(void);
 thread collisionthread(checkCollision);
@@ -38,37 +39,11 @@ void checkCollision(void)
 		}
 		if (run)
 		{
-			int j;//loop index in the end
-			/*x = deltaX - eng->centre.x; // centre which is set in the constructor
-			y = deltaY - eng->centre.y; // centre which is set in the constructor
-			float angleX, angleY, factorX = 0, factorY = 0; // local variables to use in this function
-			//340, 218
-			if (y > 0)//onder 
-			{
-				//24 graden 285
-				factorY = y * ((285 - 218) / 24); // uses the first values given when the screen was bigger
-			}
-			else if (y < 0)//boven	
-			{
-				//29 graden 150
-				factorY -= y * ((218 - 150) / 29);
-			}
-			if (x > 0)//rechts
-			{
-				//35 graden 400
-				factorX = x * ((400 - 340) / 35);
-			}
-			else if (x < 0)//links
-			{
-				//28 graden 280
-				factorX -= x * ((340 - 280) / 28);
-			}*/
+			int j;
 
 			pitch = (deltaY * MAX_ROTATION);
 			yaw = (deltaX * MAX_ROTATION) *-1;
 
-			/*angleX = (x * factorX); 
-			angleY = (y * factorY);*/
 			for (j = 0; j < eng->spheres.size(); j++) // collects all spheres, only one in the game though
 			{
 				printf("angleX, angleY %f,%f\n", yaw, pitch); // prints the data from the sphere
@@ -122,6 +97,8 @@ void Engine::Step(float X, float Y)
 //
 void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 {
+	sphereXOld = sphere->position.x;
+	sphereYOld = sphere->position.y;
 	//angle en direction naar radialen rekenen
 	*angleX = *angleX /180 * M_PI;
 	*angleY = *angleY / 180 * M_PI;
@@ -136,7 +113,17 @@ void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 	//vToMove.Rotate(direction);
 	sphere -> translate(vToMove);
 	sphere -> distanceRolled = vToMove;
-	bool roll = true;
+
+	bool roll;
+
+	if (sphere->position.x <= 110 && sphere->position.x >= -110 && sphere->position.y <= 75 && sphere->position.y >= -75)
+	{
+		roll = true;
+	}
+	else
+	{
+		roll = false;
+	}
 
 	//check for the endpoint
 	int j;
