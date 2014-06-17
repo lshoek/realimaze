@@ -11,7 +11,7 @@ using namespace cv;
 using namespace std;
 
 Mat image, standardImage, subMatImage;
-VideoCapture cap(0);
+VideoCapture cap(1);
 SimpleBlobDetector::Params params; // parameter for the Simpleblobdetector, to make sure only the squares are modified
 SimpleBlobDetector simple;
 vector<KeyPoint>keypoints;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Sphere.h"
+#include "Orientation.h"
 #include <vector>
 
 using namespace std;
