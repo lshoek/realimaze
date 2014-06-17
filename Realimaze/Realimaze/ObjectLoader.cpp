@@ -399,4 +399,5 @@ void ObjModel::addWalls(Engine * engine)
 			}
 		}
 	}	
+	printf("klaar");
 }
