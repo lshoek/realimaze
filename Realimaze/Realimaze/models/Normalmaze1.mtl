@@ -1,0 +1,39 @@
+#
+## Alias OBJ Material File
+# Exported from SketchUp, (c) 2000-2012 Trimble Navigation Limited
+
+newmtl Wood_Floor_Light
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.690196 0.498039
+Ks 0.330000 0.330000 0.330000
+map_Kd Normalmaze1/Wood_Floor_Light.jpg
+
+newmtl Wood_with_spots
+Ka 0.000000 0.000000 0.000000
+Kd 0.843137 0.690196 0.439216
+Ks 0.330000 0.330000 0.330000
+map_Kd Normalmaze1/Wood_with_spots.jpg
+
+newmtl FrontColor
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.330000 0.330000 0.330000
+
+newmtl Tile_Hexagon_White
+Ka 0.000000 0.000000 0.000000
+Kd 0.835294 0.807843 0.800000
+Ks 0.330000 0.330000 0.330000
+map_Kd Normalmaze1/Tile_Hexagon_White.jpg
+
+newmtl Checkerboard_Black
+Ka 0.000000 0.000000 0.000000
+Kd 0.498039 0.498039 0.498039
+Ks 0.330000 0.330000 0.330000
+map_Kd Normalmaze1/Checkerboard_Black.png
+
+newmtl _Wood_OSB_1
+Ka 0.000000 0.000000 0.000000
+Kd 0.941176 0.764706 0.478431
+Ks 0.330000 0.330000 0.330000
+map_Kd Normalmaze1/_Wood_OSB_1.jpg
+

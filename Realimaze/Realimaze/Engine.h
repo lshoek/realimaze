@@ -26,5 +26,6 @@ public:
 	void addSphere(float x, float y, float r, vector<Sphere> * vector);
 	void MoveBall(float * angleX, float * angleY, Sphere * sphere);
 	void Step(float deltaX, float deltaY);
+	void resetSphere(void);
 	//void AddLinesFromFaces(const vector<Vec3f> * vectors);
 };

@@ -10,6 +10,7 @@
 #include "Game.h"
 #include "Font.h"
 #include "Vector2D.h"
+#include "Engine.h"
 
 using namespace std;
 
@@ -70,6 +71,10 @@ void keyHandling(void)
 		if (keys[27])//esc
 		{			
 			exit(0);
+		}
+		if (keys['q'])
+		{
+			//eng->resetSphere();
 		}
 		Sleep(50);
 	}
@@ -171,7 +176,8 @@ void Manager::update(void)
 	if (key_right)
 		testGame.orientation.orientPos.xPos += 0.1;
 	if (key_space)
-		testGame.orientation.centerPos = testGame.orientation.orientPos; //calibrate
+		mngr->engine.resetSphere();
+		//testGame.orientation.centerPos = testGame.orientation.orientPos; //calibrate
 	glutPostRedisplay();
 	// eind lesley deel
 
@@ -246,8 +252,9 @@ void Manager::kDown(unsigned char key, int x, int y)
 	case 'd':
 		key_right = true;
 		break;
-	case 32:
+ 	case 32:
 		key_space = true;
+		break;
 	case 'f':
 		key_front = true;
 		break;
@@ -258,7 +265,7 @@ void Manager::kDown(unsigned char key, int x, int y)
 		exit(0);
 		break;
 	case 'x':
-		testGame.video_on = !testGame.video_on;
+		//testGame.video_on = !testGame.video_on;
 		break;
 	}
 	// eind lesley deel
@@ -284,6 +291,7 @@ void Manager::kUp(unsigned char key, int x, int y)
 		break;
 	case 32:
 		key_space = false;
+		break;
 	case 'f':
 		key_front = false;
 		break;

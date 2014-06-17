@@ -30,7 +30,8 @@ Game::Game(int w, int h)
 	scrnHeight = h;
 
 	//objm = new ObjModel("models/holes/mazeWithHoles.obj"); 
-	objm = new ObjModel("models/Normalmaze.obj");
+	//objm = new ObjModel("models/Normalmaze.obj");
+	objm = new ObjModel("models/Normalmaze1.obj");
 }
 
 
@@ -98,7 +99,7 @@ void Game::draw(const vector<Sphere> spheres)
 	// PERSPECTIVE
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(70, scrnWidth / (float)scrnHeight, 1, 1000);
+	gluPerspective(70, scrnWidth / (float)scrnHeight, 1, 200);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(x, 80, 140, 0, 0, 0, 0, 1, 0);
