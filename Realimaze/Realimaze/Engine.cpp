@@ -17,6 +17,7 @@ Engine * eng = nullptr;
 float deltaX = 0, deltaY = 0;
 float pitch, yaw;
 bool run = false;
+float sphereX = 0, sphereY = 0, sphereXOld = 0, sphereYOld = 0;
 
 void checkCollision(void);
 thread collisionthread(checkCollision);
@@ -41,7 +42,6 @@ void checkCollision(void)
 		}
 		if (run)
 		{
-			int j;//loop index in the end
 			/*if (y > 0)//onder 
 			{
 				factorY = y * MAX_ROTATION;
@@ -74,6 +74,7 @@ void checkCollision(void)
 				//28 graden 280
 				factorX -= x * ((340 - 280) / 28);
 			}*/
+			int j;
 
 			pitch = deltaY * MAX_ROTATION;
 			yaw = deltaX * -MAX_ROTATION;
@@ -125,6 +126,8 @@ void Engine::Step(float x, float y)
 //
 void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 {
+	sphereXOld = sphere->position.x;
+	sphereYOld = sphere->position.y;
 	//angle en direction naar radialen rekenen
 	*angleX = *angleX /180 * M_PI;
 	*angleY = *angleY / 180 * M_PI;
@@ -143,6 +146,15 @@ void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 	sphere -> distanceRolled = vToMove;
 	bool rollx = true;
 	bool rolly = true;
+
+	if (sphere->position.x <= 110 && sphere->position.x >= -110)
+	{
+		rollx = false;
+	}
+	else if (sphere->position.y <= 75 && sphere->position.y >= -75)
+	{
+		rolly = false;
+	}
 
 	//check for the endpoint
 	int j;
