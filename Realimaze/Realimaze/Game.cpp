@@ -31,6 +31,25 @@ Game::Game(int w, int h)
 
 	//objm = new ObjModel("models/holes/mazeWithHoles.obj"); 
 	objm = new ObjModel("models/Normalmaze.obj");
+
+	//LIGHTING
+	glEnable(GL_LIGHT0);
+	glShadeModel(GL_SMOOTH);
+	GLfloat LightPosition[] = { 10.0f, 10.0f, 10.0f, 1.0f };
+	GLfloat LightAmbient[] = { 0, 0, 0, 1.0f };
+	GLfloat LightDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat LightSpecular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	glLightfv(GL_LIGHT0, GL_POSITION, LightPosition);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, LightAmbient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, LightDiffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, LightSpecular);
+
+	GLfloat LightModelAmbient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	GLfloat MaterialSpecular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat MaterialEmission[] = { 0, 0, 0, 1.0f };
+	glLightModelfv(GL_AMBIENT, LightModelAmbient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, MaterialSpecular);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, MaterialEmission);
 }
 
 
@@ -78,7 +97,6 @@ void Game::update(float tfac)
 void Game::draw(const vector<Sphere> spheres)
 {
 	glEnable(GL_DEPTH_TEST);
-
 	glViewport(0, 0, SCRN_WIDTH_FULL, SCRN_HEIGHT_FULL);
 	glClearColor(0.6f, 0.6f, 0.9f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -94,16 +112,16 @@ void Game::draw(const vector<Sphere> spheres)
 		glLoadIdentity();
 		displayImage();
 	}
-
 	// PERSPECTIVE
+	glEnable(GL_LIGHTING);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(70, scrnWidth / (float)scrnHeight, 1, 1000);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(x, 80, 140, 0, 0, 0, 0, 1, 0);
-
 	drawStage(0, 10.0, 0, spheres);
+	glDisable(GL_LIGHTING);
 }
 
 void Game::drawSphere(const Sphere * sphere)
