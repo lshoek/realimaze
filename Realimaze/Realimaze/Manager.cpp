@@ -163,13 +163,13 @@ void Manager::update(void)
 	lastUpdateTime = time;
 
 	if (key_up)
-		testGame.orientation.orientPos.yPos += 0.1;
+		testGame.orientation.orientPos.yPos -= 0.5;
 	if (key_down)
-		testGame.orientation.orientPos.yPos -= 0.1;
+		testGame.orientation.orientPos.yPos += 0.5;
 	if (key_left)
-		testGame.orientation.orientPos.xPos -= 0.1;
+		testGame.orientation.orientPos.xPos -= 0.5;
 	if (key_right)
-		testGame.orientation.orientPos.xPos += 0.1;
+		testGame.orientation.orientPos.xPos += 0.5;
 	if (key_space)
 		testGame.orientation.centerPos = testGame.orientation.orientPos; //calibrate
 	glutPostRedisplay();

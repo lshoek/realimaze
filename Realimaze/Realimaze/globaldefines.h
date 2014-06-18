@@ -4,3 +4,4 @@
 #define SCRN_WIDTH_FULL 1280
 #define SCRN_HEIGHT_FULL 960
 #define MAX_ROTATION 35.0
+#define VIDEO_ON false

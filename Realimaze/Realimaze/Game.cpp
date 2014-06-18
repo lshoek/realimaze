@@ -9,8 +9,6 @@
 #include "Texture.h"
 #include <thread>
 #include <windows.h>
-#include <thread>
-#include <windows.h>
 #include "Engine.h"
 
 using namespace std;
@@ -31,6 +29,13 @@ Game::Game(int w, int h)
 
 	//objm = new ObjModel("models/holes/mazeWithHoles.obj"); 
 	objm = new ObjModel("models/Normalmaze.obj");
+
+	//LIGHTING
+	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_NORMALIZE);
+	glShadeModel(GL_SMOOTH);
 }
 
 
@@ -77,12 +82,9 @@ void Game::update(float tfac)
 
 void Game::draw(const vector<Sphere> spheres)
 {
-	glEnable(GL_DEPTH_TEST);
-
 	glViewport(0, 0, SCRN_WIDTH_FULL, SCRN_HEIGHT_FULL);
 	glClearColor(0.6f, 0.6f, 0.9f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	if (video_on)
 	{
 		//ORTHOGONAL
@@ -95,21 +97,32 @@ void Game::draw(const vector<Sphere> spheres)
 		displayImage();
 	}
 
+	//LIGHTING
+	GLfloat LightPosition[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat LightAmbient[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat LightDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat LightSpecular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	glLightfv(GL_LIGHT0, GL_POSITION, LightPosition);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, LightAmbient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, LightDiffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, LightSpecular);
+
 	// PERSPECTIVE
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(70, scrnWidth / (float)scrnHeight, 1, 1000);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(x, 80, 140, 0, 0, 0, 0, 1, 0);
 
+	gluLookAt(x, 80, 140, 0, 0, 0, 0, 1, 0);
 	drawStage(0, 10.0, 0, spheres);
+	glDisable(GL_LIGHTING);
 }
 
 void Game::drawSphere(const Sphere * sphere)
 {
 	glPushMatrix();
-	glColor3f(0, 0, 1);
+	glColor3f(1.0f, 0, 0);
 	glTranslatef(sphere->position.x, 5, sphere->position.y);
 	glutSolidSphere(sphere->radius, 50 ,50);
 	glPopMatrix();
@@ -154,18 +167,16 @@ void Game::drawStage(GLfloat idx, GLfloat idy, GLfloat idz,const vector<Sphere> 
 	glTranslatef(-1*idx, -1*idy, -1*idz);
 	glScalef(1.3, 1.3, 1.3);
 	
-	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+	glEnable(GL_DEPTH_TEST);
 
 	objm->draw();
-
 	glDisable(GL_TEXTURE_2D);
 
 	int j = 0;
 	for (; j < spheres.size(); j++)
 		drawSphere(&spheres[j]);
-
 	glPopMatrix();
 }
 

@@ -27,7 +27,7 @@ public:
 	Orientation orientation;
 	Engine engine;
 	GLfloat x = 0, y = 5, z = 1, yaw = 0, pitch = 0;
-	bool running = false, video_on = true;
+	bool running = false, video_on = VIDEO_ON;
 
 	Game(int w, int h);
 	~Game();
