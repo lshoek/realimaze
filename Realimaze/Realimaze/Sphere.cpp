@@ -9,6 +9,14 @@ void Sphere::translate(Vector2D offset)
 	position = position + offset; // x and y of sphere
 }
 
+void Sphere::resetLocation()
+{
+	position.x = -70;
+	position.y = -65;
+	distanceRolled.x = 0;
+	distanceRolled.y = 0;
+}
+
 /*
 checks whether this sphere intersect another circle
 */

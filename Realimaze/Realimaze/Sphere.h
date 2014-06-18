@@ -12,6 +12,7 @@ public:
 	
 	bool intersect(Line * line);
 	void translate(Vector2D offset);
+	void resetLocation();
 	bool intersectSphere(const Sphere * sphere) const;
 	bool Sphere::intersectLine(const Line * line) const;
 

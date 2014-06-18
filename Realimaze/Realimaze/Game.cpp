@@ -110,7 +110,7 @@ void Game::draw(const vector<Sphere> spheres)
 	// PERSPECTIVE
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(70, scrnWidth / (float)scrnHeight, 1, 1000);
+	gluPerspective(70, scrnWidth / (float)scrnHeight, 1, 200);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 

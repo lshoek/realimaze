@@ -16,6 +16,7 @@ float deltaX = 0, deltaY = 0;
 float pitch, yaw;
 bool run = false;
 float sphereX = 0, sphereY = 0, sphereXOld = 0, sphereYOld = 0;
+Sphere * ball;
 
 void checkCollision(void);
 thread collisionthread(checkCollision);
@@ -116,13 +117,19 @@ void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 
 	bool roll;
 
-	if (sphere->position.x <= 110 && sphere->position.x >= -110 && sphere->position.y <= 75 && sphere->position.y >= -75)
+	if (sphere->position.x <= 80 && sphere->position.x >= -80 && sphere->position.y <= 80 && sphere->position.y >= -75)
 	{
 		roll = true;
 	}
 	else
 	{
 		roll = false;
+	}
+
+	if (sphere->position.x >= 3 && sphere->position.x <= 10 && sphere->position.y >= -5 && sphere->position.y <= 1)
+	{
+		roll = false;
+		sphere->resetLocation();
 	}
 
 	//check for the endpoint
@@ -159,6 +166,7 @@ void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 		sphere->distanceRolled.y = 0;
 	}
 	printf("positie:%f,%f, distance rolled %f,%f\n", sphere->position.x, sphere->position.y, sphere->distanceRolled.x, sphere->distanceRolled.y);
+	ball = sphere;
 }
 
 /*
@@ -174,4 +182,9 @@ void Engine::addLine(float x1, float y1, float x2, float y2)
 	}
 	Line l(x1, y1, x2, y2);
 	lines.push_back(l);
+}
+
+void Engine::resetSphere()
+{
+	ball->resetLocation();
 }
