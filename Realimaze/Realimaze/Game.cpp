@@ -112,6 +112,14 @@ void Game::draw(const vector<Sphere> spheres)
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, LightDiffuse);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, LightSpecular);
 
+	GLfloat LightModelAmbient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	GLfloat MaterialSpecular[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	GLfloat MaterialEmission[] = { 0, 0, 0, 1.0f };
+	glLightModelfv(GL_AMBIENT, LightModelAmbient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, MaterialSpecular);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, MaterialEmission);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
 	// PERSPECTIVE
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
