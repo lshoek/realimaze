@@ -32,6 +32,13 @@ Game::Game(int w, int h)
 	//objm = new ObjModel("models/holes/mazeWithHoles.obj"); 
 	//objm = new ObjModel("models/Normalmaze.obj");
 	objm = new ObjModel("models/Normalmaze1.obj");
+
+	//LIGHTING
+	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_NORMALIZE);
+	glShadeModel(GL_SMOOTH);
 }
 
 
@@ -94,6 +101,16 @@ void Game::draw(const vector<Sphere> spheres)
 		glLoadIdentity();
 		displayImage();
 	}
+
+	//LIGHTING
+	GLfloat LightPosition[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat LightAmbient[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat LightDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat LightSpecular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	glLightfv(GL_LIGHT0, GL_POSITION, LightPosition);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, LightAmbient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, LightDiffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, LightSpecular);
 
 	// PERSPECTIVE
 	glMatrixMode(GL_PROJECTION);
