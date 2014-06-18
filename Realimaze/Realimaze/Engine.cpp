@@ -25,7 +25,6 @@ void checkCollision(void)
 {
 	while (eng == nullptr)
 	{
-		printf("nul-nul\n");
 		Sleep(10);
 	}
 	float x, y;
@@ -47,7 +46,6 @@ void checkCollision(void)
 
 			for (j = 0; j < eng->spheres.size(); j++) // collects all spheres, only one in the game though
 			{
-				printf("angleX, angleY %f,%f\n", yaw, pitch); // prints the data from the sphere
 				eng->MoveBall(&yaw, &pitch, &eng->spheres.at(j)); // calls the function moveball in this class
 			}
 		}
@@ -119,7 +117,7 @@ void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 
 	if (sphere->position.x <= 80 && sphere->position.x >= -80 && sphere->position.y <= 80 && sphere->position.y >= -75)
 	{
-		roll = true;
+		roll = true;   
 	}
 	else
 	{
@@ -165,7 +163,7 @@ void Engine::MoveBall(float * angleX, float * angleY, Sphere * sphere)
 		sphere->distanceRolled.x = 0;
 		sphere->distanceRolled.y = 0;
 	}
-	printf("positie:%f,%f, distance rolled %f,%f\n", sphere->position.x, sphere->position.y, sphere->distanceRolled.x, sphere->distanceRolled.y);
+	//printf("positie:%f,%f, distance rolled %f,%f\n", sphere->position.x, sphere->position.y, sphere->distanceRolled.x, sphere->distanceRolled.y);
 	ball = sphere;
 }
 

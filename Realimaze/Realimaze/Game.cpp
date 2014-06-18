@@ -43,7 +43,6 @@ Game::~Game()
 void Game::launchGame()
 {
 	running = true;
-	cout << "Bas is lelijk" << endl;
 }
 
 void Game::endGame()
@@ -65,7 +64,7 @@ void Game::update(float tfac)
 {
 	yaw = orientation.getOrientationFactor().xPos * MAX_ROTATION; // left to right
 	pitch = orientation.getOrientationFactor().yPos * MAX_ROTATION; // top to bottom
-	cout << "The amount of yaw is: " << yaw << " The amount of pitch is: " << pitch << endl;
+	//cout << "The amount of yaw is: " << yaw << " The amount of pitch is: " << pitch << endl;
 	glutPostRedisplay();
 
 	engine.Step(orientation.getOrientationFactor().xPos, orientation.getOrientationFactor().yPos);

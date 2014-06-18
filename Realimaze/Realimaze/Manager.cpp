@@ -98,13 +98,10 @@ Manager::Manager() : engine(340, 218)
 	// begin lesley deel
 	mngr = this;
 
-	cout << "first" << endl;
 	glutInitWindowSize(SCRN_WIDTH_FULL, SCRN_HEIGHT_FULL);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	//SetWindowPos(HWND_TOPMOST, HWND_TOPMOST, 0, 0, 1280, 960, SWP_SHOWWINDOW);
 	glutCreateWindow("Realimaze");
-
-	cout << "second" << endl;
 
 	//Construct displaylists
 	Font font{ "resources/classicfnt32.fnt" };
@@ -129,14 +126,11 @@ Manager::Manager() : engine(340, 218)
 		glTranslatef(g.xadvance, 0, 0);
 		glEndList();
 	}
-	cout << "third" << endl;
 
 	engine.addSphere(0, 0, 3, &engine.spheres);
-	//engine.addLine(0, 40, 80, 0);
+
 	//test over
 	glEnable(GL_DEPTH_TEST); //Instead of glutInit
-
-	cout << "fourth" << endl;
 	
 	//Register callbacks
 	glutIdleFunc(&idleFunc);
@@ -146,8 +140,6 @@ Manager::Manager() : engine(340, 218)
 	testGame.launchGame();
 	glutMainLoop();
 	// eind lesley deel
-
-	cout << "fifth" << endl;
 }
 
 /*
@@ -188,7 +180,6 @@ void Manager::draw(void)
 	// begin lesley deel
 	if (testGame.isRunning())
 	{
-		//testGame.draw();
 		testGame.draw(engine.spheres);
 	}
 

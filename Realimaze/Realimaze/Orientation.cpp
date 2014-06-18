@@ -63,14 +63,9 @@ void Orientation::modifyImage()
 
 	flip(image, image, 1); // mirrors the image
 
-	//resize(image, standardImage, image.size() * 2, 0.5, 0.5, 1);
-
 	subMatImage = image(Rect(270, 150, 120, 120));
 
 	simple.detect(subMatImage, keypoints);
-
-	// shows the blobs over the original image on screen
-	//drawKeypoints(image, keypoints, image, Scalar::all(-1), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
 
 	for each (KeyPoint key in keypoints)
 	{

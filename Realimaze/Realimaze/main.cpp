@@ -16,7 +16,6 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	cout << "bleh" << endl;
 	Manager testMngr{};
 	//Orientation orient{};
 	//orient.runCamera();
